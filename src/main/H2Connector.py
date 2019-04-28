@@ -5,7 +5,7 @@ class H2Connector():
             class_ = 'org.h2.Driver',
             path = 'jdbc:h2:~/test',
             access = ['sa', ''],
-            drive='/mnt/00740a3e-0e71-4596-8c4d-789bec641854/codigos/fakegram_bd_ufpb/h2/bin/h2-1.4.197.jar'):
+            drive='h2/bin/h2-1.4.197.jar'):
         '''
             
         '''
