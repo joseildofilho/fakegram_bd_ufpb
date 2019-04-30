@@ -1,7 +1,8 @@
-from .H2Connector import H2Connector as connector
+from H2Connector import H2Connector as connector
 class Tables:
     
     def build(self):
+        print('tables:',self.connection)
         self.connection.cursor(self._create_tables)
 
     def _create_tables(self, cursor):
@@ -15,8 +16,8 @@ class Tables:
             self.connection.cursor(
                     lambda cursor: cursor.execute("DROP TABLE IF EXISTS {}".format(key))
                     )
-
-    connection = connector()
+    def __init__(self):
+        self.connection = connector()
 
     tables = {
     'perfil' : """

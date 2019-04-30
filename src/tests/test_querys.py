@@ -12,7 +12,10 @@ class TestQueries(unittest.TestCase):
     def test_single_insert(self):
         def query(cursor):
             cursor.execute("INSERT INTO pessoa (nome, idade, cpf) VALUES ('joao', 20, 103342)")
-            print(cursor.execute("SELECT * FROM pessoa"))
+            cursor.execute("SELECT * FROM pessoa")
+            x = cursor.fetchall()
+            self.assertTrue(x[0][0] == 'joao')
+
         self.conn.cursor(query)
 
     def tearDown(self):

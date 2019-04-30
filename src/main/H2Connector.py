@@ -14,6 +14,7 @@ class H2Connector(object):
         self._access = access
         self._drive = drive
 
+
         self._conn = jaydebeapi.connect(self._class_, self._path, self._access, self._drive)
 
     def __new__(cls, *args, **kwargs):
@@ -28,6 +29,7 @@ class H2Connector(object):
         if self._conn:
             self._conn.close()
             self._conn = None    
+            self._instance = None
 
     def rollback(self):
         if self._conn:
@@ -40,8 +42,9 @@ class H2Connector(object):
             raise Exception('Not connected')
         try:
             cursor = self._conn.cursor()
-            query(cursor)
+            aux = query(cursor)
             cursor.close()
+            return aux
         except Exception:
             self.rollback()
             raise Exception("Query fails")
