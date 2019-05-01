@@ -124,82 +124,101 @@ A database object such as a table, an index, or a user.<br /><br />
 </td></tr>
 <tr id="__9" onclick="return on(9)">
 <td class="return">String</td><td class="method">
-<a id="getSQL" href="#getSQL">getSQL</a>()
+<a id="getSQL_boolean" href="#getSQL_boolean">getSQL</a>(boolean alwaysQuote)
 <div class="methodText">Get the SQL name of this object (may be quoted).</div>
 </td></tr>
 <tr onclick="return off(9)" class="detail" id="_9">
 <td class="return">String</td><td>
-<a id="getSQL" href="#getSQL">getSQL</a>()
+<a id="getSQL_boolean" href="#getSQL_boolean">getSQL</a>(boolean alwaysQuote)
 <div class="methodText">Get the SQL name of this object (may be quoted).</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">alwaysQuote - quote all identifiers</div>
 <div class="itemTitle">Returns:</div>
 <div class="item">the SQL name</div>
 </td></tr>
 <tr id="__10" onclick="return on(10)">
+<td class="return">StringBuilder</td><td class="method">
+<a id="getSQL_StringBuilder_boolean" href="#getSQL_StringBuilder_boolean">getSQL</a>(StringBuilder builder, boolean alwaysQuote)
+<div class="methodText">Appends the SQL name of this object (may be quoted) to the specified
+ builder.</div>
+</td></tr>
+<tr onclick="return off(10)" class="detail" id="_10">
+<td class="return">StringBuilder</td><td>
+<a id="getSQL_StringBuilder_boolean" href="#getSQL_StringBuilder_boolean">getSQL</a>(StringBuilder builder, boolean alwaysQuote)
+<div class="methodText">Appends the SQL name of this object (may be quoted) to the specified
+ builder.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">builder - string builder</div>
+<div class="item">alwaysQuote - quote all identifiers</div>
+<div class="itemTitle">Returns:</div>
+<div class="item">the specified string builder</div>
+</td></tr>
+<tr id="__11" onclick="return on(11)">
 <td class="return">int</td><td class="method">
 <a id="getType" href="#getType">getType</a>()
 <div class="methodText">Get the object type.</div>
 </td></tr>
-<tr onclick="return off(10)" class="detail" id="_10">
+<tr onclick="return off(11)" class="detail" id="_11">
 <td class="return">int</td><td>
 <a id="getType" href="#getType">getType</a>()
 <div class="methodText">Get the object type.</div>
 <div class="itemTitle">Returns:</div>
 <div class="item">the object type</div>
 </td></tr>
-<tr id="__11" onclick="return on(11)">
+<tr id="__12" onclick="return on(12)">
 <td class="return">boolean</td><td class="method">
 <a id="isTemporary" href="#isTemporary">isTemporary</a>()
 <div class="methodText">Check if this object is temporary (for example, a temporary table).</div>
 </td></tr>
-<tr onclick="return off(11)" class="detail" id="_11">
+<tr onclick="return off(12)" class="detail" id="_12">
 <td class="return">boolean</td><td>
 <a id="isTemporary" href="#isTemporary">isTemporary</a>()
 <div class="methodText">Check if this object is temporary (for example, a temporary table).</div>
 <div class="itemTitle">Returns:</div>
 <div class="item">true if is temporary</div>
 </td></tr>
-<tr id="__12" onclick="return on(12)">
+<tr id="__13" onclick="return on(13)">
 <td class="return">void</td><td class="method">
 <a id="removeChildrenAndResources_Session" href="#removeChildrenAndResources_Session">removeChildrenAndResources</a>(Session session)
 <div class="methodText">Delete all dependent children objects and resources of this object.</div>
 </td></tr>
-<tr onclick="return off(12)" class="detail" id="_12">
+<tr onclick="return off(13)" class="detail" id="_13">
 <td class="return">void</td><td>
 <a id="removeChildrenAndResources_Session" href="#removeChildrenAndResources_Session">removeChildrenAndResources</a>(Session session)
 <div class="methodText">Delete all dependent children objects and resources of this object.</div>
 <div class="itemTitle">Parameters:</div>
 <div class="item">session - the session</div>
 </td></tr>
-<tr id="__13" onclick="return on(13)">
+<tr id="__14" onclick="return on(14)">
 <td class="return">void</td><td class="method">
 <a id="rename_String" href="#rename_String">rename</a>(String newName)
 <div class="methodText">Rename the object.</div>
 </td></tr>
-<tr onclick="return off(13)" class="detail" id="_13">
+<tr onclick="return off(14)" class="detail" id="_14">
 <td class="return">void</td><td>
 <a id="rename_String" href="#rename_String">rename</a>(String newName)
 <div class="methodText">Rename the object.</div>
 <div class="itemTitle">Parameters:</div>
 <div class="item">newName - the new name</div>
 </td></tr>
-<tr id="__14" onclick="return on(14)">
+<tr id="__15" onclick="return on(15)">
 <td class="return">void</td><td class="method">
 <a id="setComment_String" href="#setComment_String">setComment</a>(String comment)
 <div class="methodText">Change the comment of this object.</div>
 </td></tr>
-<tr onclick="return off(14)" class="detail" id="_14">
+<tr onclick="return off(15)" class="detail" id="_15">
 <td class="return">void</td><td>
 <a id="setComment_String" href="#setComment_String">setComment</a>(String comment)
 <div class="methodText">Change the comment of this object.</div>
 <div class="itemTitle">Parameters:</div>
 <div class="item">comment - the new comment, or null for no comment</div>
 </td></tr>
-<tr id="__15" onclick="return on(15)">
+<tr id="__16" onclick="return on(16)">
 <td class="return">void</td><td class="method">
 <a id="setTemporary_boolean" href="#setTemporary_boolean">setTemporary</a>(boolean temporary)
 <div class="methodText">Tell this object that it is temporary or not.</div>
 </td></tr>
-<tr onclick="return off(15)" class="detail" id="_15">
+<tr onclick="return off(16)" class="detail" id="_16">
 <td class="return">void</td><td>
 <a id="setTemporary_boolean" href="#setTemporary_boolean">setTemporary</a>(boolean temporary)
 <div class="methodText">Tell this object that it is temporary or not.</div>
@@ -219,6 +238,9 @@ A database object such as a table, an index, or a user.<br /><br />
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c5">CONSTRAINT</a> = 5
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
+<a href="#c12">DOMAIN</a> = 12
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c9">FUNCTION_ALIAS</a> = 9
@@ -253,9 +275,6 @@ A database object such as a table, an index, or a user.<br /><br />
 <tr><td class="return">static int</td><td class="method">
 <a href="#c2">USER</a> = 2
 </td></tr>
-<tr><td class="return">static int</td><td class="method">
-<a href="#c12">USER_DATATYPE</a> = 12
-</td></tr>
 </table>
 <h4 id="c0"><span class="methodName">TABLE_OR_VIEW
  = 0
@@ -277,10 +296,10 @@ A database object such as a table, an index, or a user.<br /><br />
 </span></h4>
 <div class="item">This object is a constant.</div>
 <hr />
-<h4 id="c12"><span class="methodName">USER_DATATYPE
+<h4 id="c12"><span class="methodName">DOMAIN
  = 12
 </span></h4>
-<div class="item">This object is a user data type (domain).</div>
+<div class="item">This object is a domain.</div>
 <hr />
 <h4 id="c13"><span class="methodName">COMMENT
  = 13

@@ -35,7 +35,7 @@ ResultSet
 <div class="item">rowNumber - the row number. 0 is not allowed, 1 means the first row,
             2 the second. -1 means the last row, -2 the row before the
             last row. If the value is too large, the position is moved
-            after the last row, if if the value is too small it is moved
+            after the last row, if the value is too small it is moved
             before the first row.</div>
 <div class="itemTitle">Returns:</div>
 <div class="item">true if there is a row available, false if not</div>
@@ -1070,26 +1070,36 @@ ResultSet
 <tr id="__66" onclick="return on(66)">
 <td class="return">SQLXML</td><td class="method">
 <a id="getSQLXML_int" href="#getSQLXML_int">getSQLXML</a>(int columnIndex)
-<div class="methodText">[Not supported] Returns the value of the specified column as a SQLXML
- object.</div>
+<div class="methodText">Returns the value of the specified column as a SQLXML.</div>
 </td></tr>
 <tr onclick="return off(66)" class="detail" id="_66">
 <td class="return">SQLXML</td><td>
 <a id="getSQLXML_int" href="#getSQLXML_int">getSQLXML</a>(int columnIndex) throws SQLException
-<div class="methodText">[Not supported] Returns the value of the specified column as a SQLXML
- object.</div>
+<div class="methodText">Returns the value of the specified column as a SQLXML.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">columnIndex - (1,2,...)</div>
+<div class="itemTitle">Returns:</div>
+<div class="item">the value</div>
+<div class="itemTitle">Throws:</div>
+<div class="item">SQLException - if the column is not found or if the result set is
+             closed</div>
 </td></tr>
 <tr id="__67" onclick="return on(67)">
 <td class="return">SQLXML</td><td class="method">
 <a id="getSQLXML_String" href="#getSQLXML_String">getSQLXML</a>(String columnLabel)
-<div class="methodText">[Not supported] Returns the value of the specified column as a SQLXML
- object.</div>
+<div class="methodText">Returns the value of the specified column as a SQLXML.</div>
 </td></tr>
 <tr onclick="return off(67)" class="detail" id="_67">
 <td class="return">SQLXML</td><td>
 <a id="getSQLXML_String" href="#getSQLXML_String">getSQLXML</a>(String columnLabel) throws SQLException
-<div class="methodText">[Not supported] Returns the value of the specified column as a SQLXML
- object.</div>
+<div class="methodText">Returns the value of the specified column as a SQLXML.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">columnLabel - the column label</div>
+<div class="itemTitle">Returns:</div>
+<div class="item">the value</div>
+<div class="itemTitle">Throws:</div>
+<div class="item">SQLException - if the column is not found or if the result set is
+             closed</div>
 </td></tr>
 <tr id="__68" onclick="return on(68)">
 <td class="return">short</td><td class="method">
@@ -1584,7 +1594,7 @@ ResultSet
 <div class="itemTitle">Parameters:</div>
 <div class="item">rowCount - 0 means don't do anything, 1 is the next row, -1 the
             previous. If the value is too large, the position is moved
-            after the last row, if if the value is too small it is moved
+            after the last row, if the value is too small it is moved
             before the first row.</div>
 <div class="itemTitle">Returns:</div>
 <div class="item">true if there is a row available, false if not</div>
@@ -1679,22 +1689,32 @@ ResultSet
 <tr id="__107" onclick="return on(107)">
 <td class="return">void</td><td class="method">
 <a id="updateArray_int_Array" href="#updateArray_int_Array">updateArray</a>(int columnIndex, Array x)
-<div class="methodText">[Not supported]</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
 </td></tr>
 <tr onclick="return off(107)" class="detail" id="_107">
 <td class="return">void</td><td>
 <a id="updateArray_int_Array" href="#updateArray_int_Array">updateArray</a>(int columnIndex, Array x) throws SQLException
-<div class="methodText">[Not supported]</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">columnIndex - (1,2,...)</div>
+<div class="item">x - the value</div>
+<div class="itemTitle">Throws:</div>
+<div class="item">SQLException - if the result set is closed or not updatable</div>
 </td></tr>
 <tr id="__108" onclick="return on(108)">
 <td class="return">void</td><td class="method">
 <a id="updateArray_String_Array" href="#updateArray_String_Array">updateArray</a>(String columnLabel, Array x)
-<div class="methodText">[Not supported]</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
 </td></tr>
 <tr onclick="return off(108)" class="detail" id="_108">
 <td class="return">void</td><td>
 <a id="updateArray_String_Array" href="#updateArray_String_Array">updateArray</a>(String columnLabel, Array x) throws SQLException
-<div class="methodText">[Not supported]</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">columnLabel - the column label</div>
+<div class="item">x - the value</div>
+<div class="itemTitle">Throws:</div>
+<div class="item">SQLException - if the result set is closed or not updatable</div>
 </td></tr>
 <tr id="__109" onclick="return on(109)">
 <td class="return">void</td><td class="method">
@@ -2497,12 +2517,17 @@ ResultSet
 <tr id="__161" onclick="return on(161)">
 <td class="return">void</td><td class="method">
 <a id="updateNClob_int_NClob" href="#updateNClob_int_NClob">updateNClob</a>(int columnIndex, NClob x)
-<div class="methodText">[Not supported]</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
 </td></tr>
 <tr onclick="return off(161)" class="detail" id="_161">
 <td class="return">void</td><td>
 <a id="updateNClob_int_NClob" href="#updateNClob_int_NClob">updateNClob</a>(int columnIndex, NClob x) throws SQLException
-<div class="methodText">[Not supported]</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">columnIndex - (1,2,...)</div>
+<div class="item">x - the value</div>
+<div class="itemTitle">Throws:</div>
+<div class="item">SQLException - if the result set is closed or not updatable</div>
 </td></tr>
 <tr id="__162" onclick="return on(162)">
 <td class="return">void</td><td class="method">
@@ -2569,12 +2594,17 @@ ResultSet
 <tr id="__166" onclick="return on(166)">
 <td class="return">void</td><td class="method">
 <a id="updateNClob_String_NClob" href="#updateNClob_String_NClob">updateNClob</a>(String columnLabel, NClob x)
-<div class="methodText">[Not supported]</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
 </td></tr>
 <tr onclick="return off(166)" class="detail" id="_166">
 <td class="return">void</td><td>
 <a id="updateNClob_String_NClob" href="#updateNClob_String_NClob">updateNClob</a>(String columnLabel, NClob x) throws SQLException
-<div class="methodText">[Not supported]</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">columnLabel - the column label</div>
+<div class="item">x - the value</div>
+<div class="itemTitle">Throws:</div>
+<div class="item">SQLException - if the result set is closed or not updatable</div>
 </td></tr>
 <tr id="__167" onclick="return on(167)">
 <td class="return">void</td><td class="method">
@@ -2759,22 +2789,32 @@ ResultSet
 <tr id="__180" onclick="return on(180)">
 <td class="return">void</td><td class="method">
 <a id="updateSQLXML_int_SQLXML" href="#updateSQLXML_int_SQLXML">updateSQLXML</a>(int columnIndex, SQLXML xmlObject)
-<div class="methodText">[Not supported] Updates a column in the current or insert row.</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
 </td></tr>
 <tr onclick="return off(180)" class="detail" id="_180">
 <td class="return">void</td><td>
 <a id="updateSQLXML_int_SQLXML" href="#updateSQLXML_int_SQLXML">updateSQLXML</a>(int columnIndex, SQLXML xmlObject) throws SQLException
-<div class="methodText">[Not supported] Updates a column in the current or insert row.</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">columnIndex - (1,2,...)</div>
+<div class="item">xmlObject - the value</div>
+<div class="itemTitle">Throws:</div>
+<div class="item">SQLException - if the result set is closed or not updatable</div>
 </td></tr>
 <tr id="__181" onclick="return on(181)">
 <td class="return">void</td><td class="method">
 <a id="updateSQLXML_String_SQLXML" href="#updateSQLXML_String_SQLXML">updateSQLXML</a>(String columnLabel, SQLXML xmlObject)
-<div class="methodText">[Not supported] Updates a column in the current or insert row.</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
 </td></tr>
 <tr onclick="return off(181)" class="detail" id="_181">
 <td class="return">void</td><td>
 <a id="updateSQLXML_String_SQLXML" href="#updateSQLXML_String_SQLXML">updateSQLXML</a>(String columnLabel, SQLXML xmlObject) throws SQLException
-<div class="methodText">[Not supported] Updates a column in the current or insert row.</div>
+<div class="methodText">Updates a column in the current or insert row.</div>
+<div class="itemTitle">Parameters:</div>
+<div class="item">columnLabel - the column label</div>
+<div class="item">xmlObject - the value</div>
+<div class="itemTitle">Throws:</div>
+<div class="item">SQLException - if the result set is closed or not updatable</div>
 </td></tr>
 <tr id="__182" onclick="return on(182)">
 <td class="return">void</td><td class="method">

@@ -36,6 +36,14 @@ class GerentePerfil():
         if m and m.group() == nome:
             return True
         return False
+
+    def _extrai_marcados(self, text):
+        marcados = []
+        tokens = text.split(" ")
+        for i in tokens:
+            if i.startswith("@"):
+                marcados.append(i[1:])
+        return marcados
                 
     def cadastrar_perfil(self, perfil):
         '''

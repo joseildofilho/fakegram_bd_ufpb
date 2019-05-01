@@ -36,6 +36,9 @@ This class defines the error codes used for SQL exceptions.
 <a href="#c90059">AMBIGUOUS_COLUMN_NAME_1</a> = 90059
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
+<a href="#c90144">AUTHENTICATOR_NOT_AVAILABLE</a> = 90144
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
 <a href="#c90133">CANNOT_CHANGE_SETTING_WHEN_OPEN_1</a> = 90133
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
@@ -99,6 +102,9 @@ This class defines the error codes used for SQL exceptions.
 <a href="#c90058">COMMIT_ROLLBACK_NOT_ALLOWED</a> = 90058
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
+<a href="#c90110">COMPARING_ARRAY_TO_SCALAR</a> = 90110
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
 <a href="#c90104">COMPRESSION_ERROR</a> = 90104
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
@@ -141,6 +147,9 @@ This class defines the error codes used for SQL exceptions.
 <a href="#c90013">DATABASE_NOT_FOUND_1</a> = 90013
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
+<a href="#c90146">DATABASE_NOT_FOUND_2</a> = 90146
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
 <a href="#c22018">DATA_CONVERSION_ERROR_1</a> = 22018
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
@@ -151,6 +160,12 @@ This class defines the error codes used for SQL exceptions.
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c22012">DIVISION_BY_ZERO_1</a> = 22012
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
+<a href="#c90119">DOMAIN_ALREADY_EXISTS_1</a> = 90119
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
+<a href="#c90120">DOMAIN_NOT_FOUND_1</a> = 90120
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c90047">DRIVER_VERSION_ERROR_2</a> = 90047
@@ -219,6 +234,9 @@ This class defines the error codes used for SQL exceptions.
 <a href="#c90048">FILE_VERSION_ERROR_1</a> = 90048
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
+<a href="#c90145">FOR_UPDATE_IS_NOT_ALLOWED_IN_DISTINCT_OR_GROUPED_SELECT</a> = 90145
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
 <a href="#c90076">FUNCTION_ALIAS_ALREADY_EXISTS_1</a> = 90076
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
@@ -240,6 +258,9 @@ This class defines the error codes used for SQL exceptions.
 <a href="#c90004">HEX_STRING_WRONG_1</a> = 90004
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
+<a href="#c42131">IDENTICAL_EXPRESSIONS_SHOULD_BE_USED</a> = 42131
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
 <a href="#c42111">INDEX_ALREADY_EXISTS_1</a> = 42111
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
@@ -259,6 +280,9 @@ This class defines the error codes used for SQL exceptions.
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c7001">INVALID_PARAMETER_COUNT_2</a> = 7001
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
+<a href="#c22013">INVALID_PRECEDING_OR_FOLLOWING_1</a> = 22013
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c90010">INVALID_TO_CHAR_FORMAT</a> = 90010
@@ -501,9 +525,6 @@ This class defines the error codes used for SQL exceptions.
 <a href="#c90060">UNSUPPORTED_LOCK_METHOD_1</a> = 90060
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
-<a href="#c90136">UNSUPPORTED_OUTER_JOIN_CONDITION_1</a> = 90136
-</td></tr>
-<tr><td class="return">static int</td><td class="method">
 <a href="#c90113">UNSUPPORTED_SETTING_1</a> = 90113
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
@@ -541,6 +562,12 @@ This class defines the error codes used for SQL exceptions.
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c90037">VIEW_NOT_FOUND_1</a> = 90037
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
+<a href="#c90136">WINDOW_NOT_FOUND_1</a> = 90136
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
+<a href="#c90122">WITH_TIES_WITHOUT_ORDER_BY</a> = 90122
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c90050">WRONG_PASSWORD_FORMAT</a> = 90050
@@ -624,6 +651,14 @@ This class defines the error codes used for SQL exceptions.
  a value by zero. Example:
  <pre>
  CALL 1/0;</pre></div>
+<hr />
+<h4 id="c22013"><span class="methodName">INVALID_PRECEDING_OR_FOLLOWING_1
+ = 22013
+</span></h4>
+<div class="item">The error with code <code>22013</code> is thrown when preceding or
+ following size in a window function is null or negative. Example:
+ <pre>
+ FIRST_VALUE(N) OVER(ORDER BY N ROWS -1 PRECEDING)</pre></div>
 <hr />
 <h4 id="c22018"><span class="methodName">DATA_CONVERSION_ERROR_1
  = 22018
@@ -866,6 +901,16 @@ This class defines the error codes used for SQL exceptions.
  CREATE TABLE TEST(ID INT);
  SELECT NAME FROM TEST;</pre></div>
 <hr />
+<h4 id="c42131"><span class="methodName">IDENTICAL_EXPRESSIONS_SHOULD_BE_USED
+ = 42131
+</span></h4>
+<div class="item">The error with code <code>42131</code> is thrown when
+ identical expressions should be used, but different
+ expressions were found.
+ Example:
+ <pre>
+ SELECT MODE(A ORDER BY B) FROM TEST;</pre></div>
+<hr />
 <h4 id="c50000"><span class="methodName">GENERAL_ERROR_1
  = 50000
 </span></h4>
@@ -1057,13 +1102,11 @@ This class defines the error codes used for SQL exceptions.
 <h4 id="c90013"><span class="methodName">DATABASE_NOT_FOUND_1
  = 90013
 </span></h4>
-<div class="item">The error with code <code>90013</code> is thrown when
- trying to open a database that does not exist using the flag
- IFEXISTS=TRUE, or when trying to access a database object with a catalog
- name that does not match the database name. Example:
+<div class="item">The error with code <code>90013</code> is thrown when when trying to access
+ a database object with a catalog name that does not match the database
+ name.
  <pre>
- CREATE TABLE TEST(ID INT);
- SELECT XYZ.PUBLIC.TEST.ID FROM TEST;</pre></div>
+ SELECT * FROM database_that_does_not_exist.table_name</pre></div>
 <hr />
 <h4 id="c90014"><span class="methodName">PARSE_ERROR_1
  = 90014
@@ -2012,6 +2055,16 @@ This class defines the error codes used for SQL exceptions.
  CREATE FORCE VIEW TEST_VIEW AS SELECT * FROM TEST;
  SELECT * FROM TEST_VIEW;</pre></div>
 <hr />
+<h4 id="c90110"><span class="methodName">COMPARING_ARRAY_TO_SCALAR
+ = 90110
+</span></h4>
+<div class="item">The error with code <code>90110</code> is thrown when
+ trying to compare an array value against a non-array value.
+ Example:
+ <pre>
+ CREATE TABLE test (id INT NOT NULL, name VARCHAR);
+ select * from test where id = (1, 2);</pre></div>
+<hr />
 <h4 id="c90111"><span class="methodName">ERROR_ACCESSING_LINKED_TABLE_2
  = 90111
 </span></h4>
@@ -2091,7 +2144,7 @@ This class defines the error codes used for SQL exceptions.
  <pre>
  DROP TABLE INFORMATION_SCHEMA.SETTINGS;</pre></div>
 <hr />
-<h4 id="c90119"><span class="methodName">USER_DATA_TYPE_ALREADY_EXISTS_1
+<h4 id="c90119"><span class="methodName">DOMAIN_ALREADY_EXISTS_1
  = 90119
 </span></h4>
 <div class="item">The error with code <code>90119</code> is thrown when
@@ -2103,7 +2156,12 @@ This class defines the error codes used for SQL exceptions.
  CREATE DOMAIN EMAIL AS VARCHAR CHECK LOCATE('@', VALUE) > 0;
  CREATE DOMAIN EMAIL AS VARCHAR CHECK LOCATE('@', VALUE) > 0;</pre></div>
 <hr />
-<h4 id="c90120"><span class="methodName">USER_DATA_TYPE_NOT_FOUND_1
+<h4 id="c90119"><span class="methodName">USER_DATA_TYPE_ALREADY_EXISTS_1
+ = 90119
+</span></h4>
+<div class="item">Deprecated since 1.4.198. Use {@link #DOMAIN_ALREADY_EXISTS_1} instead.</div>
+<hr />
+<h4 id="c90120"><span class="methodName">DOMAIN_NOT_FOUND_1
  = 90120
 </span></h4>
 <div class="item">The error with code <code>90120</code> is thrown when
@@ -2112,12 +2170,23 @@ This class defines the error codes used for SQL exceptions.
  <pre>
  DROP DOMAIN UNKNOWN;</pre></div>
 <hr />
+<h4 id="c90120"><span class="methodName">USER_DATA_TYPE_NOT_FOUND_1
+ = 90120
+</span></h4>
+<div class="item">Deprecated since 1.4.198. Use {@link #DOMAIN_NOT_FOUND_1} instead.</div>
+<hr />
 <h4 id="c90121"><span class="methodName">DATABASE_CALLED_AT_SHUTDOWN
  = 90121
 </span></h4>
 <div class="item">The error with code <code>90121</code> is thrown when
  a database operation is started while the virtual machine exits
  (for example in a shutdown hook), or when the session is closed.</div>
+<hr />
+<h4 id="c90122"><span class="methodName">WITH_TIES_WITHOUT_ORDER_BY
+ = 90122
+</span></h4>
+<div class="item">The error with code <code>90122</code> is thrown when
+ WITH TIES clause is used without ORDER BY clause.</div>
 <hr />
 <h4 id="c90123"><span class="methodName">CANNOT_MIX_INDEXED_AND_UNINDEXED_PARAMS
  = 90123
@@ -2218,7 +2287,7 @@ This class defines the error codes used for SQL exceptions.
  connections at the same time, or trying to insert two rows with the same
  key from two connections. Example:
  <pre>
- jdbc:h2:~/test;MVCC=TRUE
+ jdbc:h2:~/test
  Session 1:
  CREATE TABLE TEST(ID INT);
  INSERT INTO TEST VALUES(1);
@@ -2242,8 +2311,7 @@ This class defines the error codes used for SQL exceptions.
 </span></h4>
 <div class="item">The error with code <code>90133</code> is thrown when
  trying to change a specific database property while the database is
- already open. The MVCC property needs to be set in the first connection
- (in the connection opening the database) and can not be changed later on.</div>
+ already open.</div>
 <hr />
 <h4 id="c90134"><span class="methodName">ACCESS_DENIED_TO_CLASS_1
  = 90134
@@ -2262,14 +2330,14 @@ This class defines the error codes used for SQL exceptions.
  <pre>
  SET EXCLUSIVE TRUE;</pre></div>
 <hr />
-<h4 id="c90136"><span class="methodName">UNSUPPORTED_OUTER_JOIN_CONDITION_1
+<h4 id="c90136"><span class="methodName">WINDOW_NOT_FOUND_1
  = 90136
 </span></h4>
 <div class="item">The error with code <code>90136</code> is thrown when
- executing a query that used an unsupported outer join condition.
+ trying to reference a window that does not exist.
  Example:
  <pre>
- SELECT * FROM DUAL A LEFT JOIN DUAL B ON B.X=(SELECT MAX(X) FROM DUAL);</pre></div>
+ SELECT LEAD(X) OVER W FROM TEST;</pre></div>
 <hr />
 <h4 id="c90137"><span class="methodName">CAN_ONLY_ASSIGN_TO_VARIABLE_1
  = 90137
@@ -2336,5 +2404,36 @@ This class defines the error codes used for SQL exceptions.
 <div class="item">The error with code <code>90143</code> is thrown when
  trying to fetch a row from the primary index and the row is not there.
  Can happen in MULTI_THREADED=1 case.</div>
+<hr />
+<h4 id="c90144"><span class="methodName">AUTHENTICATOR_NOT_AVAILABLE
+ = 90144
+</span></h4>
+<div class="item">The error with code <code>90144</code> is thrown when
+ user trying to login into a database with AUTHREALM set and
+ the target database doesn't have an authenticator defined
+ <p>Authenticator experimental feature can be enabled by
+ </p>
+ <pre>
+ SET AUTHENTICATOR TRUE</pre></div>
+<hr />
+<h4 id="c90145"><span class="methodName">FOR_UPDATE_IS_NOT_ALLOWED_IN_DISTINCT_OR_GROUPED_SELECT
+ = 90145
+</span></h4>
+<div class="item">The error with code <code>90145</code> is thrown when trying to execute a
+ SELECT statement with non-window aggregates, DISTINCT, GROUP BY, or
+ HAVING clauses together with FOR UPDATE clause.
+
+ <pre>
+ SELECT DISTINCT NAME FOR UPDATE;
+ SELECT MAX(VALUE) FOR UPDATE;</pre></div>
+<hr />
+<h4 id="c90146"><span class="methodName">DATABASE_NOT_FOUND_2
+ = 90146
+</span></h4>
+<div class="item">The error with code <code>90146</code> is thrown when trying to open a
+ database that does not exist remotely without enabling remote database
+ creation first, or using the flag IFEXISTS=TRUE
+ <pre>
+ jdbc:h2:./database_that_does_not_exist</pre></div>
 <hr />
 </div></td></tr></table></body></html>

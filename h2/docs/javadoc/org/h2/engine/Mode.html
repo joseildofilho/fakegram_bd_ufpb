@@ -51,6 +51,15 @@ The compatibility modes. There is a fixed set of modes (for example
 <a id="getName" href="#getName">getName</a>()
 <div class="methodText"></div>
 </td></tr>
+<tr id="__4" onclick="return on(4)">
+<td class="return">String</td><td class="method">
+<a id="toString" href="#toString">toString</a>()
+</td></tr>
+<tr onclick="return off(4)" class="detail" id="_4">
+<td class="return">String</td><td>
+<a id="toString" href="#toString">toString</a>()
+<div class="methodText"></div>
+</td></tr>
 </table>
 <br /><table><tr><th colspan="2">Fields</th></tr>
 <tr><td class="return">static boolean</td><td class="method">
@@ -66,13 +75,22 @@ The compatibility modes. There is a fixed set of modes (for example
 <a href="#allowplusforstringconcat">allowPlusForStringConcat</a>
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
+<a href="#chartobinaryinutf8">charToBinaryInUtf8</a>
+</td></tr>
+<tr><td class="return">static boolean</td><td class="method">
 <a href="#convertinsertnulltozero">convertInsertNullToZero</a>
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#convertonlytosmallerscale">convertOnlyToSmallerScale</a>
 </td></tr>
+<tr><td class="return">static boolean</td><td class="method">
+<a href="#datetimevaluewithintransaction">dateTimeValueWithinTransaction</a>
+</td></tr>
 <tr><td class="return">static Set</td><td class="method">
 <a href="#disallowedtypes">disallowedTypes</a>
+</td></tr>
+<tr><td class="return">static boolean</td><td class="method">
+<a href="#discardwithtablehints">discardWithTableHints</a>
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#INDEX(..)">indexDefinitionInCreateTable</a>
@@ -131,6 +149,9 @@ The compatibility modes. There is a fixed set of modes (for example
 <tr><td class="return">static Mode.UniqueIndexNullsHandling</td><td class="method">
 <a href="#uniqueindexnullshandling">uniqueIndexNullsHandling</a>
 </td></tr>
+<tr><td class="return">static boolean</td><td class="method">
+<a href="#useidentityasautoincrement">useIdentityAsAutoIncrement</a>
+</td></tr>
 </table>
 <h4 id="aliascolumnname"><span class="methodName">aliasColumnName
 
@@ -155,6 +176,11 @@ The compatibility modes. There is a fixed set of modes (for example
 </span></h4>
 <div class="item">Text can be concatenated using '+'.</div>
 <hr />
+<h4 id="chartobinaryinutf8"><span class="methodName">charToBinaryInUtf8
+
+</span></h4>
+<div class="item">Convert (VAR)CHAR to VAR(BINARY) and vice versa with UTF-8 encoding instead of HEX.</div>
+<hr />
 <h4 id="convertinsertnulltozero"><span class="methodName">convertInsertNullToZero
 
 </span></h4>
@@ -170,12 +196,24 @@ The compatibility modes. There is a fixed set of modes (for example
  if the new scale is smaller than the current scale. Usually, the scale is
  converted and 0s are added if required.</div>
 <hr />
+<h4 id="datetimevaluewithintransaction"><span class="methodName">dateTimeValueWithinTransaction
+
+</span></h4>
+<div class="item">If {@code true}, datetime value function return the same value within a
+ transaction, if {@code false} datetime value functions return the same
+ value within a command.</div>
+<hr />
 <h4 id="disallowedtypes"><span class="methodName">disallowedTypes
 
 </span></h4>
 <div class="item">An optional Set of hidden/disallowed column types.
  Certain DBMSs don't support all column types provided by H2, such as
  "NUMBER" when using PostgreSQL mode.</div>
+<hr />
+<h4 id="discardwithtablehints"><span class="methodName">discardWithTableHints
+
+</span></h4>
+<div class="item">Discard SQLServer table hints (e.g. "SELECT * FROM table WITH (NOLOCK)")</div>
 <hr />
 <h4 id="INDEX(..)"><span class="methodName">indexDefinitionInCreateTable
 
@@ -278,5 +316,10 @@ The compatibility modes. There is a fixed set of modes (for example
 </span></h4>
 <div class="item">Determines how rows with {@code NULL} values in indexed columns are handled
  in unique indexes.</div>
+<hr />
+<h4 id="useidentityasautoincrement"><span class="methodName">useIdentityAsAutoIncrement
+
+</span></h4>
+<div class="item">Use "IDENTITY" as an alias for "auto_increment" (SQLServer style)</div>
 <hr />
 </div></td></tr></table></body></html>

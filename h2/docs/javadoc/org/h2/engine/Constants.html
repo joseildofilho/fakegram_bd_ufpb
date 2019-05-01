@@ -64,16 +64,16 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 <a href="#false">BLOB_SEARCH</a> = false
 </td></tr>
 <tr><td class="return">static String</td><td class="method">
-<a href="#BUILD_DATE">BUILD_DATE</a> = "2018-03-18"
+<a href="#BUILD_DATE">BUILD_DATE</a> = "2019-03-13"
 </td></tr>
 <tr><td class="return">static String</td><td class="method">
-<a href="#BUILD_DATE_STABLE">BUILD_DATE_STABLE</a> = "2017-06-10"
+<a href="#BUILD_DATE_STABLE">BUILD_DATE_STABLE</a> = "2018-03-18"
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
-<a href="#c197">BUILD_ID</a> = 197
+<a href="#c199">BUILD_ID</a> = 199
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
-<a href="#c196">BUILD_ID_STABLE</a> = 196
+<a href="#c197">BUILD_ID_STABLE</a> = 197
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#false">BUILD_SNAPSHOT</a> = false
@@ -145,6 +145,9 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 <a href="#c16">FILE_BLOCK_SIZE</a> = 16
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
+<a href="#-1">INFORMATION_SCHEMA_ID</a> = -1
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
 <a href="#c2000">INITIAL_LOCK_TIMEOUT</a> = 2000
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
@@ -169,7 +172,13 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 <a href="#c1000">LOCK_SLEEP</a> = 1000
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
+<a href="#c0">MAIN_SCHEMA_ID</a> = 0
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
 <a href="#c100000">MAX_PARAMETER_INDEX</a> = 100000
+</td></tr>
+<tr><td class="return">static int</td><td class="method">
+<a href="#c24">MEMORY_ARRAY</a> = 24
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c24">MEMORY_DATA</a> = 24
@@ -209,6 +218,9 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 </td></tr>
 <tr><td class="return">static String</td><td class="method">
 <a href="#PREFIX_PRIMARY_KEY">PREFIX_PRIMARY_KEY</a> = "PRIMARY_KEY_"
+</td></tr>
+<tr><td class="return">static String</td><td class="method">
+<a href="#PREFIX_QUERY_ALIAS">PREFIX_QUERY_ALIAS</a> = "QUERY_ALIAS_"
 </td></tr>
 <tr><td class="return">static String</td><td class="method">
 <a href="#PUBLIC_ROLE_NAME">PUBLIC_ROLE_NAME</a> = "PUBLIC"
@@ -298,16 +310,16 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 <a href="#c17">TCP_PROTOCOL_VERSION_17</a> = 17
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
-<a href="#c8">TCP_PROTOCOL_VERSION_8</a> = 8
+<a href="#c18">TCP_PROTOCOL_VERSION_18</a> = 18
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c9">TCP_PROTOCOL_VERSION_9</a> = 9
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
-<a href="#c17">TCP_PROTOCOL_VERSION_MAX_SUPPORTED</a> = 17
+<a href="#c18">TCP_PROTOCOL_VERSION_MAX_SUPPORTED</a> = 18
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
-<a href="#c8">TCP_PROTOCOL_VERSION_MIN_SUPPORTED</a> = 8
+<a href="#c9">TCP_PROTOCOL_VERSION_MIN_SUPPORTED</a> = 9
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#c50">THROTTLE_DELAY</a> = 50
@@ -398,12 +410,12 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 <div class="item">The file name suffix of trace files.</div>
 <hr />
 <h4 id="BUILD_DATE_STABLE"><span class="methodName">BUILD_DATE_STABLE
- = "2017-06-10"
+ = "2018-03-18"
 </span></h4>
 <div class="item">The build date of the last stable release.</div>
 <hr />
 <h4 id="BUILD_DATE"><span class="methodName">BUILD_DATE
- = "2018-03-18"
+ = "2019-03-13"
 </span></h4>
 <div class="item">The build date is updated for each public release.</div>
 <hr />
@@ -437,6 +449,11 @@ Constants are fixed values that are used in the whole database code.<br /><br />
  = "PUBLIC"
 </span></h4>
 <div class="item">The name of the default schema.</div>
+<hr />
+<h4 id="PREFIX_QUERY_ALIAS"><span class="methodName">PREFIX_QUERY_ALIAS
+ = "QUERY_ALIAS_"
+</span></h4>
+<div class="item">The name prefix used for query aliases that are not explicitly named.</div>
 <hr />
 <h4 id="PREFIX_JOIN"><span class="methodName">PREFIX_JOIN
  = "SYSTEM_JOIN_"
@@ -487,6 +504,11 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 <div class="item">The default directory name of the server properties file for the H2
  Console.</div>
 <hr />
+<h4 id="-1"><span class="methodName">INFORMATION_SCHEMA_ID
+ = -1
+</span></h4>
+<div class="item">The identity of INFORMATION_SCHEMA.</div>
+<hr />
 <h4 id="c0"><span class="methodName">ALLOW_LITERALS_NONE
  = 0
 </span></h4>
@@ -496,6 +518,11 @@ Constants are fixed values that are used in the whole database code.<br /><br />
  = 0
 </span></h4>
 <div class="item">The lock mode that means no locking is used at all.</div>
+<hr />
+<h4 id="c0"><span class="methodName">MAIN_SCHEMA_ID
+ = 0
+</span></h4>
+<div class="item">The identity of PUBLIC schema.</div>
 <hr />
 <h4 id="c1"><span class="methodName">ALLOW_LITERALS_NUMBERS
  = 1
@@ -647,8 +674,13 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 </span></h4>
 <div class="item">The TCP protocol version number 17.</div>
 <hr />
-<h4 id="c17"><span class="methodName">TCP_PROTOCOL_VERSION_MAX_SUPPORTED
- = 17
+<h4 id="c18"><span class="methodName">TCP_PROTOCOL_VERSION_18
+ = 18
+</span></h4>
+<div class="item">The TCP protocol version number 18.</div>
+<hr />
+<h4 id="c18"><span class="methodName">TCP_PROTOCOL_VERSION_MAX_SUPPORTED
+ = 18
 </span></h4>
 <div class="item">Maximum supported version of TCP protocol.</div>
 <hr />
@@ -657,13 +689,13 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 </span></h4>
 <div class="item">The memory needed by an object of class PageBtree.</div>
 <hr />
-<h4 id="c196"><span class="methodName">BUILD_ID_STABLE
- = 196
+<h4 id="c197"><span class="methodName">BUILD_ID_STABLE
+ = 197
 </span></h4>
 <div class="item">The build id of the last stable release.</div>
 <hr />
-<h4 id="c197"><span class="methodName">BUILD_ID
- = 197
+<h4 id="c199"><span class="methodName">BUILD_ID
+ = 199
 </span></h4>
 <div class="item">The build id is incremented for each public release.</div>
 <hr />
@@ -684,6 +716,11 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 </span></h4>
 <div class="item">For testing, the lock timeout is smaller than for interactive use cases.
  This value could be increased to about 5 or 10 seconds.</div>
+<hr />
+<h4 id="c24"><span class="methodName">MEMORY_ARRAY
+ = 24
+</span></h4>
+<div class="item">The memory needed by an array.</div>
 <hr />
 <h4 id="c24"><span class="methodName">MEMORY_DATA
  = 24
@@ -789,16 +826,6 @@ Constants are fixed values that are used in the whole database code.<br /><br />
 </span></h4>
 <div class="item">The number of bytes in random salt that is used to hash passwords.</div>
 <hr />
-<h4 id="c8"><span class="methodName">TCP_PROTOCOL_VERSION_8
- = 8
-</span></h4>
-<div class="item">The TCP protocol version number 8.</div>
-<hr />
-<h4 id="c8"><span class="methodName">TCP_PROTOCOL_VERSION_MIN_SUPPORTED
- = 8
-</span></h4>
-<div class="item">Minimum supported version of TCP protocol.</div>
-<hr />
 <h4 id="c8082"><span class="methodName">DEFAULT_HTTP_PORT
  = 8082
 </span></h4>
@@ -809,6 +836,11 @@ Constants are fixed values that are used in the whole database code.<br /><br />
  = 9
 </span></h4>
 <div class="item">The TCP protocol version number 9.</div>
+<hr />
+<h4 id="c9"><span class="methodName">TCP_PROTOCOL_VERSION_MIN_SUPPORTED
+ = 9
+</span></h4>
+<div class="item">Minimum supported version of TCP protocol.</div>
 <hr />
 <h4 id="c9092"><span class="methodName">DEFAULT_TCP_PORT
  = 9092

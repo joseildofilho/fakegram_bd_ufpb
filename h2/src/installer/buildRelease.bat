@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 echo %time:~0,8% Start
 
 setlocal
@@ -12,9 +12,9 @@ rmdir /s /q bin 2>nul
 rmdir /s /q temp 2>nul
 
 call java16 >nul 2>nul
-call build -quiet compile
-call build -quiet spellcheck javadocImpl jarClient
-call build -quiet clean compile installer mavenDeployCentral
+call build compile
+call build spellcheck javadocImpl jarClient
+call build clean compile installer mavenDeployCentral
 
 rem call build -quiet compile benchmark
 rem == Copy the benchmark results and update the performance page and diagram

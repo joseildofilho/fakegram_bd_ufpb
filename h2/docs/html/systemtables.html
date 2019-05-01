@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-Copyright 2004-2018 H2 Group. Multiple-Licensed under the MPL 2.0, Version 1.0,
-and under the Eclipse Public License, Version 1.0
+Copyright 2004-2019 H2 Group. Multiple-Licensed under the MPL 2.0,
+and the EPL 1.0 (http://h2database.com/html/license.html).
 Initial Developer: H2 Group
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -76,12 +76,13 @@ translate -->
 <a href="advanced.html">Advanced</a><br />
 <br />
 <b>Reference</b><br />
-<a href="grammar.html">SQL Grammar</a><br />
+<a href="commands.html">Commands</a><br />
 <a href="functions.html">Functions</a><br />
 <a href="datatypes.html">Data Types</a><br />
+<a href="grammar.html">SQL Grammar</a><br />
 <a href="systemtables.html">System Tables</a><br />
 <a href="../javadoc/index.html">Javadoc</a><br />
-<a href="../h2.pdf">PDF (1 MB)</a><br />
+<a href="../h2.pdf">PDF (1.5 MB)</a><br />
 <br />
 <b>Support</b><br />
 <a href="faq.html">FAQ</a><br />
@@ -95,7 +96,6 @@ translate -->
 <a href="license.html">License</a><br />
 <a href="build.html">Build</a><br />
 <a href="links.html">Links</a><br />
-<a href="jaqu.html">JaQu</a><br />
 <a href="mvstore.html">MVStore</a><br />
 <a href="architecture.html">Architecture</a><br />
 <br />
@@ -126,7 +126,7 @@ translate -->
 <p class="notranslate">NAME, KEY</p>
 
 <h3 class="notranslate">COLUMNS</h3>
-<p class="notranslate">TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, COLUMN_DEFAULT, IS_NULLABLE, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, CHARACTER_OCTET_LENGTH, NUMERIC_PRECISION, NUMERIC_PRECISION_RADIX, NUMERIC_SCALE, CHARACTER_SET_NAME, COLLATION_NAME, TYPE_NAME, NULLABLE, IS_COMPUTED, SELECTIVITY, CHECK_CONSTRAINT, SEQUENCE_NAME, REMARKS, SOURCE_DATA_TYPE, COLUMN_TYPE, COLUMN_ON_UPDATE</p>
+<p class="notranslate">TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, ORDINAL_POSITION, DOMAIN_CATALOG, DOMAIN_SCHEMA, DOMAIN_NAME, COLUMN_DEFAULT, IS_NULLABLE, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH, CHARACTER_OCTET_LENGTH, NUMERIC_PRECISION, NUMERIC_PRECISION_RADIX, NUMERIC_SCALE, DATETIME_PRECISION, INTERVAL_TYPE, INTERVAL_PRECISION, CHARACTER_SET_NAME, COLLATION_NAME, TYPE_NAME, NULLABLE, IS_COMPUTED, SELECTIVITY, CHECK_CONSTRAINT, SEQUENCE_NAME, REMARKS, SOURCE_DATA_TYPE, COLUMN_TYPE, COLUMN_ON_UPDATE, IS_VISIBLE</p>
 
 <h3 class="notranslate">COLUMN_PRIVILEGES</h3>
 <p class="notranslate">GRANTOR, GRANTEE, TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, PRIVILEGE_TYPE, IS_GRANTABLE</p>
@@ -183,7 +183,7 @@ translate -->
 <p class="notranslate">SEQUENCE_CATALOG, SEQUENCE_SCHEMA, SEQUENCE_NAME, CURRENT_VALUE, INCREMENT, IS_GENERATED, REMARKS, CACHE, MIN_VALUE, MAX_VALUE, IS_CYCLE, ID</p>
 
 <h3 class="notranslate">SESSIONS</h3>
-<p class="notranslate">ID, USER_NAME, SESSION_START, STATEMENT, STATEMENT_START, CONTAINS_UNCOMMITTED</p>
+<p class="notranslate">ID, USER_NAME, SESSION_START, STATEMENT, STATEMENT_START, CONTAINS_UNCOMMITTED, STATE, BLOCKER_ID</p>
 
 <h3 class="notranslate">SESSION_STATE</h3>
 <p class="notranslate">KEY, SQL</p>
@@ -219,10 +219,17 @@ translate -->
 <p class="notranslate">TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, VIEW_DEFINITION, CHECK_OPTION, IS_UPDATABLE, STATUS, REMARKS, ID</p>
 
 <h2 id="range_table" class="notranslate">Range Table</h2>
-<p> The range table is a dynamic system table that contains all values from a start to an end value. The table contains one column called X. Both the start and end values are included in the result. The table is used as follows: </p>
-<p>Example:</p>
+<p> The range table is a dynamic system table that contains all values from a start to an end value. Non-zero step value may be also specified, default is 1. Start value, end value, and optional step value are converted to BIGINT data type. The table contains one column called X. If start value is greater than end value and step is positive the result is empty. If start value is less than end value and step is negative the result is empty too. If start value is equal to end value the result contains only start value. Start value, start value plus step, start value plus step multiplied by two and so on are included in result. If step is positive the last value is less than or equal to the specified end value. If step in negative the last value is greater than or equal to the specified end value. The table is used as follows: </p>
+<p>Examples:</p>
 <pre>
 SELECT X FROM SYSTEM_RANGE(1, 10);
+-- 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+SELECT X FROM SYSTEM_RANGE(1, 10, 2);
+-- 1, 3, 5, 7, 9
+SELECT X FROM SYSTEM_RANGE(1, 10, -1);
+-- No rows
+SELECT X FROM SYSTEM_RANGE(10, 2, -2);
+-- 10, 8, 6, 4, 2
 </pre>
 
 <!-- [close] { -->

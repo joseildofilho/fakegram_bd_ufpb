@@ -37,7 +37,9 @@ A user-defined aggregate function needs to implement this interface.
 <tr onclick="return off(1)" class="detail" id="_1">
 <td class="return">Object</td><td>
 <a id="getResult" href="#getResult">getResult</a>() throws SQLException
-<div class="methodText">This method returns the computed aggregate value.</div>
+<div class="methodText">This method returns the computed aggregate value. This method must
+ preserve previously added values and must be able to reevaluate result if
+ more values were added since its previous invocation.</div>
 <div class="itemTitle">Returns:</div>
 <div class="item">the aggregated value</div>
 </td></tr>

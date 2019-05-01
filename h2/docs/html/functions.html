@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-Copyright 2004-2018 H2 Group. Multiple-Licensed under the MPL 2.0, Version 1.0,
-and under the Eclipse Public License, Version 1.0
+Copyright 2004-2019 H2 Group. Multiple-Licensed under the MPL 2.0,
+and the EPL 1.0 (http://h2database.com/html/license.html).
 Initial Developer: H2 Group
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -76,12 +76,13 @@ translate -->
 <a href="advanced.html">Advanced</a><br />
 <br />
 <b>Reference</b><br />
-<a href="grammar.html">SQL Grammar</a><br />
+<a href="commands.html">Commands</a><br />
 <a href="functions.html">Functions</a><br />
 <a href="datatypes.html">Data Types</a><br />
+<a href="grammar.html">SQL Grammar</a><br />
 <a href="systemtables.html">System Tables</a><br />
 <a href="../javadoc/index.html">Javadoc</a><br />
-<a href="../h2.pdf">PDF (1 MB)</a><br />
+<a href="../h2.pdf">PDF (1.5 MB)</a><br />
 <br />
 <b>Support</b><br />
 <a href="faq.html">FAQ</a><br />
@@ -95,7 +96,6 @@ translate -->
 <a href="license.html">License</a><br />
 <a href="build.html">Build</a><br />
 <a href="links.html">Links</a><br />
-<a href="jaqu.html">JaQu</a><br />
 <a href="mvstore.html">MVStore</a><br />
 <a href="architecture.html">Architecture</a><br />
 <br />
@@ -110,7 +110,7 @@ translate -->
 <!-- } -->
 
 <h1>Functions</h1>
-<h2>Index</h2>
+<h2 id="functions_index">Index</h2>
 <h3>Aggregate Functions</h3>
 <!-- syntax-start
 <p class="notranslate">
@@ -121,13 +121,13 @@ translate -->
 
     <a href="#bit_or" >BIT_OR</a><br />
 
-    <a href="#bool_and" >BOOL_AND</a><br />
+    <a href="#every" >EVERY</a><br />
 
-    <a href="#bool_or" >BOOL_OR</a><br />
+    <a href="#any" >ANY</a><br />
 
     <a href="#count" >COUNT</a><br />
 
-    <a href="#group_concat" >GROUP_CONCAT</a><br />
+    <a href="#listagg" >LISTAGG</a><br />
 
     <a href="#array_agg" >ARRAY_AGG</a><br />
 
@@ -147,7 +147,23 @@ translate -->
 
     <a href="#var_samp" >VAR_SAMP</a><br />
 
+    <a href="#rank_aggregate" >RANK aggregate</a><br />
+
+    <a href="#dense_rank_aggregate" >DENSE_RANK aggregate</a><br />
+
+    <a href="#percent_rank_aggregate" >PERCENT_RANK aggregate</a><br />
+
+    <a href="#cume_dist_aggregate" >CUME_DIST aggregate</a><br />
+
+    <a href="#percentile_cont" >PERCENTILE_CONT</a><br />
+
+    <a href="#percentile_disc" >PERCENTILE_DISC</a><br />
+
     <a href="#median" >MEDIAN</a><br />
+
+    <a href="#mode" >MODE</a><br />
+
+    <a href="#envelope" >ENVELOPE</a><br />
 </p>
 syntax-end -->
 <!-- railroad-start -->
@@ -161,25 +177,24 @@ syntax-end -->
             
                 <a href="#bit_or" >BIT_OR</a><br />
             
-                <a href="#bool_and" >BOOL_AND</a><br />
+                <a href="#every" >EVERY</a><br />
             
-                <a href="#bool_or" >BOOL_OR</a><br />
+                <a href="#any" >ANY</a><br />
             
                 <a href="#count" >COUNT</a><br />
-                    </td><td class="index">
             
-                <a href="#group_concat" >GROUP_CONCAT</a><br />
+                <a href="#listagg" >LISTAGG</a><br />
             
                 <a href="#array_agg" >ARRAY_AGG</a><br />
             
                 <a href="#max" >MAX</a><br />
+                    </td><td class="index">
             
                 <a href="#min" >MIN</a><br />
             
                 <a href="#sum" >SUM</a><br />
             
                 <a href="#selectivity" >SELECTIVITY</a><br />
-                    </td><td class="index">
             
                 <a href="#stddev_pop" >STDDEV_POP</a><br />
             
@@ -189,7 +204,24 @@ syntax-end -->
             
                 <a href="#var_samp" >VAR_SAMP</a><br />
             
+                <a href="#rank_aggregate" >RANK aggregate</a><br />
+            
+                <a href="#dense_rank_aggregate" >DENSE_RANK aggregate</a><br />
+                    </td><td class="index">
+            
+                <a href="#percent_rank_aggregate" >PERCENT_RANK aggregate</a><br />
+            
+                <a href="#cume_dist_aggregate" >CUME_DIST aggregate</a><br />
+            
+                <a href="#percentile_cont" >PERCENTILE_CONT</a><br />
+            
+                <a href="#percentile_disc" >PERCENTILE_DISC</a><br />
+            
                 <a href="#median" >MEDIAN</a><br />
+            
+                <a href="#mode" >MODE</a><br />
+            
+                <a href="#envelope" >ENVELOPE</a><br />
                     </td>
     </tr>
 </table>
@@ -241,9 +273,11 @@ syntax-end -->
 
     <a href="#floor" >FLOOR</a><br />
 
-    <a href="#log" >LOG</a><br />
+    <a href="#ln" >LN</a><br />
 
     <a href="#log10" >LOG10</a><br />
+
+    <a href="#ora_hash" >ORA_HASH</a><br />
 
     <a href="#radians" >RADIANS</a><br />
 
@@ -328,9 +362,11 @@ syntax-end -->
             
                 <a href="#floor" >FLOOR</a><br />
             
-                <a href="#log" >LOG</a><br />
+                <a href="#ln" >LN</a><br />
             
                 <a href="#log10" >LOG10</a><br />
+            
+                <a href="#ora_hash" >ORA_HASH</a><br />
             
                 <a href="#radians" >RADIANS</a><br />
             
@@ -339,9 +375,9 @@ syntax-end -->
                 <a href="#pi" >PI</a><br />
             
                 <a href="#power" >POWER</a><br />
+                    </td><td class="index">
             
                 <a href="#rand" >RAND</a><br />
-                    </td><td class="index">
             
                 <a href="#random_uuid" >RANDOM_UUID</a><br />
             
@@ -565,6 +601,10 @@ syntax-end -->
 
     <a href="#current_timestamp" >CURRENT_TIMESTAMP</a><br />
 
+    <a href="#localtime" >LOCALTIME</a><br />
+
+    <a href="#localtimestamp" >LOCALTIMESTAMP</a><br />
+
     <a href="#dateadd" >DATEADD</a><br />
 
     <a href="#datediff" >DATEDIFF</a><br />
@@ -617,6 +657,10 @@ syntax-end -->
             
                 <a href="#current_timestamp" >CURRENT_TIMESTAMP</a><br />
             
+                <a href="#localtime" >LOCALTIME</a><br />
+            
+                <a href="#localtimestamp" >LOCALTIMESTAMP</a><br />
+            
                 <a href="#dateadd" >DATEADD</a><br />
             
                 <a href="#datediff" >DATEDIFF</a><br />
@@ -624,9 +668,9 @@ syntax-end -->
                 <a href="#dayname" >DAYNAME</a><br />
             
                 <a href="#day_of_month" >DAY_OF_MONTH</a><br />
+                    </td><td class="index">
             
                 <a href="#day_of_week" >DAY_OF_WEEK</a><br />
-                    </td><td class="index">
             
                 <a href="#iso_day_of_week" >ISO_DAY_OF_WEEK</a><br />
             
@@ -673,6 +717,12 @@ syntax-end -->
 
     <a href="#array_contains" >ARRAY_CONTAINS</a><br />
 
+    <a href="#array_cat" >ARRAY_CAT</a><br />
+
+    <a href="#array_append" >ARRAY_APPEND</a><br />
+
+    <a href="#array_slice" >ARRAY_SLICE</a><br />
+
     <a href="#autocommit" >AUTOCOMMIT</a><br />
 
     <a href="#cancel_session" >CANCEL_SESSION</a><br />
@@ -700,6 +750,8 @@ syntax-end -->
     <a href="#disk_space_used" >DISK_SPACE_USED</a><br />
 
     <a href="#signal" >SIGNAL</a><br />
+
+    <a href="#estimated_envelope" >ESTIMATED_ENVELOPE</a><br />
 
     <a href="#file_read" >FILE_READ</a><br />
 
@@ -747,6 +799,8 @@ syntax-end -->
 
     <a href="#truncate_value" >TRUNCATE_VALUE</a><br />
 
+    <a href="#unnest" >UNNEST</a><br />
+
     <a href="#user" >USER</a><br />
 
     <a href="#h2version" >H2VERSION</a><br />
@@ -762,6 +816,12 @@ syntax-end -->
                 <a href="#array_length" >ARRAY_LENGTH</a><br />
             
                 <a href="#array_contains" >ARRAY_CONTAINS</a><br />
+            
+                <a href="#array_cat" >ARRAY_CAT</a><br />
+            
+                <a href="#array_append" >ARRAY_APPEND</a><br />
+            
+                <a href="#array_slice" >ARRAY_SLICE</a><br />
             
                 <a href="#autocommit" >AUTOCOMMIT</a><br />
             
@@ -782,15 +842,17 @@ syntax-end -->
                 <a href="#csvwrite" >CSVWRITE</a><br />
             
                 <a href="#database" >DATABASE</a><br />
+                    </td><td class="index">
             
                 <a href="#database_path" >DATABASE_PATH</a><br />
-                    </td><td class="index">
             
                 <a href="#decode" >DECODE</a><br />
             
                 <a href="#disk_space_used" >DISK_SPACE_USED</a><br />
             
                 <a href="#signal" >SIGNAL</a><br />
+            
+                <a href="#estimated_envelope" >ESTIMATED_ENVELOPE</a><br />
             
                 <a href="#file_read" >FILE_READ</a><br />
             
@@ -839,9 +901,75 @@ syntax-end -->
             
                 <a href="#truncate_value" >TRUNCATE_VALUE</a><br />
             
+                <a href="#unnest" >UNNEST</a><br />
+            
                 <a href="#user" >USER</a><br />
             
                 <a href="#h2version" >H2VERSION</a><br />
+                    </td>
+    </tr>
+</table>
+<!-- railroad-end -->
+
+<h3>Window Functions</h3>
+<!-- syntax-start
+<p class="notranslate">
+
+    <a href="#row_number" >ROW_NUMBER</a><br />
+
+    <a href="#rank" >RANK</a><br />
+
+    <a href="#dense_rank" >DENSE_RANK</a><br />
+
+    <a href="#percent_rank" >PERCENT_RANK</a><br />
+
+    <a href="#cume_dist" >CUME_DIST</a><br />
+
+    <a href="#ntile" >NTILE</a><br />
+
+    <a href="#lead" >LEAD</a><br />
+
+    <a href="#lag" >LAG</a><br />
+
+    <a href="#first_value" >FIRST_VALUE</a><br />
+
+    <a href="#last_value" >LAST_VALUE</a><br />
+
+    <a href="#nth_value" >NTH_VALUE</a><br />
+
+    <a href="#ratio_to_report" >RATIO_TO_REPORT</a><br />
+</p>
+syntax-end -->
+<!-- railroad-start -->
+<table class="notranslate index">
+    <tr>
+        <td class="index">
+            
+                <a href="#row_number" >ROW_NUMBER</a><br />
+            
+                <a href="#rank" >RANK</a><br />
+            
+                <a href="#dense_rank" >DENSE_RANK</a><br />
+            
+                <a href="#percent_rank" >PERCENT_RANK</a><br />
+                    </td><td class="index">
+            
+                <a href="#cume_dist" >CUME_DIST</a><br />
+            
+                <a href="#ntile" >NTILE</a><br />
+            
+                <a href="#lead" >LEAD</a><br />
+            
+                <a href="#lag" >LAG</a><br />
+                    </td><td class="index">
+            
+                <a href="#first_value" >FIRST_VALUE</a><br />
+            
+                <a href="#last_value" >LAST_VALUE</a><br />
+            
+                <a href="#nth_value" >NTH_VALUE</a><br />
+            
+                <a href="#ratio_to_report" >RATIO_TO_REPORT</a><br />
                     </td>
     </tr>
 </table>
@@ -857,15 +985,17 @@ syntax-end -->
 <h3 id="avg" class="notranslate" onclick="switchBnf(this)">AVG</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-AVG ( [ DISTINCT ] { <a href="grammar.html#numeric">numeric</a> } ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+AVG ( [ DISTINCT|ALL ] { <a href="grammar.html#numeric">numeric</a> } )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">AVG (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">AVG (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-AVG ( [ DISTINCT ] { <a href="grammar.html#numeric">numeric</a> } ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+AVG ( [ DISTINCT|ALL ] { <a href="grammar.html#numeric">numeric</a> } )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The average (mean) value. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements. The returned value is of the same data type as the parameter.</p>
@@ -875,15 +1005,17 @@ syntax-end -->
 <h3 id="bit_and" class="notranslate" onclick="switchBnf(this)">BIT_AND</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-BIT_AND(<a href="grammar.html#expression">expression</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+BIT_AND(<a href="grammar.html#expression">expression</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">BIT_AND ( <a href="grammar.html#expression">expression</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">BIT_AND ( <a href="grammar.html#expression">expression</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-BIT_AND(<a href="grammar.html#expression">expression</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+BIT_AND(<a href="grammar.html#expression">expression</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The bitwise <code>AND</code> of all non-null values. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
@@ -893,131 +1025,147 @@ syntax-end -->
 <h3 id="bit_or" class="notranslate" onclick="switchBnf(this)">BIT_OR</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-BIT_OR(<a href="grammar.html#expression">expression</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+BIT_OR(<a href="grammar.html#expression">expression</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">BIT_OR ( <a href="grammar.html#expression">expression</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">BIT_OR ( <a href="grammar.html#expression">expression</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-BIT_OR(<a href="grammar.html#expression">expression</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+BIT_OR(<a href="grammar.html#expression">expression</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The bitwise <code>OR</code> of all non-null values. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
 <p>Example:</p>
 <p class="notranslate">BIT_OR(ID)</p>
 
-<h3 id="bool_and" class="notranslate" onclick="switchBnf(this)">BOOL_AND</h3>
+<h3 id="every" class="notranslate" onclick="switchBnf(this)">EVERY</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-BOOL_AND(<a href="grammar.html#boolean">boolean</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+{EVERY|BOOL_AND}(<a href="grammar.html#boolean">boolean</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">BOOL_AND ( <a href="grammar.html#boolean">boolean</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">EVERY</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">BOOL_AND</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">( <a href="grammar.html#boolean">boolean</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-BOOL_AND(<a href="grammar.html#boolean">boolean</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+{EVERY|BOOL_AND}(<a href="grammar.html#boolean">boolean</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>Returns true if all expressions are true. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
 <p>Example:</p>
-<p class="notranslate">BOOL_AND(ID&gt;10)</p>
+<p class="notranslate">EVERY(ID&gt;10)</p>
 
-<h3 id="bool_or" class="notranslate" onclick="switchBnf(this)">BOOL_OR</h3>
+<h3 id="any" class="notranslate" onclick="switchBnf(this)">ANY</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-BOOL_OR(<a href="grammar.html#boolean">boolean</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+{ANY|SOME|BOOL_OR}(<a href="grammar.html#boolean">boolean</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">BOOL_OR ( <a href="grammar.html#boolean">boolean</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ANY</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">SOME</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">BOOL_OR</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">( <a href="grammar.html#boolean">boolean</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-BOOL_OR(<a href="grammar.html#boolean">boolean</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+{ANY|SOME|BOOL_OR}(<a href="grammar.html#boolean">boolean</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
-<p>Returns true if any expression is true. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
+<p>Returns true if any expression is true. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p><p>Note that if <code>ANY</code> or <code>SOME</code> aggregate function is placed on the right side of comparison operation and argument of this function is a subquery additional parentheses around aggregate function are required, otherwise it will be parsed as quantified comparison predicate.</p>
 <p>Example:</p>
-<p class="notranslate">BOOL_OR(NAME LIKE &#39;W%&#39;)</p>
+<p class="notranslate">ANY(NAME LIKE &#39;W%&#39;)<br />A = (ANY((SELECT B FROM T)))</p>
 
 <h3 id="count" class="notranslate" onclick="switchBnf(this)">COUNT</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-COUNT( { * | { [ DISTINCT ] <a href="grammar.html#expression">expression</a> } } ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+COUNT( { * | { [ DISTINCT|ALL ] <a href="grammar.html#expression">expression</a> } } )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">COUNT (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">*</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#expression">expression</a></code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">COUNT (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">*</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#expression">expression</a></code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-COUNT( { * | { [ DISTINCT ] <a href="grammar.html#expression">expression</a> } } ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+COUNT( { * | { [ DISTINCT|ALL ] <a href="grammar.html#expression">expression</a> } } )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The count of all row, or of the non-null values. This method returns a long. If no rows are selected, the result is 0. Aggregates are only allowed in select statements.</p>
 <p>Example:</p>
 <p class="notranslate">COUNT(*)</p>
 
-<h3 id="group_concat" class="notranslate" onclick="switchBnf(this)">GROUP_CONCAT</h3>
+<h3 id="listagg" class="notranslate" onclick="switchBnf(this)">LISTAGG</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-GROUP_CONCAT ( [ DISTINCT ] <a href="grammar.html#string">string</a>
+{ LISTAGG ( [ DISTINCT|ALL ] <a href="grammar.html#string">string</a> [, <a href="grammar.html#string">separatorString</a>] [ ON OVERFLOW ERROR ] )
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a> }
+| { GROUP_CONCAT ( [ DISTINCT|ALL ] <a href="grammar.html#string">string</a>
 [ ORDER BY { <a href="grammar.html#expression">expression</a> [ ASC | DESC ] } [,...] ]
-[ SEPARATOR <a href="grammar.html#expression">expression</a> ] ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+[ SEPARATOR <a href="grammar.html#string">separatorString</a> ] ) }
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">GROUP_CONCAT (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#string">string</a></code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">ORDER BY <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ASC</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DESC</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">SEPARATOR <a href="grammar.html#expression">expression</a></code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">LISTAGG (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#string">string</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#string">separatorString</a></code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">ON OVERFLOW ERROR</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">) <a href="grammar.html#within_group_specification">withinGroupSpecification</a></code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><code class="c">| GROUP_CONCAT (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#string">string</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">ORDER BY <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ASC</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DESC</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">SEPARATOR <a href="grammar.html#string">separatorString</a></code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-GROUP_CONCAT ( [ DISTINCT ] <a href="grammar.html#string">string</a>
+{ LISTAGG ( [ DISTINCT|ALL ] <a href="grammar.html#string">string</a> [, <a href="grammar.html#string">separatorString</a>] [ ON OVERFLOW ERROR ] )
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a> }
+| { GROUP_CONCAT ( [ DISTINCT|ALL ] <a href="grammar.html#string">string</a>
 [ ORDER BY { <a href="grammar.html#expression">expression</a> [ ASC | DESC ] } [,...] ]
-[ SEPARATOR <a href="grammar.html#expression">expression</a> ] ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+[ SEPARATOR <a href="grammar.html#string">separatorString</a> ] ) }
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
-<p>Concatenates strings with a separator. The default separator is a &#39;,&#39; (without space). This method returns a string. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
+<p>Concatenates strings with a separator. Separator must be the same for all rows in the same group. The default separator is a &#39;,&#39; (without space). This method returns a string. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
 <p>Example:</p>
-<p class="notranslate">GROUP_CONCAT(NAME ORDER BY ID SEPARATOR &#39;, &#39;)</p>
+<p class="notranslate">LISTAGG(NAME, &#39;, &#39;) WITHIN GROUP (ORDER BY ID)<br />LISTAGG(ID, &#39;, &#39;) WITHIN GROUP (ORDER BY ID) OVER (ORDER BY ID)</p>
 
 <h3 id="array_agg" class="notranslate" onclick="switchBnf(this)">ARRAY_AGG</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-ARRAY_AGG ( [ DISTINCT ] <a href="grammar.html#string">string</a>
+ARRAY_AGG ( [ DISTINCT|ALL ] <a href="grammar.html#string">string</a>
 [ ORDER BY { <a href="grammar.html#expression">expression</a> [ ASC | DESC ] } [,...] ] )
-[ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ARRAY_AGG (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#string">string</a></code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">ORDER BY <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ASC</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DESC</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ARRAY_AGG (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#string">string</a></code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">ORDER BY <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ASC</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DESC</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-ARRAY_AGG ( [ DISTINCT ] <a href="grammar.html#string">string</a>
+ARRAY_AGG ( [ DISTINCT|ALL ] <a href="grammar.html#string">string</a>
 [ ORDER BY { <a href="grammar.html#expression">expression</a> [ ASC | DESC ] } [,...] ] )
-[ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
-<p>Aggregate the value into an array. This method returns an array. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
+<p>Aggregate the value into an array. This method returns an array. If no rows are selected, the result is <code>NULL</code>. If <code>ORDER BY</code> is not specified order of values is not determined. When this aggregate is used with <code>OVER</code> clause that contains <code>ORDER BY</code> subclause it does not enforce exact order of values. This aggregate needs additional own <code>ORDER BY</code> clause to make it deterministic. Aggregates are only allowed in select statements.</p>
 <p>Example:</p>
-<p class="notranslate">ARRAY_AGG(NAME ORDER BY ID)</p>
+<p class="notranslate">ARRAY_AGG(NAME ORDER BY ID)<br />ARRAY_AGG(ID ORDER BY ID) OVER (ORDER BY ID)</p>
 
 <h3 id="max" class="notranslate" onclick="switchBnf(this)">MAX</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-MAX(<a href="grammar.html#value">value</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+MAX(<a href="grammar.html#value">value</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">MAX ( <a href="grammar.html#value">value</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">MAX ( <a href="grammar.html#value">value</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-MAX(<a href="grammar.html#value">value</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+MAX(<a href="grammar.html#value">value</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The highest value. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements. The returned value is of the same data type as the parameter.</p>
@@ -1027,15 +1175,17 @@ syntax-end -->
 <h3 id="min" class="notranslate" onclick="switchBnf(this)">MIN</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-MIN(<a href="grammar.html#value">value</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+MIN(<a href="grammar.html#value">value</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">MIN ( <a href="grammar.html#value">value</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">MIN ( <a href="grammar.html#value">value</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-MIN(<a href="grammar.html#value">value</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+MIN(<a href="grammar.html#value">value</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The lowest value. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements. The returned value is of the same data type as the parameter.</p>
@@ -1045,15 +1195,17 @@ syntax-end -->
 <h3 id="sum" class="notranslate" onclick="switchBnf(this)">SUM</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-SUM( [ DISTINCT ] { <a href="grammar.html#numeric">numeric</a> } ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+SUM( [ DISTINCT|ALL ] { <a href="grammar.html#numeric">numeric</a> } )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">SUM (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">SUM (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-SUM( [ DISTINCT ] { <a href="grammar.html#numeric">numeric</a> } ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+SUM( [ DISTINCT|ALL ] { <a href="grammar.html#numeric">numeric</a> } )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The sum of all values. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements. The data type of the returned value depends on the parameter data type like this: <code>BOOLEAN, TINYINT, SMALLINT, INT -&gt; BIGINT, BIGINT -&gt; DECIMAL, REAL -&gt; DOUBLE</code></p>
@@ -1063,15 +1215,17 @@ syntax-end -->
 <h3 id="selectivity" class="notranslate" onclick="switchBnf(this)">SELECTIVITY</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-SELECTIVITY(<a href="grammar.html#value">value</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+SELECTIVITY(<a href="grammar.html#value">value</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">SELECTIVITY ( <a href="grammar.html#value">value</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">SELECTIVITY ( <a href="grammar.html#value">value</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-SELECTIVITY(<a href="grammar.html#value">value</a>) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+SELECTIVITY(<a href="grammar.html#value">value</a>)
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>Estimates the selectivity (0-100) of a value. The value is defined as (100 * distinctCount / rowCount). The selectivity of 0 rows is 0 (unknown). Up to 10000 values are kept in memory. Aggregates are only allowed in select statements.</p>
@@ -1081,15 +1235,17 @@ syntax-end -->
 <h3 id="stddev_pop" class="notranslate" onclick="switchBnf(this)">STDDEV_POP</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-STDDEV_POP( [ DISTINCT ] <a href="grammar.html#numeric">numeric</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+STDDEV_POP( [ DISTINCT|ALL ] <a href="grammar.html#numeric">numeric</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">STDDEV_POP (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">STDDEV_POP (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-STDDEV_POP( [ DISTINCT ] <a href="grammar.html#numeric">numeric</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+STDDEV_POP( [ DISTINCT|ALL ] <a href="grammar.html#numeric">numeric</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The population standard deviation. This method returns a double. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
@@ -1099,15 +1255,17 @@ syntax-end -->
 <h3 id="stddev_samp" class="notranslate" onclick="switchBnf(this)">STDDEV_SAMP</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-STDDEV_SAMP( [ DISTINCT ] <a href="grammar.html#numeric">numeric</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+STDDEV_SAMP( [ DISTINCT|ALL ] <a href="grammar.html#numeric">numeric</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">STDDEV_SAMP (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">STDDEV_SAMP (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-STDDEV_SAMP( [ DISTINCT ] <a href="grammar.html#numeric">numeric</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+STDDEV_SAMP( [ DISTINCT|ALL ] <a href="grammar.html#numeric">numeric</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The sample standard deviation. This method returns a double. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
@@ -1117,15 +1275,17 @@ syntax-end -->
 <h3 id="var_pop" class="notranslate" onclick="switchBnf(this)">VAR_POP</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-VAR_POP( [ DISTINCT ] <a href="grammar.html#numeric">numeric</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+VAR_POP( [ DISTINCT|ALL ] <a href="grammar.html#numeric">numeric</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">VAR_POP (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">VAR_POP (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-VAR_POP( [ DISTINCT ] <a href="grammar.html#numeric">numeric</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+VAR_POP( [ DISTINCT|ALL ] <a href="grammar.html#numeric">numeric</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The population variance (square of the population standard deviation). This method returns a double. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
@@ -1135,58 +1295,232 @@ syntax-end -->
 <h3 id="var_samp" class="notranslate" onclick="switchBnf(this)">VAR_SAMP</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-VAR_SAMP( [ DISTINCT ] <a href="grammar.html#numeric">numeric</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+VAR_SAMP( [ DISTINCT|ALL ] <a href="grammar.html#numeric">numeric</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">VAR_SAMP (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">VAR_SAMP (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-VAR_SAMP( [ DISTINCT ] <a href="grammar.html#numeric">numeric</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+VAR_SAMP( [ DISTINCT|ALL ] <a href="grammar.html#numeric">numeric</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
 <p>The sample variance (square of the sample standard deviation). This method returns a double. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
 <p>Example:</p>
 <p class="notranslate">VAR_SAMP(X)</p>
 
-<h3 id="median" class="notranslate" onclick="switchBnf(this)">MEDIAN</h3>
+<h3 id="rank_aggregate" class="notranslate" onclick="switchBnf(this)">RANK aggregate</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-MEDIAN( [ DISTINCT ] <a href="grammar.html#value">value</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+RANK(<a href="grammar.html#value">value</a> [,...])
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a>
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">MEDIAN (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#value">value</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">RANK ( <a href="grammar.html#value">value</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><code class="c"><a href="grammar.html#within_group_specification">withinGroupSpecification</a></code><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-MEDIAN( [ DISTINCT ] <a href="grammar.html#value">value</a> ) [ FILTER ( WHERE <a href="grammar.html#expression">expression</a> ) ]
+RANK(<a href="grammar.html#value">value</a> [,...])
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a>
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
 </pre>
 syntax-end -->
-<p>The value separating the higher half of a values from the lower half. Returns the middle value or an interpolated value between two middle values if number of values is even. Interpolation is only supported for numeric, date, and time data types. <code>NULL</code> values are ignored in the calculation. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
+<p>Returns the rank of the hypothetical row in specified collection of rows. The rank of a row is the number of rows that precede this row plus 1. If two or more rows have the same values in <code>ORDER BY</code> columns, these rows get the same rank from the first row with the same values. It means that gaps in ranks are possible.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT RANK(5) WITHIN GROUP (ORDER BY V) FROM TEST;</p>
+
+<h3 id="dense_rank_aggregate" class="notranslate" onclick="switchBnf(this)">DENSE_RANK aggregate</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+DENSE_RANK(<a href="grammar.html#value">value</a> [,...])
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a>
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">DENSE_RANK ( <a href="grammar.html#value">value</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><code class="c"><a href="grammar.html#within_group_specification">withinGroupSpecification</a></code><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+DENSE_RANK(<a href="grammar.html#value">value</a> [,...])
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a>
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+syntax-end -->
+<p>Returns the dense rank of the hypothetical row in specified collection of rows. The rank of a row is the number of groups of rows with the same values in <code>ORDER BY</code> columns that precede group with this row plus 1. If two or more rows have the same values in <code>ORDER BY</code> columns, these rows get the same rank. Gaps in ranks are not possible.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT DENSE_RANK(5) WITHIN GROUP (ORDER BY V) FROM TEST;</p>
+
+<h3 id="percent_rank_aggregate" class="notranslate" onclick="switchBnf(this)">PERCENT_RANK aggregate</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+PERCENT_RANK(<a href="grammar.html#value">value</a> [,...])
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a>
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">PERCENT_RANK ( <a href="grammar.html#value">value</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><code class="c"><a href="grammar.html#within_group_specification">withinGroupSpecification</a></code><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+PERCENT_RANK(<a href="grammar.html#value">value</a> [,...])
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a>
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+syntax-end -->
+<p>Returns the relative rank of the hypothetical row in specified collection of rows. The relative rank is calculated as (<code>RANK</code> - 1) / (<code>NR</code> - 1), where <code>RANK</code> is a rank of the row and <code>NR</code> is a total number of rows in the collection including hypothetical row.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT PERCENT_RANK(5) WITHIN GROUP (ORDER BY V) FROM TEST;</p>
+
+<h3 id="cume_dist_aggregate" class="notranslate" onclick="switchBnf(this)">CUME_DIST aggregate</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+CUME_DIST(<a href="grammar.html#value">value</a> [,...])
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a>
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">CUME_DIST ( <a href="grammar.html#value">value</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><code class="c"><a href="grammar.html#within_group_specification">withinGroupSpecification</a></code><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+CUME_DIST(<a href="grammar.html#value">value</a> [,...])
+<a href="grammar.html#within_group_specification">withinGroupSpecification</a>
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+syntax-end -->
+<p>Returns the relative rank of the hypothetical row in specified collection of rows. The relative rank is calculated as <code>NP</code> / <code>NR</code> where <code>NP</code> is a number of rows that precede the current row or have the same values in <code>ORDER BY</code> columns and <code>NR</code> is a total number of rows in the collection including hypothetical row.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT CUME_DIST(5) WITHIN GROUP (ORDER BY V) FROM TEST;</p>
+
+<h3 id="percentile_cont" class="notranslate" onclick="switchBnf(this)">PERCENTILE_CONT</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+PERCENTILE_CONT(<a href="grammar.html#numeric">numeric</a>) WITHIN GROUP (ORDER BY <a href="grammar.html#value">value</a> [ASC|DESC])
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">PERCENTILE_CONT ( <a href="grammar.html#numeric">numeric</a> ) WITHIN GROUP ( ORDER BY <a href="grammar.html#value">value</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ASC</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DESC</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+PERCENTILE_CONT(<a href="grammar.html#numeric">numeric</a>) WITHIN GROUP (ORDER BY <a href="grammar.html#value">value</a> [ASC|DESC])
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+syntax-end -->
+<p>Return percentile of values from the group with interpolation. Interpolation is only supported for numeric, date-time, and interval data types. Argument must be between 0 and 1 inclusive. Argument must be the same for all rows in the same group. If argument is <code>NULL</code>, the result is <code>NULL</code>. <code>NULL</code> values are ignored in the calculation. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
+<p>Example:</p>
+<p class="notranslate">PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY V)</p>
+
+<h3 id="percentile_disc" class="notranslate" onclick="switchBnf(this)">PERCENTILE_DISC</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+PERCENTILE_DISC(<a href="grammar.html#numeric">numeric</a>) WITHIN GROUP (ORDER BY <a href="grammar.html#value">value</a> [ASC|DESC])
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">PERCENTILE_DISC ( <a href="grammar.html#numeric">numeric</a> ) WITHIN GROUP ( ORDER BY <a href="grammar.html#value">value</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ASC</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DESC</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+PERCENTILE_DISC(<a href="grammar.html#numeric">numeric</a>) WITHIN GROUP (ORDER BY <a href="grammar.html#value">value</a> [ASC|DESC])
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+syntax-end -->
+<p>Return percentile of values from the group. Interpolation is not performed. Argument must be between 0 and 1 inclusive. Argument must be the same for all rows in the same group. If argument is <code>NULL</code>, the result is <code>NULL</code>. <code>NULL</code> values are ignored in the calculation. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
+<p>Example:</p>
+<p class="notranslate">PERCENTILE_DISC(0.5) WITHIN GROUP (ORDER BY V)</p>
+
+<h3 id="median" class="notranslate" onclick="switchBnf(this)">MEDIAN</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+MEDIAN( [ DISTINCT|ALL ] <a href="grammar.html#value">value</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">MEDIAN (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">DISTINCT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ALL</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#value">value</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+MEDIAN( [ DISTINCT|ALL ] <a href="grammar.html#value">value</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+syntax-end -->
+<p>The value separating the higher half of a values from the lower half. Returns the middle value or an interpolated value between two middle values if number of values is even. Interpolation is only supported for numeric, date-time, and interval data types. <code>NULL</code> values are ignored in the calculation. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
 <p>Example:</p>
 <p class="notranslate">MEDIAN(X)</p>
+
+<h3 id="mode" class="notranslate" onclick="switchBnf(this)">MODE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+{ MODE( <a href="grammar.html#value">value</a> ) [ ORDER BY <a href="grammar.html#expression">expression</a> [ ASC | DESC ] ] }
+| { MODE() WITHIN GROUP (ORDER BY <a href="grammar.html#expression">expression</a> [ ASC | DESC ]) }
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">MODE ( <a href="grammar.html#value">value</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">ORDER BY <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ASC</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DESC</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">MODE ( ) WITHIN GROUP ( ORDER BY <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">ASC</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">DESC</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+{ MODE( <a href="grammar.html#value">value</a> ) [ ORDER BY <a href="grammar.html#expression">expression</a> [ ASC | DESC ] ] }
+| { MODE() WITHIN GROUP (ORDER BY <a href="grammar.html#expression">expression</a> [ ASC | DESC ]) }
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+syntax-end -->
+<p>Returns the value that occurs with the greatest frequency. If there are multiple values with the same frequency only one value will be returned. In this situation value will be chosen based on optional <code>ORDER BY</code> clause that should specify exactly the same expression as argument of this function. Use ascending order to get smallest value or descending order to get largest value from multiple values with the same frequency. If this clause is not specified the exact chosen value is not determined in this situation. <code>NULL</code> values are ignored in the calculation. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
+<p>Example:</p>
+<p class="notranslate">MODE(X)<br />MODE(X ORDER BY X)<br />MODE() WITHIN GROUP (ORDER BY X)</p>
+
+<h3 id="envelope" class="notranslate" onclick="switchBnf(this)">ENVELOPE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+ENVELOPE( <a href="grammar.html#value">value</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ENVELOPE ( <a href="grammar.html#value">value</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FILTER ( WHERE <a href="grammar.html#expression">expression</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+ENVELOPE( <a href="grammar.html#value">value</a> )
+[FILTER (WHERE <a href="grammar.html#expression">expression</a>)] [OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>]
+</pre>
+syntax-end -->
+<p>Returns the minimum bounding box that encloses all specified <code>GEOMETRY</code> values. Only 2D coordinate plane is supported. <code>NULL</code> values are ignored in the calculation. If no rows are selected, the result is <code>NULL</code>. Aggregates are only allowed in select statements.</p>
+<p>Example:</p>
+<p class="notranslate">ENVELOPE(X)</p>
 
 <h2>Numeric Functions</h2>
 
 <h3 id="abs" class="notranslate" onclick="switchBnf(this)">ABS</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-ABS ( { <a href="grammar.html#numeric">numeric</a> } )
+ABS( { <a href="grammar.html#numeric">numeric</a> | <a href="grammar.html#interval">interval</a> } )
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ABS ( <a href="grammar.html#numeric">numeric</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ABS (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a></code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#interval">interval</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-ABS ( { <a href="grammar.html#numeric">numeric</a> } )
+ABS( { <a href="grammar.html#numeric">numeric</a> | <a href="grammar.html#interval">interval</a> } )
 </pre>
 syntax-end -->
-<p>See also Java <code>Math.abs</code>. Please note that <code>Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE</code> and <code>Math.abs(Long.MIN_VALUE) == Long.MIN_VALUE</code>. The returned value is of the same data type as the parameter.</p>
+<p>Returns the absolute value of a specified value. The returned value is of the same data type as the parameter.</p><p>Note that <code>TINYINT, SMALLINT, INT</code>, and <code>BIGINT</code> data types cannot represent absolute values of their minimum negative values, because they have more negative values than positive. For example, for <code>INT</code> data type allowed values are from -2147483648 to 2147483647. <code>ABS</code>(-2147483648) should be 2147483648, but this value is not allowed for this data type. It leads to an exception. To avoid it cast argument of this function to a higher data type.</p>
 <p>Example:</p>
-<p class="notranslate">ABS(ID)</p>
+<p class="notranslate">ABS(VALUE)<br />ABS(CAST(VALUE AS BIGINT))</p>
 
 <h3 id="acos" class="notranslate" onclick="switchBnf(this)">ACOS</h3>
 <!-- railroad-start -->
@@ -1548,23 +1882,23 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">FLOOR(A)</p>
 
-<h3 id="log" class="notranslate" onclick="switchBnf(this)">LOG</h3>
+<h3 id="ln" class="notranslate" onclick="switchBnf(this)">LN</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ LOG | LN } (<a href="grammar.html#numeric">numeric</a>)
+{LN|LOG}(<a href="grammar.html#numeric">numeric</a>)
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">LOG</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">LN</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">( <a href="grammar.html#numeric">numeric</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">LN</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">LOG</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">( <a href="grammar.html#numeric">numeric</a> )</code></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ LOG | LN } (<a href="grammar.html#numeric">numeric</a>)
+{LN|LOG}(<a href="grammar.html#numeric">numeric</a>)
 </pre>
 syntax-end -->
-<p>See also Java <code>Math.log</code>. In the PostgreSQL mode, <code>LOG</code>(x) is base 10. This method returns a double.</p>
+<p>Calculates the natural (base e) logarithm as a double value. In the PostgreSQL mode, <code>LOG</code>(x) is base 10. See also Java <code>Math.log</code>.</p>
 <p>Example:</p>
-<p class="notranslate">LOG(A)</p>
+<p class="notranslate">LN(A)</p>
 
 <h3 id="log10" class="notranslate" onclick="switchBnf(this)">LOG10</h3>
 <!-- railroad-start -->
@@ -1580,9 +1914,27 @@ LOG10(<a href="grammar.html#numeric">numeric</a>)
 LOG10(<a href="grammar.html#numeric">numeric</a>)
 </pre>
 syntax-end -->
-<p>See also Java <code>Math.log10</code>. This method returns a double.</p>
+<p>Calculates the base 10 logarithm as a double value. See also Java <code>Math.log10</code>.</p>
 <p>Example:</p>
 <p class="notranslate">LOG10(A)</p>
+
+<h3 id="ora_hash" class="notranslate" onclick="switchBnf(this)">ORA_HASH</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+ORA_HASH(<a href="grammar.html#expression">expression</a> [, <a href="grammar.html#long">bucketLong</a> [, <a href="grammar.html#long">seedLong</a>]])
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ORA_HASH ( <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#long">bucketLong</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#long">seedLong</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+ORA_HASH(<a href="grammar.html#expression">expression</a> [, <a href="grammar.html#long">bucketLong</a> [, <a href="grammar.html#long">seedLong</a>]])
+</pre>
+syntax-end -->
+<p>Computes a hash value. Optional bucket argument determines the maximum returned value. This argument should be between 0 and 4294967295, default is 4294967295. Optional seed argument is combined with the given expression to return the different values for the same expression. This argument should be between 0 and 4294967295, default is 0. This method returns a long value between 0 and the specified or default bucket value inclusive.</p>
+<p>Example:</p>
+<p class="notranslate">ORA_HASH(A)</p>
 
 <h3 id="radians" class="notranslate" onclick="switchBnf(this)">RADIANS</h3>
 <!-- railroad-start -->
@@ -1724,7 +2076,7 @@ ROUNDMAGIC(<a href="grammar.html#numeric">numeric</a>)
 ROUNDMAGIC(<a href="grammar.html#numeric">numeric</a>)
 </pre>
 syntax-end -->
-<p>This function rounds numbers in a good way, but it is slow. It has a special handling for numbers around 0. Only numbers smaller or equal +/-1000000000000 are supported. The value is converted to a String internally, and then the last last 4 characters are checked. &#39;000x&#39; becomes &#39;0000&#39; and &#39;999x&#39; becomes &#39;999999&#39;, which is rounded automatically. This method returns a double.</p>
+<p>This function rounds numbers in a good way, but it is slow. It has a special handling for numbers around 0. Only numbers smaller or equal +/-1000000000000 are supported. The value is converted to a String internally, and then the last 4 characters are checked. &#39;000x&#39; becomes &#39;0000&#39; and &#39;999x&#39; becomes &#39;999999&#39;, which is rounded automatically. This method returns a double.</p>
 <p>Example:</p>
 <p class="notranslate">ROUNDMAGIC(VALUE/3*3)</p>
 
@@ -1749,18 +2101,18 @@ syntax-end -->
 <h3 id="sign" class="notranslate" onclick="switchBnf(this)">SIGN</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-SIGN ( { <a href="grammar.html#numeric">numeric</a> } )
+SIGN( { <a href="grammar.html#numeric">numeric</a> | <a href="grammar.html#interval">interval</a> } )
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">SIGN ( <a href="grammar.html#numeric">numeric</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">SIGN (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c"><a href="grammar.html#numeric">numeric</a></code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#interval">interval</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-SIGN ( { <a href="grammar.html#numeric">numeric</a> } )
+SIGN( { <a href="grammar.html#numeric">numeric</a> | <a href="grammar.html#interval">interval</a> } )
 </pre>
 syntax-end -->
-<p>Returns -1 if the value is smaller 0, 0 if zero, and otherwise 1.</p>
+<p>Returns -1 if the value is smaller than 0, 0 if zero, and otherwise 1.</p>
 <p>Example:</p>
 <p class="notranslate">SIGN(VALUE)</p>
 
@@ -1803,15 +2155,15 @@ syntax-end -->
 <h3 id="hash" class="notranslate" onclick="switchBnf(this)">HASH</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-HASH(<a href="grammar.html#string">algorithmString</a>, <a href="grammar.html#bytes">dataBytes</a>, <a href="grammar.html#int">iterationInt</a>)
+HASH(<a href="grammar.html#string">algorithmString</a>, <a href="grammar.html#expression">expression</a> [, <a href="grammar.html#int">iterationInt</a>])
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">HASH ( <a href="grammar.html#string">algorithmString</a> , <a href="grammar.html#bytes">dataBytes</a> , <a href="grammar.html#int">iterationInt</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">HASH ( <a href="grammar.html#string">algorithmString</a> , <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#int">iterationInt</a></code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-HASH(<a href="grammar.html#string">algorithmString</a>, <a href="grammar.html#bytes">dataBytes</a>, <a href="grammar.html#int">iterationInt</a>)
+HASH(<a href="grammar.html#string">algorithmString</a>, <a href="grammar.html#expression">expression</a> [, <a href="grammar.html#int">iterationInt</a>])
 </pre>
 syntax-end -->
 <p>Calculate the hash value using an algorithm, and repeat this process for a number of iterations. Currently, the only algorithm supported is <code>SHA256</code>. This method returns bytes.</p>
@@ -2034,7 +2386,7 @@ DIFFERENCE(<a href="grammar.html#string">string</a>, <a href="grammar.html#strin
 DIFFERENCE(<a href="grammar.html#string">string</a>, <a href="grammar.html#string">string</a>)
 </pre>
 syntax-end -->
-<p>Returns the difference between the sounds of two strings. This method returns an int.</p>
+<p>Returns the difference between the sounds of two strings. The difference is calculated as a number of matched characters in the same positions in <code>SOUNDEX</code> representations of arguments. This method returns an int between 0 and 4 inclusive, or null if any of its parameters is null. Note that value of 0 means that strings are not similar to each other. Value of 4 means that strings are fully similar to each other (have the same <code>SOUNDEX</code> representation).</p>
 <p>Example:</p>
 <p class="notranslate">DIFFERENCE(T1.NAME, T2.NAME)</p>
 
@@ -2293,15 +2645,15 @@ syntax-end -->
 <h3 id="trim" class="notranslate" onclick="switchBnf(this)">TRIM</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-TRIM ( [ { LEADING | TRAILING | BOTH } [ <a href="grammar.html#string">string</a> ] FROM ] <a href="grammar.html#string">string</a> )
+TRIM ( [ [ LEADING | TRAILING | BOTH ] [ <a href="grammar.html#string">string</a> ] FROM ] <a href="grammar.html#string">string</a> )
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">TRIM (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">LEADING</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">TRAILING</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">BOTH</code></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#string">string</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">FROM</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#string">string</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">TRIM (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">LEADING</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">TRAILING</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">BOTH</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#string">string</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">FROM</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c"><a href="grammar.html#string">string</a> )</code></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-TRIM ( [ { LEADING | TRAILING | BOTH } [ <a href="grammar.html#string">string</a> ] FROM ] <a href="grammar.html#string">string</a> )
+TRIM ( [ [ LEADING | TRAILING | BOTH ] [ <a href="grammar.html#string">string</a> ] FROM ] <a href="grammar.html#string">string</a> )
 </pre>
 syntax-end -->
 <p>Removes all leading spaces, trailing spaces, or spaces at both ends, from a string. Other characters can be removed as well.</p>
@@ -2394,7 +2746,7 @@ SOUNDEX(<a href="grammar.html#string">string</a>)
 SOUNDEX(<a href="grammar.html#string">string</a>)
 </pre>
 syntax-end -->
-<p>Returns a four character code representing the sound of a string. See also http://www.archives.gov/genealogy/census/soundex.html . This method returns a string.</p>
+<p>Returns a four character code representing the sound of a string. This method returns a string, or null if parameter is null. See <a href="https://en.wikipedia.org/wiki/Soundex">https://en.wikipedia.org/wiki/Soundex</a> for more information.</p>
 <p>Example:</p>
 <p class="notranslate">SOUNDEX(NAME)</p>
 
@@ -2655,56 +3007,92 @@ syntax-end -->
 <h3 id="current_date" class="notranslate" onclick="switchBnf(this)">CURRENT_DATE</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ CURRENT_DATE [ () ] | CURDATE() | SYSDATE | TODAY }
+{ CURRENT_DATE | CURDATE() | SYSDATE | TODAY }
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURRENT_DATE</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURDATE ( )</code></td></tr></table></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">SYSDATE</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">TODAY</code></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">CURRENT_DATE</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURDATE ( )</code></td></tr></table></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">SYSDATE</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">TODAY</code></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ CURRENT_DATE [ () ] | CURDATE() | SYSDATE | TODAY }
+{ CURRENT_DATE | CURDATE() | SYSDATE | TODAY }
 </pre>
 syntax-end -->
-<p>Returns the current date. This method always returns the same value within a transaction.</p>
+<p>Returns the current date. These methods always return the same value within a transaction (default) or within a command depending on database mode.</p>
 <p>Example:</p>
-<p class="notranslate">CURRENT_DATE()</p>
+<p class="notranslate">CURRENT_DATE</p>
 
 <h3 id="current_time" class="notranslate" onclick="switchBnf(this)">CURRENT_TIME</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ CURRENT_TIME [ () ] | CURTIME() }
+CURRENT_TIME [ (<a href="grammar.html#int">int</a>) ]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURRENT_TIME</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURTIME ( )</code></td></tr></table></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURRENT_TIME</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">int</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ CURRENT_TIME [ () ] | CURTIME() }
+CURRENT_TIME [ (<a href="grammar.html#int">int</a>) ]
 </pre>
 syntax-end -->
-<p>Returns the current time. This method always returns the same value within a transaction.</p>
+<p>Returns the current time. The returned value does not have time zone information, because <code>TIME WITH TIME ZONE</code> data type is not supported in H2. If fractional seconds precision is specified it should be from 0 to 9, 0 is default. The specified value can be used only to limit precision of a result. The actual maximum available precision depends on operating system and <code>JVM</code> and can be 3 (milliseconds) or higher. Higher precision is not available before Java 9. These methods always return the same value within a transaction (default) or within a command depending on database mode.</p>
 <p>Example:</p>
-<p class="notranslate">CURRENT_TIME()</p>
+<p class="notranslate">CURRENT_TIME<br />CURRENT_TIME(9)</p>
 
 <h3 id="current_timestamp" class="notranslate" onclick="switchBnf(this)">CURRENT_TIMESTAMP</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ CURRENT_TIMESTAMP [ ( [ <a href="grammar.html#int">int</a> ] ) ] | NOW( [ <a href="grammar.html#int">int</a> ] ) }
+CURRENT_TIMESTAMP [ (<a href="grammar.html#int">int</a>) ]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURRENT_TIMESTAMP</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">(</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#int">int</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">NOW (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#int">int</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURRENT_TIMESTAMP</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">int</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ CURRENT_TIMESTAMP [ ( [ <a href="grammar.html#int">int</a> ] ) ] | NOW( [ <a href="grammar.html#int">int</a> ] ) }
+CURRENT_TIMESTAMP [ (<a href="grammar.html#int">int</a>) ]
 </pre>
 syntax-end -->
-<p>Returns the current timestamp. The precision parameter for nanoseconds precision is optional. This method always returns the same value within a transaction.</p>
+<p>Returns the current timestamp with time zone. Time zone offset is set to a current time zone offset. If fractional seconds precision is specified it should be from 0 to 9, 6 is default. The specified value can be used only to limit precision of a result. The actual maximum available precision depends on operating system and <code>JVM</code> and can be 3 (milliseconds) or higher. Higher precision is not available before Java 9. This method always returns the same value within a transaction (default) or within a command depending on database mode.</p>
 <p>Example:</p>
-<p class="notranslate">CURRENT_TIMESTAMP()</p>
+<p class="notranslate">CURRENT_TIMESTAMP<br />CURRENT_TIMESTAMP(9)</p>
+
+<h3 id="localtime" class="notranslate" onclick="switchBnf(this)">LOCALTIME</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+{ LOCALTIME [ (<a href="grammar.html#int">int</a>) ] | CURTIME([ <a href="grammar.html#int">int</a> ]) }
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">LOCALTIME</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">int</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CURTIME (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#int">int</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+{ LOCALTIME [ (<a href="grammar.html#int">int</a>) ] | CURTIME([ <a href="grammar.html#int">int</a> ]) }
+</pre>
+syntax-end -->
+<p>Returns the current time. If fractional seconds precision is specified it should be from 0 to 9, 0 is default. The specified value can be used only to limit precision of a result. The actual maximum available precision depends on operating system and <code>JVM</code> and can be 3 (milliseconds) or higher. Higher precision is not available before Java 9. These methods always return the same value within a transaction (default) or within a command depending on database mode.</p>
+<p>Example:</p>
+<p class="notranslate">LOCALTIME<br />LOCALTIME(9)</p>
+
+<h3 id="localtimestamp" class="notranslate" onclick="switchBnf(this)">LOCALTIMESTAMP</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+{ LOCALTIMESTAMP [ (<a href="grammar.html#int">int</a>) ] | NOW( [ <a href="grammar.html#int">int</a> ] ) }
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">LOCALTIMESTAMP</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">int</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">NOW (</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#int">int</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+{ LOCALTIMESTAMP [ (<a href="grammar.html#int">int</a>) ] | NOW( [ <a href="grammar.html#int">int</a> ] ) }
+</pre>
+syntax-end -->
+<p>Returns the current timestamp without time zone. If fractional seconds precision is specified it should be from 0 to 9, 6 is default. The specified value can be used only to limit precision of a result. The actual maximum available precision depends on operating system and <code>JVM</code> and can be 3 (milliseconds) or higher. Higher precision is not available before Java 9. These methods always return the same value within a transaction (default) or within a command depending on database mode.</p>
+<p>Example:</p>
+<p class="notranslate">LOCALTIMESTAMP<br />LOCALTIMESTAMP(9)</p>
 
 <h3 id="dateadd" class="notranslate" onclick="switchBnf(this)">DATEADD</h3>
 <!-- railroad-start -->
@@ -2722,7 +3110,7 @@ syntax-end -->
 syntax-end -->
 <p>Adds units to a date-time value. The datetimeField indicates the unit. Use negative values to subtract units. addIntLong may be a long value when manipulating milliseconds, microseconds, or nanoseconds otherwise its range is restricted to int. This method returns a value with the same type as specified value if unit is compatible with this value. If specified field is a <code>HOUR, MINUTE, SECOND, MILLISECOND</code>, etc and value is a <code>DATE</code> value <code>DATEADD</code> returns combined <code>TIMESTAMP</code>. Fields <code>DAY, MONTH, YEAR, WEEK</code>, etc are not allowed for <code>TIME</code> values. Fields <code>TIMEZONE_HOUR</code> and <code>TIMEZONE_MINUTE</code> are only allowed for <code>TIMESTAMP WITH TIME ZONE</code> values.</p>
 <p>Example:</p>
-<p class="notranslate">DATEADD(&#39;MONTH&#39;, 1, DATE &#39;2001-01-31&#39;)</p>
+<p class="notranslate">DATEADD(MONTH, 1, DATE &#39;2001-01-31&#39;)</p>
 
 <h3 id="datediff" class="notranslate" onclick="switchBnf(this)">DATEDIFF</h3>
 <!-- railroad-start -->
@@ -2738,9 +3126,9 @@ syntax-end -->
 { DATEDIFF | TIMESTAMPDIFF } (<a href="grammar.html#datetime_field">datetimeField</a>, <a href="grammar.html#date_and_time">aDateAndTime</a>, <a href="grammar.html#date_and_time">bDateAndTime</a>)
 </pre>
 syntax-end -->
-<p>Returns the the number of crossed unit boundaries between two date/time values. This method returns a long. The datetimeField indicates the unit. Only <code>TIMEZONE_HOUR</code> and <code>TIMEZONE_MINUTE</code> fields use the time zone offset component. With all other fields if date/time values have time zone offset component it is ignored.</p>
+<p>Returns the number of crossed unit boundaries between two date/time values. This method returns a long. The datetimeField indicates the unit. Only <code>TIMEZONE_HOUR</code> and <code>TIMEZONE_MINUTE</code> fields use the time zone offset component. With all other fields if date/time values have time zone offset component it is ignored.</p>
 <p>Example:</p>
-<p class="notranslate">DATEDIFF(&#39;YEAR&#39;, T1.CREATED, T2.CREATED)</p>
+<p class="notranslate">DATEDIFF(YEAR, T1.CREATED, T2.CREATED)</p>
 
 <h3 id="dayname" class="notranslate" onclick="switchBnf(this)">DAYNAME</h3>
 <!-- railroad-start -->
@@ -2763,15 +3151,15 @@ syntax-end -->
 <h3 id="day_of_month" class="notranslate" onclick="switchBnf(this)">DAY_OF_MONTH</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-DAY_OF_MONTH(<a href="grammar.html#date_and_time">dateAndTime</a>)
+DAY_OF_MONTH(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">DAY_OF_MONTH ( <a href="grammar.html#date_and_time">dateAndTime</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">DAY_OF_MONTH ( <a href="grammar.html#date_and_time">dateAndTime</a></code></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c"><a href="grammar.html#interval">interval</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-DAY_OF_MONTH(<a href="grammar.html#date_and_time">dateAndTime</a>)
+DAY_OF_MONTH(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 syntax-end -->
 <p>Returns the day of the month (1-31).</p>
@@ -2817,15 +3205,15 @@ syntax-end -->
 <h3 id="day_of_year" class="notranslate" onclick="switchBnf(this)">DAY_OF_YEAR</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-DAY_OF_YEAR(<a href="grammar.html#date_and_time">dateAndTime</a>)
+DAY_OF_YEAR(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">DAY_OF_YEAR ( <a href="grammar.html#date_and_time">dateAndTime</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">DAY_OF_YEAR ( <a href="grammar.html#date_and_time">dateAndTime</a></code></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c"><a href="grammar.html#interval">interval</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-DAY_OF_YEAR(<a href="grammar.html#date_and_time">dateAndTime</a>)
+DAY_OF_YEAR(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 syntax-end -->
 <p>Returns the day of the year (1-366).</p>
@@ -2835,15 +3223,15 @@ syntax-end -->
 <h3 id="extract" class="notranslate" onclick="switchBnf(this)">EXTRACT</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-EXTRACT ( <a href="grammar.html#datetime_field">datetimeField</a> FROM <a href="grammar.html#date_and_time">dateAndTime</a> )
+EXTRACT ( <a href="grammar.html#datetime_field">datetimeField</a> FROM { <a href="grammar.html#date_and_time">dateAndTime</a> | <a href="grammar.html#interval">interval</a> })
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">EXTRACT ( <a href="grammar.html#datetime_field">datetimeField</a> FROM <a href="grammar.html#date_and_time">dateAndTime</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">EXTRACT ( <a href="grammar.html#datetime_field">datetimeField</a> FROM</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c"><a href="grammar.html#date_and_time">dateAndTime</a></code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#interval">interval</a></code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-EXTRACT ( <a href="grammar.html#datetime_field">datetimeField</a> FROM <a href="grammar.html#date_and_time">dateAndTime</a> )
+EXTRACT ( <a href="grammar.html#datetime_field">datetimeField</a> FROM { <a href="grammar.html#date_and_time">dateAndTime</a> | <a href="grammar.html#interval">interval</a> })
 </pre>
 syntax-end -->
 <p>Returns a value of the specific time unit from a date/time value. This method returns a numeric value with <code>EPOCH</code> field and an int for all other fields.</p>
@@ -2873,15 +3261,15 @@ syntax-end -->
 <h3 id="hour" class="notranslate" onclick="switchBnf(this)">HOUR</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-HOUR(<a href="grammar.html#date_and_time">dateAndTime</a>)
+HOUR(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">HOUR ( <a href="grammar.html#date_and_time">dateAndTime</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">HOUR ( <a href="grammar.html#date_and_time">dateAndTime</a></code></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c"><a href="grammar.html#interval">interval</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-HOUR(<a href="grammar.html#date_and_time">dateAndTime</a>)
+HOUR(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 syntax-end -->
 <p>Returns the hour (0-23) from a date/time value.</p>
@@ -2891,15 +3279,15 @@ syntax-end -->
 <h3 id="minute" class="notranslate" onclick="switchBnf(this)">MINUTE</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-MINUTE(<a href="grammar.html#date_and_time">dateAndTime</a>)
+MINUTE(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">MINUTE ( <a href="grammar.html#date_and_time">dateAndTime</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">MINUTE ( <a href="grammar.html#date_and_time">dateAndTime</a></code></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c"><a href="grammar.html#interval">interval</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-MINUTE(<a href="grammar.html#date_and_time">dateAndTime</a>)
+MINUTE(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 syntax-end -->
 <p>Returns the minute (0-59) from a date/time value.</p>
@@ -2909,15 +3297,15 @@ syntax-end -->
 <h3 id="month" class="notranslate" onclick="switchBnf(this)">MONTH</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-MONTH(<a href="grammar.html#date_and_time">dateAndTime</a>)
+MONTH(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">MONTH ( <a href="grammar.html#date_and_time">dateAndTime</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">MONTH ( <a href="grammar.html#date_and_time">dateAndTime</a></code></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c"><a href="grammar.html#interval">interval</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-MONTH(<a href="grammar.html#date_and_time">dateAndTime</a>)
+MONTH(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 syntax-end -->
 <p>Returns the month (1-12) from a date/time value.</p>
@@ -2996,7 +3384,7 @@ SECOND(<a href="grammar.html#date_and_time">dateAndTime</a>)
 syntax-end -->
 <p>Returns the second (0-59) from a date/time value.</p>
 <p>Example:</p>
-<p class="notranslate">SECOND(CREATED)</p>
+<p class="notranslate">SECOND(CREATED|interval)</p>
 
 <h3 id="week" class="notranslate" onclick="switchBnf(this)">WEEK</h3>
 <!-- railroad-start -->
@@ -3037,15 +3425,15 @@ syntax-end -->
 <h3 id="year" class="notranslate" onclick="switchBnf(this)">YEAR</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-YEAR(<a href="grammar.html#date_and_time">dateAndTime</a>)
+YEAR(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><code class="c">YEAR ( <a href="grammar.html#date_and_time">dateAndTime</a> )</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">YEAR ( <a href="grammar.html#date_and_time">dateAndTime</a></code></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c"><a href="grammar.html#interval">interval</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-YEAR(<a href="grammar.html#date_and_time">dateAndTime</a>)
+YEAR(<a href="grammar.html#date_and_time">dateAndTime</a>|<a href="grammar.html#interval">interval</a>)
 </pre>
 syntax-end -->
 <p>Returns the year from a date/time value.</p>
@@ -3086,9 +3474,9 @@ ARRAY_GET(<a href="grammar.html#expression">arrayExpression</a>, <a href="gramma
 ARRAY_GET(<a href="grammar.html#expression">arrayExpression</a>, <a href="grammar.html#expression">indexExpression</a>)
 </pre>
 syntax-end -->
-<p>Returns one element of an array. This method returns a string.</p>
+<p>Returns element at the specified 1-based index from an array. Returns <code>NULL</code> if there is no such element or array is <code>NULL</code>.</p>
 <p>Example:</p>
-<p class="notranslate">CALL ARRAY_GET((&#39;Hello&#39;, &#39;World&#39;), 2)</p>
+<p class="notranslate">CALL ARRAY_GET(ARRAY[&#39;Hello&#39;, &#39;World&#39;], 2)</p>
 
 <h3 id="array_length" class="notranslate" onclick="switchBnf(this)">ARRAY_LENGTH</h3>
 <!-- railroad-start -->
@@ -3104,9 +3492,9 @@ ARRAY_LENGTH(<a href="grammar.html#expression">arrayExpression</a>)
 ARRAY_LENGTH(<a href="grammar.html#expression">arrayExpression</a>)
 </pre>
 syntax-end -->
-<p>Returns the length of an array.</p>
+<p>Returns the length of an array. Returns <code>NULL</code> if the specified array is <code>NULL</code>.</p>
 <p>Example:</p>
-<p class="notranslate">CALL ARRAY_LENGTH((&#39;Hello&#39;, &#39;World&#39;))</p>
+<p class="notranslate">CALL ARRAY_LENGTH(ARRAY[&#39;Hello&#39;, &#39;World&#39;])</p>
 
 <h3 id="array_contains" class="notranslate" onclick="switchBnf(this)">ARRAY_CONTAINS</h3>
 <!-- railroad-start -->
@@ -3122,9 +3510,63 @@ ARRAY_CONTAINS(<a href="grammar.html#expression">arrayExpression</a>, <a href="g
 ARRAY_CONTAINS(<a href="grammar.html#expression">arrayExpression</a>, <a href="grammar.html#value">value</a>)
 </pre>
 syntax-end -->
-<p>Returns a boolean true if the array contains the value.</p>
+<p>Returns a boolean <code>TRUE</code> if the array contains the value or <code>FALSE</code> if it does not contain it. Returns <code>NULL</code> if the specified array is <code>NULL</code>.</p>
 <p>Example:</p>
-<p class="notranslate">CALL ARRAY_CONTAINS((&#39;Hello&#39;, &#39;World&#39;), &#39;Hello&#39;)</p>
+<p class="notranslate">CALL ARRAY_CONTAINS(ARRAY[&#39;Hello&#39;, &#39;World&#39;], &#39;Hello&#39;)</p>
+
+<h3 id="array_cat" class="notranslate" onclick="switchBnf(this)">ARRAY_CAT</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+ARRAY_CAT(<a href="grammar.html#expression">arrayExpression</a>, <a href="grammar.html#expression">arrayExpression</a>)
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ARRAY_CAT ( <a href="grammar.html#expression">arrayExpression</a> , <a href="grammar.html#expression">arrayExpression</a> )</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+ARRAY_CAT(<a href="grammar.html#expression">arrayExpression</a>, <a href="grammar.html#expression">arrayExpression</a>)
+</pre>
+syntax-end -->
+<p>Returns the concatenation of two arrays. Returns <code>NULL</code> if any parameter is <code>NULL</code>.</p>
+<p>Example:</p>
+<p class="notranslate">CALL ARRAY_CAT(ARRAY[1, 2], ARRAY[3, 4])</p>
+
+<h3 id="array_append" class="notranslate" onclick="switchBnf(this)">ARRAY_APPEND</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+ARRAY_APPEND(<a href="grammar.html#expression">arrayExpression</a>, <a href="grammar.html#value">value</a>)
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ARRAY_APPEND ( <a href="grammar.html#expression">arrayExpression</a> , <a href="grammar.html#value">value</a> )</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+ARRAY_APPEND(<a href="grammar.html#expression">arrayExpression</a>, <a href="grammar.html#value">value</a>)
+</pre>
+syntax-end -->
+<p>Append an element to the end of an array. Returns <code>NULL</code> if any parameter is <code>NULL</code>.</p>
+<p>Example:</p>
+<p class="notranslate">CALL ARRAY_APPEND(ARRAY[1, 2], 3)</p>
+
+<h3 id="array_slice" class="notranslate" onclick="switchBnf(this)">ARRAY_SLICE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+ARRAY_SLICE(<a href="grammar.html#expression">arrayExpression</a>, <a href="grammar.html#int">lowerBoundInt</a>, <a href="grammar.html#int">upperBoundInt</a>)
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ARRAY_SLICE ( <a href="grammar.html#expression">arrayExpression</a> , <a href="grammar.html#int">lowerBoundInt</a> , <a href="grammar.html#int">upperBoundInt</a> )</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+ARRAY_SLICE(<a href="grammar.html#expression">arrayExpression</a>, <a href="grammar.html#int">lowerBoundInt</a>, <a href="grammar.html#int">upperBoundInt</a>)
+</pre>
+syntax-end -->
+<p>Returns elements from the array as specified by the lower and upper bound parameters. Both parameters are inclusive and the first element has index 1, i.e. <code>ARRAY_SLICE</code>(a, 2, 2) has only the second element. Returns <code>NULL</code> if any parameter is <code>NULL</code> or if an index is out of bounds.</p>
+<p>Example:</p>
+<p class="notranslate">CALL ARRAY_SLICE(ARRAY[1, 2, 3, 4], 1, 3)</p>
 
 <h3 id="autocommit" class="notranslate" onclick="switchBnf(this)">AUTOCOMMIT</h3>
 <!-- railroad-start -->
@@ -3194,9 +3636,9 @@ CAST(<a href="grammar.html#value">value</a> AS <a href="grammar.html#data_type">
 CAST(<a href="grammar.html#value">value</a> AS <a href="grammar.html#data_type">dataType</a>)
 </pre>
 syntax-end -->
-<p>Converts a value to another data type. The following conversion rules are used: When converting a number to a boolean, 0 is false and every other value is true. When converting a boolean to a number, false is 0 and true is 1. When converting a number to a number of another type, the value is checked for overflow. When converting a number to binary, the number of bytes matches the precision. When converting a string to binary, it is hex encoded (every byte two characters); a hex string can be converted to a number by first converting it to binary. If a direct conversion is not possible, the value is first converted to a string.</p>
+<p>Converts a value to another data type. The following conversion rules are used: When converting a number to a boolean, 0 is false and every other value is true. When converting a boolean to a number, false is 0 and true is 1. When converting a number to a number of another type, the value is checked for overflow. When converting a number to binary, the number of bytes matches the precision. When converting a string to binary, it is hex encoded (every byte two characters); a hex string can be converted to a number by first converting it to binary. If a direct conversion is not possible, the value is first converted to a string. Note that some data types may need explicitly specified precision to avoid overflow or rounding.</p>
 <p>Example:</p>
-<p class="notranslate">CAST(NAME AS INT);<br />CAST(65535 AS BINARY);<br />CAST(CAST(&#39;FFFF&#39; AS BINARY) AS INT);</p>
+<p class="notranslate">CAST(NAME AS INT);<br />CAST(65535 AS BINARY);<br />CAST(CAST(&#39;FFFF&#39; AS BINARY) AS INT);<br />CAST(TIMESTAMP &#39;2010-01-01 10:40:00.123456&#39; AS TIME(6))</p>
 
 <h3 id="coalesce" class="notranslate" onclick="switchBnf(this)">COALESCE</h3>
 <!-- railroad-start -->
@@ -3377,6 +3819,24 @@ syntax-end -->
 <p>Throw an <code>SQLException</code> with the passed <code>SQLState</code> and reason.</p>
 <p>Example:</p>
 <p class="notranslate">CALL SIGNAL(&#39;23505&#39;, &#39;Duplicate user ID: &#39; || user_id);</p>
+
+<h3 id="estimated_envelope" class="notranslate" onclick="switchBnf(this)">ESTIMATED_ENVELOPE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+ESTIMATED_ENVELOPE(<a href="grammar.html#string">tableNameString</a>, <a href="grammar.html#string">columnNameString</a>)
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ESTIMATED_ENVELOPE ( <a href="grammar.html#string">tableNameString</a> , <a href="grammar.html#string">columnNameString</a> )</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+ESTIMATED_ENVELOPE(<a href="grammar.html#string">tableNameString</a>, <a href="grammar.html#string">columnNameString</a>)
+</pre>
+syntax-end -->
+<p>Returns the estimated minimum bounding box that encloses all specified <code>GEOMETRY</code> values. Only 2D coordinate plane is supported. <code>NULL</code> values are ignored. This function is only supported by <code>MVStore</code> engine. Column must have a spatial index. This function is fast, but estimation may include uncommitted data (including data from other transactions), may return approximate bounds, or be different with actual value due to other reasons. Use with caution. If estimation is not available this function returns <code>NULL</code>. For accurate and reliable result use <code>ESTIMATE</code> aggregate function instead.</p>
+<p>Example:</p>
+<p class="notranslate">CALL ESTIMATED_ENVELOPE(&#39;MY_TABLE&#39;, &#39;GEOMETRY_COLUMN&#39;);</p>
 
 <h3 id="file_read" class="notranslate" onclick="switchBnf(this)">FILE_READ</h3>
 <!-- railroad-start -->
@@ -3653,18 +4113,18 @@ syntax-end -->
 <h3 id="rownum" class="notranslate" onclick="switchBnf(this)">ROWNUM</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ ROWNUM() } | { ROW_NUMBER() OVER() }
+ROWNUM()
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">ROWNUM ( )</code></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">ROW_NUMBER ( ) OVER ( )</code></td></tr></table></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ROWNUM ( )</code></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ ROWNUM() } | { ROW_NUMBER() OVER() }
+ROWNUM()
 </pre>
 syntax-end -->
-<p>Returns the number of the current row. This method returns a long. It is supported for <code>SELECT</code> statements, as well as for <code>DELETE</code> and <code>UPDATE</code>. The first row has the row number 1, and is calculated before ordering and grouping the result set, but after evaluating index conditions (even when the index conditions are specified in an outer query). To get the row number after ordering and grouping, use a subquery.</p>
+<p>Returns the number of the current row. This method returns a long value. It is supported for <code>SELECT</code> statements, as well as for <code>DELETE</code> and <code>UPDATE</code>. The first row has the row number 1, and is calculated before ordering and grouping the result set, but after evaluating index conditions (even when the index conditions are specified in an outer query). Use the <code>ROW_NUMBER</code>() <code>OVER</code> () function to get row numbers after grouping or in specified order.</p>
 <p>Example:</p>
 <p class="notranslate">SELECT ROWNUM(), * FROM TEST;<br />SELECT ROWNUM(), * FROM (SELECT * FROM TEST ORDER BY NAME);<br />SELECT ID FROM (SELECT T.*, ROWNUM AS R FROM TEST T) WHERE R BETWEEN 2 AND 3;</p>
 
@@ -3743,20 +4203,22 @@ syntax-end -->
 <h3 id="table" class="notranslate" onclick="switchBnf(this)">TABLE</h3>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ TABLE | TABLE_DISTINCT } ( { <a href="grammar.html#name">name</a> <a href="grammar.html#data_type">dataType</a> = <a href="grammar.html#expression">expression</a> } [,...] )
+{ TABLE | TABLE_DISTINCT }
+( { <a href="grammar.html#name">name</a> <a href="grammar.html#data_type">dataType</a> = <a href="grammar.html#array">array</a>|<a href="grammar.html#row_value_expression">rowValueExpression</a> } [,...] )
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">TABLE</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">TABLE_DISTINCT</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">( <a href="grammar.html#name">name</a> <a href="grammar.html#data_type">dataType</a> = <a href="grammar.html#expression">expression</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">TABLE</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">TABLE_DISTINCT</code></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><code class="c">(</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c"><a href="grammar.html#name">name</a> <a href="grammar.html#data_type">dataType</a> = <a href="grammar.html#array">array</a></code></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="grammar.html#row_value_expression">rowValueExpression</a></code></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ TABLE | TABLE_DISTINCT } ( { <a href="grammar.html#name">name</a> <a href="grammar.html#data_type">dataType</a> = <a href="grammar.html#expression">expression</a> } [,...] )
+{ TABLE | TABLE_DISTINCT }
+( { <a href="grammar.html#name">name</a> <a href="grammar.html#data_type">dataType</a> = <a href="grammar.html#array">array</a>|<a href="grammar.html#row_value_expression">rowValueExpression</a> } [,...] )
 </pre>
 syntax-end -->
 <p>Returns the result set. <code>TABLE_DISTINCT</code> removes duplicate rows.</p>
 <p>Example:</p>
-<p class="notranslate">SELECT * FROM TABLE(ID INT=(1, 2), NAME VARCHAR=(&#39;Hello&#39;, &#39;World&#39;))</p>
+<p class="notranslate">SELECT * FROM TABLE(VALUE INT = ARRAY[1, 2]);<br />SELECT * FROM TABLE(ID INT=(1, 2), NAME VARCHAR=(&#39;Hello&#39;, &#39;World&#39;));</p>
 
 <h3 id="transaction_id" class="notranslate" onclick="switchBnf(this)">TRANSACTION_ID</h3>
 <!-- railroad-start -->
@@ -3772,7 +4234,7 @@ TRANSACTION_ID()
 TRANSACTION_ID()
 </pre>
 syntax-end -->
-<p>Returns the current transaction id for this session. This method returns <code>NULL</code> if there is no uncommitted change, or if the the database is not persisted. Otherwise a value of the following form is returned: <code>logFileId-position-sessionId</code>. This method returns a string. The value is unique across database restarts (values are not re-used).</p>
+<p>Returns the current transaction id for this session. This method returns <code>NULL</code> if there is no uncommitted change, or if the database is not persisted. Otherwise a value of the following form is returned: <code>logFileId-position-sessionId</code>. This method returns a string. The value is unique across database restarts (values are not re-used).</p>
 <p>Example:</p>
 <p class="notranslate">CALL TRANSACTION_ID()</p>
 
@@ -3793,6 +4255,24 @@ syntax-end -->
 <p>Truncate a value to the required precision. The precision of the returned value may be a bit larger than requested, because fixed precision values are not truncated (unlike the numeric <code>TRUNCATE</code> method). Unlike <code>CAST</code>, the truncating a decimal value may lose precision if the force flag is set to true. The method returns a value with the same data type as the first parameter.</p>
 <p>Example:</p>
 <p class="notranslate">CALL TRUNCATE_VALUE(X, 10, TRUE);</p>
+
+<h3 id="unnest" class="notranslate" onclick="switchBnf(this)">UNNEST</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+UNNEST(<a href="grammar.html#array">array</a>, [,...]) [WITH ORDINALITY]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">UNNEST ( <a href="grammar.html#array">array</a> ,</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">, ...</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">WITH ORDINALITY</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+UNNEST(<a href="grammar.html#array">array</a>, [,...]) [WITH ORDINALITY]
+</pre>
+syntax-end -->
+<p>Returns the result set. Number of columns is equal to number of arguments, plus one additional column with row number if <code>WITH ORDINALITY</code> is specified. Number of rows is equal to length of longest specified array. If multiple arguments are specified and they have different length, cells with missing values will contain null values.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT * FROM UNNEST(ARRAY[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]);</p>
 
 <h3 id="user" class="notranslate" onclick="switchBnf(this)">USER</h3>
 <!-- railroad-start -->
@@ -3829,6 +4309,236 @@ syntax-end -->
 <p>Returns the H2 version as a String.</p>
 <p>Example:</p>
 <p class="notranslate">H2VERSION()</p>
+
+<h2>Window Functions</h2>
+
+<h3 id="row_number" class="notranslate" onclick="switchBnf(this)">ROW_NUMBER</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+ROW_NUMBER() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">ROW_NUMBER ( ) OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+ROW_NUMBER() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the number of the current row starting with 1. Window frame clause is not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT ROW_NUMBER() OVER (), * FROM TEST;<br />SELECT ROW_NUMBER() OVER (ORDER BY ID), * FROM TEST;<br />SELECT ROW_NUMBER() OVER (PARTITION BY CATEGORY ORDER BY ID), * FROM TEST;</p>
+
+<h3 id="rank" class="notranslate" onclick="switchBnf(this)">RANK</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+RANK() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">RANK ( ) OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+RANK() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the rank of the current row. The rank of a row is the number of rows that precede this row plus 1. If two or more rows have the same values in <code>ORDER BY</code> columns, these rows get the same rank from the first row with the same values. It means that gaps in ranks are possible. This function requires window order clause. Window frame clause is not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT RANK() OVER (ORDER BY ID), * FROM TEST;<br />SELECT RANK() OVER (PARTITION BY CATEGORY ORDER BY ID), * FROM TEST;</p>
+
+<h3 id="dense_rank" class="notranslate" onclick="switchBnf(this)">DENSE_RANK</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+DENSE_RANK() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">DENSE_RANK ( ) OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+DENSE_RANK() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the dense rank of the current row. The rank of a row is the number of groups of rows with the same values in <code>ORDER BY</code> columns that precede group with this row plus 1. If two or more rows have the same values in <code>ORDER BY</code> columns, these rows get the same rank. Gaps in ranks are not possible. This function requires window order clause. Window frame clause is not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT DENSE_RANK() OVER (ORDER BY ID), * FROM TEST;<br />SELECT DENSE_RANK() OVER (PARTITION BY CATEGORY ORDER BY ID), * FROM TEST;</p>
+
+<h3 id="percent_rank" class="notranslate" onclick="switchBnf(this)">PERCENT_RANK</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+PERCENT_RANK() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">PERCENT_RANK ( ) OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+PERCENT_RANK() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the relative rank of the current row. The relative rank is calculated as (<code>RANK</code> - 1) / (<code>NR</code> - 1), where <code>RANK</code> is a rank of the row and <code>NR</code> is a number of rows in window partition with this row. Note that result is always 0 if window order clause is not specified. Window frame clause is not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT PERCENT_RANK() OVER (ORDER BY ID), * FROM TEST;<br />SELECT PERCENT_RANK() OVER (PARTITION BY CATEGORY ORDER BY ID), * FROM TEST;</p>
+
+<h3 id="cume_dist" class="notranslate" onclick="switchBnf(this)">CUME_DIST</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+CUME_DIST() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">CUME_DIST ( ) OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+CUME_DIST() OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the relative rank of the current row. The relative rank is calculated as <code>NP</code> / <code>NR</code> where <code>NP</code> is a number of rows that precede the current row or have the same values in <code>ORDER BY</code> columns and <code>NR</code> is a number of rows in window partition with this row. Note that result is always 1 if window order clause is not specified. Window frame clause is not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT CUME_DIST() OVER (ORDER BY ID), * FROM TEST;<br />SELECT CUME_DIST() OVER (PARTITION BY CATEGORY ORDER BY ID), * FROM TEST;</p>
+
+<h3 id="ntile" class="notranslate" onclick="switchBnf(this)">NTILE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+NTILE(<a href="grammar.html#long">long</a>) OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">NTILE ( <a href="grammar.html#long">long</a> ) OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+NTILE(<a href="grammar.html#long">long</a>) OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Distributes the rows into a specified number of groups. Number of groups should be a positive long value. <code>NTILE</code> returns the 1-based number of the group to which the current row belongs. First groups will have more rows if number of rows is not divisible by number of groups. For example, if 5 rows are distributed into 2 groups this function returns 1 for the first 3 row and 2 for the last 2 rows. This function requires window order clause. Window frame clause is not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT NTILE(10) OVER (ORDER BY ID), * FROM TEST;<br />SELECT NTILE(5) OVER (PARTITION BY CATEGORY ORDER BY ID), * FROM TEST;</p>
+
+<h3 id="lead" class="notranslate" onclick="switchBnf(this)">LEAD</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+LEAD(<a href="grammar.html#value">value</a> [, <a href="grammar.html#int">offsetInt</a> [, <a href="grammar.html#value">defaultValue</a>]]) [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">LEAD ( <a href="grammar.html#value">value</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#int">offsetInt</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#value">defaultValue</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">RESPECT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">IGNORE</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">NULLS</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+LEAD(<a href="grammar.html#value">value</a> [, <a href="grammar.html#int">offsetInt</a> [, <a href="grammar.html#value">defaultValue</a>]]) [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the value in a next row with specified offset relative to the current row. Offset must be non-negative. If <code>IGNORE NULLS</code> is specified rows with null values in selected expression are skipped. If number of considered rows is less than specified relative number this function returns <code>NULL</code> or the specified default value, if any. If offset is 0 the value from the current row is returned unconditionally. This function requires window order clause. Window frame clause is not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT LEAD(X) OVER (ORDER BY ID), * FROM TEST;<br />SELECT LEAD(X, 2, 0) IGNORE NULLS OVER (<br />&nbsp;&nbsp;&nbsp;&nbsp;PARTITION BY CATEGORY ORDER BY ID<br />), * FROM TEST;</p>
+
+<h3 id="lag" class="notranslate" onclick="switchBnf(this)">LAG</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+LAG(<a href="grammar.html#value">value</a> [, <a href="grammar.html#int">offsetInt</a> [, <a href="grammar.html#value">defaultValue</a>]]) [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">LAG ( <a href="grammar.html#value">value</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#int">offsetInt</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#value">defaultValue</a></code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">RESPECT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">IGNORE</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">NULLS</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+LAG(<a href="grammar.html#value">value</a> [, <a href="grammar.html#int">offsetInt</a> [, <a href="grammar.html#value">defaultValue</a>]]) [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the value in a previous row with specified offset relative to the current row. Offset must be non-negative. If <code>IGNORE NULLS</code> is specified rows with null values in selected expression are skipped. If number of considered rows is less than specified relative number this function returns <code>NULL</code> or the specified default value, if any. If offset is 0 the value from the current row is returned unconditionally. This function requires window order clause. Window frame clause is not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT LAG(X) OVER (ORDER BY ID), * FROM TEST;<br />SELECT LAG(X, 2, 0) IGNORE NULLS OVER (<br />&nbsp;&nbsp;&nbsp;&nbsp;PARTITION BY CATEGORY ORDER BY ID<br />), * FROM TEST;</p>
+
+<h3 id="first_value" class="notranslate" onclick="switchBnf(this)">FIRST_VALUE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+FIRST_VALUE(<a href="grammar.html#value">value</a>) [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">FIRST_VALUE ( <a href="grammar.html#value">value</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">RESPECT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">IGNORE</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">NULLS</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+FIRST_VALUE(<a href="grammar.html#value">value</a>) [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the first value in a window. If <code>IGNORE NULLS</code> is specified null values are skipped and the function returns first non-null value, if any.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT FIRST_VALUE(X) OVER (ORDER BY ID), * FROM TEST;<br />SELECT FIRST_VALUE(X) IGNORE NULLS OVER (PARTITION BY CATEGORY ORDER BY ID), * FROM TEST;</p>
+
+<h3 id="last_value" class="notranslate" onclick="switchBnf(this)">LAST_VALUE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+LAST_VALUE(<a href="grammar.html#value">value</a>) [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">LAST_VALUE ( <a href="grammar.html#value">value</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">RESPECT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">IGNORE</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">NULLS</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+LAST_VALUE(<a href="grammar.html#value">value</a>) [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the last value in a window. If <code>IGNORE NULLS</code> is specified null values are skipped and the function returns last non-null value before them, if any; if there is no non-null value it returns <code>NULL</code>. Note that the last value is actually a value in the current group of rows if window order clause is specified and window frame clause is not specified.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT LAST_VALUE(X) OVER (ORDER BY ID), * FROM TEST;<br />SELECT LAST_VALUE(X) IGNORE NULLS OVER (<br />&nbsp;&nbsp;&nbsp;&nbsp;PARTITION BY CATEGORY ORDER BY ID<br />&nbsp;&nbsp;&nbsp;&nbsp;RANGE BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING<br />), * FROM TEST;</p>
+
+<h3 id="nth_value" class="notranslate" onclick="switchBnf(this)">NTH_VALUE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+NTH_VALUE(<a href="grammar.html#value">value</a>, <a href="grammar.html#int">nInt</a>) [FROM {FIRST|LAST}] [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">NTH_VALUE ( <a href="grammar.html#value">value</a> , <a href="grammar.html#int">nInt</a> )</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">FROM</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">FIRST</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">LAST</code></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">RESPECT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">IGNORE</code></td><td class="le"></td></tr></table></td><td class="d"><code class="c">NULLS</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+NTH_VALUE(<a href="grammar.html#value">value</a>, <a href="grammar.html#int">nInt</a>) [FROM {FIRST|LAST}] [{RESPECT|IGNORE} NULLS]
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the value in a row with a specified relative number in a window. Relative row number must be positive. If <code>FROM LAST</code> is specified rows a counted backwards from the last row. If <code>IGNORE NULLS</code> is specified rows with null values in selected expression are skipped. If number of considered rows is less than specified relative number this function returns <code>NULL</code>. Note that the last row is actually a last row in the current group of rows if window order clause is specified and window frame clause is not specified.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT NTH_VALUE(X) OVER (ORDER BY ID), * FROM TEST;<br />SELECT NTH_VALUE(X) IGNORE NULLS OVER (<br />&nbsp;&nbsp;&nbsp;&nbsp;PARTITION BY CATEGORY ORDER BY ID<br />&nbsp;&nbsp;&nbsp;&nbsp;RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING<br />), * FROM TEST;</p>
+
+<h3 id="ratio_to_report" class="notranslate" onclick="switchBnf(this)">RATIO_TO_REPORT</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+RATIO_TO_REPORT(<a href="grammar.html#value">value</a>)
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">RATIO_TO_REPORT ( <a href="grammar.html#value">value</a> )</code></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="d"><code class="c">OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a></code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+RATIO_TO_REPORT(<a href="grammar.html#value">value</a>)
+OVER <a href="grammar.html#window_name_or_specification">windowNameOrSpecification</a>
+</pre>
+syntax-end -->
+<p>Returns the ratio of a value to the sum of all values. If argument is <code>NULL</code> or sum of all values is 0, then the value of function is <code>NULL</code>. Window ordering and window frame clauses are not allowed for this function.</p><p>Window functions in H2 may require a lot of memory for large queries.</p>
+<p>Example:</p>
+<p class="notranslate">SELECT X, RATIO_TO_REPORT(X) OVER (PARTITION BY CATEGORY), CATEGORY FROM TEST;</p>
 
 <!--[if lte IE 7]><script language="javascript">switchBnf(null);</script><![endif]-->
 

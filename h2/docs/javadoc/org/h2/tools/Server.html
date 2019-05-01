@@ -24,7 +24,7 @@ Starts the H2 Console (web-) server, TCP, and PG server.<br /><br />
      Server.createPgServer("-pgAllowOthers").start();</pre>
  Supported options are:
  -pgPort, -pgAllowOthers, -pgDaemon,
- -trace, -ifExists, -baseDir, -key.
+ -trace, -ifExists, -ifNotExists, -baseDir, -key.
  See the main method for details.
  <p>
  If no port is specified, the default port is used if possible,
@@ -51,7 +51,7 @@ Starts the H2 Console (web-) server, TCP, and PG server.<br /><br />
      "-tcpPort", "9123", "-tcpAllowOthers").start();</pre>
  Supported options are:
  -tcpPort, -tcpSSL, -tcpPassword, -tcpAllowOthers, -tcpDaemon,
- -trace, -ifExists, -baseDir, -key.
+ -trace, -ifExists, -ifNotExists, -baseDir, -key.
  See the main method for details.
  <p>
  If no port is specified, the default port is used if possible,
@@ -77,7 +77,7 @@ Starts the H2 Console (web-) server, TCP, and PG server.<br /><br />
  Server server = Server.createWebServer("-trace").start();</pre>
  Supported options are:
  -webPort, -webSSL, -webAllowOthers, -webDaemon,
- -trace, -ifExists, -baseDir, -properties.
+ -trace, -ifExists, -ifNotExists, -baseDir, -properties.
  See the main method for details.</div>
 <div class="itemTitle">Parameters:</div>
 <div class="item">args - the argument list</div>
@@ -108,6 +108,8 @@ Starts the H2 Console (web-) server, TCP, and PG server.<br /><br />
  <td>The port (default: 8082)</td></tr>
  <tr><td>[-webSSL]</td>
  <td>Use encrypted (HTTPS) connections</td></tr>
+ <tr><td>[-webAdminPassword]</td>
+ <td>Password of DB Console administrator</td></tr>
  <tr><td>[-browser]</td>
  <td>Start a browser connecting to the web server</td></tr>
  <tr><td>[-tcp]</td>
@@ -140,6 +142,8 @@ Starts the H2 Console (web-) server, TCP, and PG server.<br /><br />
  <td>The base directory for H2 databases (all servers)</td></tr>
  <tr><td>[-ifExists]</td>
  <td>Only existing databases may be opened (all servers)</td></tr>
+ <tr><td>[-ifNotExists]</td>
+ <td>Databases are created when accessed</td></tr>
  <tr><td>[-trace]</td>
  <td>Print additional trace information (all servers)</td></tr>
  <tr><td>[-key &lt;from&gt; &lt;to&gt;]</td>

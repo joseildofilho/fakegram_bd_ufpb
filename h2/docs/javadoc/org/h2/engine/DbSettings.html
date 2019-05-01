@@ -28,7 +28,13 @@ This class contains various database-level settings. To override the
 <a href="#ANALYZE_SAMPLE">analyzeSample</a>
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
+<a href="#CASE_INSENSITIVE_IDENTIFIERS">caseInsensitiveIdentifiers</a>
+</td></tr>
+<tr><td class="return">static boolean</td><td class="method">
 <a href="#COMPRESS">compressData</a>
+</td></tr>
+<tr><td class="return">static boolean</td><td class="method">
+<a href="#DATABASE_TO_LOWER">databaseToLower</a>
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#DATABASE_TO_UPPER">databaseToUpper</a>
@@ -60,9 +66,6 @@ This class contains various database-level settings. To override the
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#FUNCTIONS_IN_SCHEMA">functionsInSchema</a>
 </td></tr>
-<tr><td class="return">static boolean</td><td class="method">
-<a href="#LARGE_TRANSACTIONS">largeTransactions</a>
-</td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#LOB_TIMEOUT">lobTimeout</a>
 </td></tr>
@@ -74,9 +77,6 @@ This class contains various database-level settings. To override the
 </td></tr>
 <tr><td class="return">static int</td><td class="method">
 <a href="#MAX_QUERY_TIMEOUT">maxQueryTimeout</a>
-</td></tr>
-<tr><td class="return">static boolean</td><td class="method">
-<a href="#MULTI_THREADED">multiThreaded</a>
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#MV_STORE">mvStore</a>
@@ -95,9 +95,6 @@ This class contains various database-level settings. To override the
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#OPTIMIZE_INSERT_FROM_SELECT">optimizeInsertFromSelect</a>
-</td></tr>
-<tr><td class="return">static boolean</td><td class="method">
-<a href="#OPTIMIZE_IS_NULL">optimizeIsNull</a>
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#OPTIMIZE_OR">optimizeOr</a>
@@ -128,12 +125,6 @@ This class contains various database-level settings. To override the
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#REUSE_SPACE">reuseSpace</a>
-</td></tr>
-<tr><td class="return">static boolean</td><td class="method">
-<a href="#ROWID">rowId</a>
-</td></tr>
-<tr><td class="return">static boolean</td><td class="method">
-<a href="#SELECT_FOR_UPDATE_MVCC">selectForUpdateMvcc</a>
 </td></tr>
 <tr><td class="return">static boolean</td><td class="method">
 <a href="#SHARE_LINKED_CONNECTIONS">shareLinkedConnections</a>
@@ -172,6 +163,14 @@ This class contains various database-level settings. To override the
 <div class="item">Database setting <code>ANALYZE_SAMPLE</code> (default: 10000).<br />
  The default sample size when analyzing a table.</div>
 <hr />
+<h4 id="CASE_INSENSITIVE_IDENTIFIERS"><span class="methodName">caseInsensitiveIdentifiers
+
+</span></h4>
+<div class="item">Database setting <code>CASE_INSENSITIVE_IDENTIFIERS</code> (default:
+ false).<br />
+ When set to true, all identifier names (table names, column names) are
+ case insensitive. Setting this to "true" is experimental.</div>
+<hr />
 <h4 id="COMPRESS"><span class="methodName">compressData
 
 </span></h4>
@@ -179,15 +178,20 @@ This class contains various database-level settings. To override the
  (default: false).<br />
  Compress data when storing.</div>
 <hr />
+<h4 id="DATABASE_TO_LOWER"><span class="methodName">databaseToLower
+
+</span></h4>
+<div class="item">Database setting <code>DATABASE_TO_LOWER</code> (default: false).<br />
+ When set to true unquoted identifiers and short name of database are
+ converted to lower case. Value of this setting should not be changed
+ after creation of database. Setting this to "true" is experimental.</div>
+<hr />
 <h4 id="DATABASE_TO_UPPER"><span class="methodName">databaseToUpper
 
 </span></h4>
 <div class="item">Database setting <code>DATABASE_TO_UPPER</code> (default: true).<br />
- Database short names are converted to uppercase for the DATABASE()
- function, and in the CATALOG column of all database meta data methods.
- Setting this to "false" is experimental. When set to false, all
- identifier names (table names, column names) are case sensitive (except
- aggregate, built-in functions, data types, and keywords).</div>
+ When set to true unquoted identifiers and short name of database are
+ converted to upper case.</div>
 <hr />
 <h4 id="DB_CLOSE_ON_EXIT"><span class="methodName">dbCloseOnExit
 
@@ -232,8 +236,8 @@ This class contains various database-level settings. To override the
 
 </span></h4>
 <div class="item">Database setting <code>DROP_RESTRICT</code> (default: true).<br />
- Whether the default action for DROP TABLE, DROP VIEW, and DROP SCHEMA
- is RESTRICT.</div>
+ Whether the default action for DROP TABLE, DROP VIEW, DROP SCHEMA, and
+ DROP DOMAIN is RESTRICT.</div>
 <hr />
 <h4 id="EARLY_FILTER"><span class="methodName">earlyFilter
 
@@ -259,12 +263,6 @@ This class contains various database-level settings. To override the
  statement will always include the schema name in the CREATE ALIAS
  statement. This is not backward compatible with H2 versions 1.2.134 and
  older.</div>
-<hr />
-<h4 id="LARGE_TRANSACTIONS"><span class="methodName">largeTransactions
-
-</span></h4>
-<div class="item">Database setting <code>LARGE_TRANSACTIONS</code> (default: true).<br />
- Support very large transactions</div>
 <hr />
 <h4 id="LOB_TIMEOUT"><span class="methodName">lobTimeout
 
@@ -296,17 +294,11 @@ This class contains various database-level settings. To override the
  no limit. Please note the actual query timeout may be set to a lower
  value.</div>
 <hr />
-<h4 id="MULTI_THREADED"><span class="methodName">multiThreaded
-
-</span></h4>
-<div class="item">Database setting <code>MULTI_THREADED</code>
- (default: false).<br /></div>
-<hr />
 <h4 id="MV_STORE"><span class="methodName">mvStore
 
 </span></h4>
 <div class="item">Database setting <code>MV_STORE</code>
- (default: false for version 1.3, true for version 1.4).<br />
+ (default: true).<br />
  Use the MVStore storage engine.</div>
 <hr />
 <h4 id="OPTIMIZE_DISTINCT"><span class="methodName">optimizeDistinct
@@ -351,12 +343,6 @@ This class contains various database-level settings. To override the
  (default: true).<br />
  Insert into table from query directly bypassing temporary disk storage.
  This also applies to create table as select.</div>
-<hr />
-<h4 id="OPTIMIZE_IS_NULL"><span class="methodName">optimizeIsNull
-
-</span></h4>
-<div class="item">Database setting <code>OPTIMIZE_IS_NULL</code> (default: false).<br />
- Use an index for condition of the form columnName IS NULL.</div>
 <hr />
 <h4 id="OPTIMIZE_OR"><span class="methodName">optimizeOr
 
@@ -433,20 +419,6 @@ This class contains various database-level settings. To override the
  If disabled, all changes are appended to the database file, and existing
  content is never overwritten. This setting has no effect if the database
  is already open.</div>
-<hr />
-<h4 id="ROWID"><span class="methodName">rowId
-
-</span></h4>
-<div class="item">Database setting <code>ROWID</code> (default: true).<br />
- If set, each table has a pseudo-column _ROWID_.</div>
-<hr />
-<h4 id="SELECT_FOR_UPDATE_MVCC"><span class="methodName">selectForUpdateMvcc
-
-</span></h4>
-<div class="item">Database setting <code>SELECT_FOR_UPDATE_MVCC</code>
- (default: true).<br />
- If set, SELECT .. FOR UPDATE queries lock only the selected rows when
- using MVCC.</div>
 <hr />
 <h4 id="SHARE_LINKED_CONNECTIONS"><span class="methodName">shareLinkedConnections
 

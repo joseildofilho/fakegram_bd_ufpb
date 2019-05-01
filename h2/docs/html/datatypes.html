@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-Copyright 2004-2018 H2 Group. Multiple-Licensed under the MPL 2.0, Version 1.0,
-and under the Eclipse Public License, Version 1.0
+Copyright 2004-2019 H2 Group. Multiple-Licensed under the MPL 2.0,
+and the EPL 1.0 (http://h2database.com/html/license.html).
 Initial Developer: H2 Group
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -76,12 +76,13 @@ translate -->
 <a href="advanced.html">Advanced</a><br />
 <br />
 <b>Reference</b><br />
-<a href="grammar.html">SQL Grammar</a><br />
+<a href="commands.html">Commands</a><br />
 <a href="functions.html">Functions</a><br />
 <a href="datatypes.html">Data Types</a><br />
+<a href="grammar.html">SQL Grammar</a><br />
 <a href="systemtables.html">System Tables</a><br />
 <a href="../javadoc/index.html">Javadoc</a><br />
-<a href="../h2.pdf">PDF (1 MB)</a><br />
+<a href="../h2.pdf">PDF (1.5 MB)</a><br />
 <br />
 <b>Support</b><br />
 <a href="faq.html">FAQ</a><br />
@@ -95,7 +96,6 @@ translate -->
 <a href="license.html">License</a><br />
 <a href="build.html">Build</a><br />
 <a href="links.html">Links</a><br />
-<a href="jaqu.html">JaQu</a><br />
 <a href="mvstore.html">MVStore</a><br />
 <a href="architecture.html">Architecture</a><br />
 <br />
@@ -114,53 +114,55 @@ translate -->
 <!-- syntax-start
 <p class="notranslate">
 
-    <a href="#int_type" >INT Type</a><br />
+    <a href="#int_type" >INT</a><br />
 
-    <a href="#boolean_type" >BOOLEAN Type</a><br />
+    <a href="#boolean_type" >BOOLEAN</a><br />
 
-    <a href="#tinyint_type" >TINYINT Type</a><br />
+    <a href="#tinyint_type" >TINYINT</a><br />
 
-    <a href="#smallint_type" >SMALLINT Type</a><br />
+    <a href="#smallint_type" >SMALLINT</a><br />
 
-    <a href="#bigint_type" >BIGINT Type</a><br />
+    <a href="#bigint_type" >BIGINT</a><br />
 
-    <a href="#identity_type" >IDENTITY Type</a><br />
+    <a href="#identity_type" >IDENTITY</a><br />
 
-    <a href="#decimal_type" >DECIMAL Type</a><br />
+    <a href="#decimal_type" >DECIMAL</a><br />
 
-    <a href="#double_type" >DOUBLE Type</a><br />
+    <a href="#double_type" >DOUBLE</a><br />
 
-    <a href="#real_type" >REAL Type</a><br />
+    <a href="#real_type" >REAL</a><br />
 
-    <a href="#time_type" >TIME Type</a><br />
+    <a href="#time_type" >TIME</a><br />
 
-    <a href="#date_type" >DATE Type</a><br />
+    <a href="#date_type" >DATE</a><br />
 
-    <a href="#timestamp_type" >TIMESTAMP Type</a><br />
+    <a href="#timestamp_type" >TIMESTAMP</a><br />
 
-    <a href="#timestamp_with_time_zone_type" >TIMESTAMP WITH TIME ZONE Type</a><br />
+    <a href="#timestamp_with_time_zone_type" >TIMESTAMP WITH TIME ZONE</a><br />
 
-    <a href="#binary_type" >BINARY Type</a><br />
+    <a href="#binary_type" >BINARY</a><br />
 
-    <a href="#other_type" >OTHER Type</a><br />
+    <a href="#other_type" >OTHER</a><br />
 
-    <a href="#varchar_type" >VARCHAR Type</a><br />
+    <a href="#varchar_type" >VARCHAR</a><br />
 
-    <a href="#varchar_ignorecase_type" >VARCHAR_IGNORECASE Type</a><br />
+    <a href="#varchar_ignorecase_type" >VARCHAR_IGNORECASE</a><br />
 
-    <a href="#char_type" >CHAR Type</a><br />
+    <a href="#char_type" >CHAR</a><br />
 
-    <a href="#blob_type" >BLOB Type</a><br />
+    <a href="#blob_type" >BLOB</a><br />
 
-    <a href="#clob_type" >CLOB Type</a><br />
+    <a href="#clob_type" >CLOB</a><br />
 
-    <a href="#uuid_type" >UUID Type</a><br />
+    <a href="#uuid_type" >UUID</a><br />
 
-    <a href="#array_type" >ARRAY Type</a><br />
+    <a href="#array_type" >ARRAY</a><br />
 
-    <a href="#enum_type" >ENUM Type</a><br />
+    <a href="#enum_type" >ENUM</a><br />
 
-    <a href="#geometry_type" >GEOMETRY Type</a><br />
+    <a href="#geometry_type" >GEOMETRY</a><br />
+
+    <a href="#interval_type" >INTERVAL</a><br />
 </p>
 syntax-end -->
 <!-- railroad-start -->
@@ -168,55 +170,57 @@ syntax-end -->
     <tr>
         <td class="index">
             
-                <a href="#int_type" >INT Type</a><br />
+                <a href="#int_type" >INT</a><br />
             
-                <a href="#boolean_type" >BOOLEAN Type</a><br />
+                <a href="#boolean_type" >BOOLEAN</a><br />
             
-                <a href="#tinyint_type" >TINYINT Type</a><br />
+                <a href="#tinyint_type" >TINYINT</a><br />
             
-                <a href="#smallint_type" >SMALLINT Type</a><br />
+                <a href="#smallint_type" >SMALLINT</a><br />
             
-                <a href="#bigint_type" >BIGINT Type</a><br />
+                <a href="#bigint_type" >BIGINT</a><br />
             
-                <a href="#identity_type" >IDENTITY Type</a><br />
+                <a href="#identity_type" >IDENTITY</a><br />
             
-                <a href="#decimal_type" >DECIMAL Type</a><br />
+                <a href="#decimal_type" >DECIMAL</a><br />
             
-                <a href="#double_type" >DOUBLE Type</a><br />
+                <a href="#double_type" >DOUBLE</a><br />
+            
+                <a href="#real_type" >REAL</a><br />
                     </td><td class="index">
             
-                <a href="#real_type" >REAL Type</a><br />
+                <a href="#time_type" >TIME</a><br />
             
-                <a href="#time_type" >TIME Type</a><br />
+                <a href="#date_type" >DATE</a><br />
             
-                <a href="#date_type" >DATE Type</a><br />
+                <a href="#timestamp_type" >TIMESTAMP</a><br />
             
-                <a href="#timestamp_type" >TIMESTAMP Type</a><br />
+                <a href="#timestamp_with_time_zone_type" >TIMESTAMP WITH TIME ZONE</a><br />
             
-                <a href="#timestamp_with_time_zone_type" >TIMESTAMP WITH TIME ZONE Type</a><br />
+                <a href="#binary_type" >BINARY</a><br />
             
-                <a href="#binary_type" >BINARY Type</a><br />
+                <a href="#other_type" >OTHER</a><br />
             
-                <a href="#other_type" >OTHER Type</a><br />
+                <a href="#varchar_type" >VARCHAR</a><br />
             
-                <a href="#varchar_type" >VARCHAR Type</a><br />
+                <a href="#varchar_ignorecase_type" >VARCHAR_IGNORECASE</a><br />
+            
+                <a href="#char_type" >CHAR</a><br />
                     </td><td class="index">
             
-                <a href="#varchar_ignorecase_type" >VARCHAR_IGNORECASE Type</a><br />
+                <a href="#blob_type" >BLOB</a><br />
             
-                <a href="#char_type" >CHAR Type</a><br />
+                <a href="#clob_type" >CLOB</a><br />
             
-                <a href="#blob_type" >BLOB Type</a><br />
+                <a href="#uuid_type" >UUID</a><br />
             
-                <a href="#clob_type" >CLOB Type</a><br />
+                <a href="#array_type" >ARRAY</a><br />
             
-                <a href="#uuid_type" >UUID Type</a><br />
+                <a href="#enum_type" >ENUM</a><br />
             
-                <a href="#array_type" >ARRAY Type</a><br />
+                <a href="#geometry_type" >GEOMETRY</a><br />
             
-                <a href="#enum_type" >ENUM Type</a><br />
-            
-                <a href="#geometry_type" >GEOMETRY Type</a><br />
+                <a href="#interval_type" >INTERVAL</a><br />
                     </td>
     </tr>
 </table>
@@ -228,7 +232,7 @@ syntax-end -->
 <!-- railroad-end -->
 
 
-<h2 id="int_type" class="notranslate" onclick="switchBnf(this)">INT Type</h2>
+<h2 id="int_type" class="notranslate" onclick="switchBnf(this)">INT</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 INT | INTEGER | MEDIUMINT | INT4 | SIGNED
@@ -246,7 +250,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">INT</p>
 
-<h2 id="boolean_type" class="notranslate" onclick="switchBnf(this)">BOOLEAN Type</h2>
+<h2 id="boolean_type" class="notranslate" onclick="switchBnf(this)">BOOLEAN</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 BOOLEAN | BIT | BOOL
@@ -264,7 +268,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">BOOLEAN</p>
 
-<h2 id="tinyint_type" class="notranslate" onclick="switchBnf(this)">TINYINT Type</h2>
+<h2 id="tinyint_type" class="notranslate" onclick="switchBnf(this)">TINYINT</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 TINYINT
@@ -282,7 +286,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">TINYINT</p>
 
-<h2 id="smallint_type" class="notranslate" onclick="switchBnf(this)">SMALLINT Type</h2>
+<h2 id="smallint_type" class="notranslate" onclick="switchBnf(this)">SMALLINT</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 SMALLINT | INT2 | YEAR
@@ -300,7 +304,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">SMALLINT</p>
 
-<h2 id="bigint_type" class="notranslate" onclick="switchBnf(this)">BIGINT Type</h2>
+<h2 id="bigint_type" class="notranslate" onclick="switchBnf(this)">BIGINT</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 BIGINT | INT8
@@ -318,7 +322,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">BIGINT</p>
 
-<h2 id="identity_type" class="notranslate" onclick="switchBnf(this)">IDENTITY Type</h2>
+<h2 id="identity_type" class="notranslate" onclick="switchBnf(this)">IDENTITY</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 IDENTITY
@@ -336,7 +340,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">IDENTITY</p>
 
-<h2 id="decimal_type" class="notranslate" onclick="switchBnf(this)">DECIMAL Type</h2>
+<h2 id="decimal_type" class="notranslate" onclick="switchBnf(this)">DECIMAL</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 { DECIMAL | NUMBER | DEC | NUMERIC } ( <a href="grammar.html#int">precisionInt</a> [ , <a href="grammar.html#int">scaleInt</a> ] )
@@ -354,7 +358,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">DECIMAL(20, 2)</p>
 
-<h2 id="double_type" class="notranslate" onclick="switchBnf(this)">DOUBLE Type</h2>
+<h2 id="double_type" class="notranslate" onclick="switchBnf(this)">DOUBLE</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 { DOUBLE [ PRECISION ] | FLOAT [ ( <a href="grammar.html#int">precisionInt</a> ) ] | FLOAT8 }
@@ -372,7 +376,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">DOUBLE</p>
 
-<h2 id="real_type" class="notranslate" onclick="switchBnf(this)">REAL Type</h2>
+<h2 id="real_type" class="notranslate" onclick="switchBnf(this)">REAL</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 { REAL | FLOAT ( <a href="grammar.html#int">precisionInt</a> ) | FLOAT4 }
@@ -390,7 +394,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">REAL</p>
 
-<h2 id="time_type" class="notranslate" onclick="switchBnf(this)">TIME Type</h2>
+<h2 id="time_type" class="notranslate" onclick="switchBnf(this)">TIME</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 TIME [ ( <a href="grammar.html#int">precisionInt</a> ) ] [ WITHOUT TIME ZONE ]
@@ -404,11 +408,11 @@ TIME [ ( <a href="grammar.html#int">precisionInt</a> ) ] [ WITHOUT TIME ZONE ]
 TIME [ ( <a href="grammar.html#int">precisionInt</a> ) ] [ WITHOUT TIME ZONE ]
 </pre>
 syntax-end -->
-<p>The time data type. The format is hh:mm:ss[.nnnnnnnnn]. If fractional seconds precision is specified it should be from 0 to 9, 0 is default.</p><p>Mapped to <code>java.sql.Time</code>. When converted to a <code>java.sql.Date</code>, the date is set to <code>1970-01-01</code>. <code>java.time.LocalTime</code> is also supported on Java 8 and later versions. Resolution of <code>java.sql.Time</code> is limited to milliseconds, use <code>String</code> or <code>java.time.LocalTime</code> if you need nanosecond resolution.</p>
+<p>The time data type. The format is hh:mm:ss[.nnnnnnnnn]. If fractional seconds precision is specified it should be from 0 to 9, 0 is default.</p><p>Mapped to <code>java.sql.Time</code>. When converted to a <code>java.sql.Date</code>, the date is set to <code>1970-01-01</code>. <code>java.time.LocalTime</code> is also supported on Java 8 and later versions. Use <code>java.time.LocalTime</code> or <code>String</code> instead of <code>java.sql.Time</code> when non-zero precision is needed. Cast from higher fractional seconds precision to lower fractional seconds precision performs round half up; if result of rounding is higher than maximum supported value 23:59:59.999999999 it is saturated to 23:59:59.999999999.</p>
 <p>Example:</p>
-<p class="notranslate">TIME</p>
+<p class="notranslate">TIME<br />TIME(9)</p>
 
-<h2 id="date_type" class="notranslate" onclick="switchBnf(this)">DATE Type</h2>
+<h2 id="date_type" class="notranslate" onclick="switchBnf(this)">DATE</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 DATE
@@ -426,27 +430,27 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">DATE</p>
 
-<h2 id="timestamp_type" class="notranslate" onclick="switchBnf(this)">TIMESTAMP Type</h2>
+<h2 id="timestamp_type" class="notranslate" onclick="switchBnf(this)">TIMESTAMP</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 { TIMESTAMP [ ( <a href="grammar.html#int">precisionInt</a> ) ] [ WITHOUT TIME ZONE ]
-| DATETIME | SMALLDATETIME }
+| DATETIME [ ( <a href="grammar.html#int">precisionInt</a> ) ] | SMALLDATETIME }
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">TIMESTAMP</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">WITHOUT TIME ZONE</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">DATETIME</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">SMALLDATETIME</code></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">TIMESTAMP</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">WITHOUT TIME ZONE</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">DATETIME</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">SMALLDATETIME</code></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
 { TIMESTAMP [ ( <a href="grammar.html#int">precisionInt</a> ) ] [ WITHOUT TIME ZONE ]
-| DATETIME | SMALLDATETIME }
+| DATETIME [ ( <a href="grammar.html#int">precisionInt</a> ) ] | SMALLDATETIME }
 </pre>
 syntax-end -->
-<p>The timestamp data type. The format is yyyy-<code>MM</code>-dd hh:mm:ss[.nnnnnnnnn]. Stored internally as a <code>BCD</code>-encoded date, and nanoseconds since midnight. If fractional seconds precision is specified it should be from 0 to 9, 6 is default.</p><p>Mapped to <code>java.sql.Timestamp</code> (<code>java.util.Date</code> may be used too). <code>java.time.LocalDateTime</code> is also supported on Java 8 and later versions.</p>
+<p>The timestamp data type. The format is yyyy-<code>MM</code>-dd hh:mm:ss[.nnnnnnnnn]. Stored internally as a <code>BCD</code>-encoded date, and nanoseconds since midnight. If fractional seconds precision is specified it should be from 0 to 9, 6 is default. Fractional seconds precision of <code>SMALLDATETIME</code> is always 0 and cannot be specified.</p><p>Mapped to <code>java.sql.Timestamp</code> (<code>java.util.Date</code> may be used too). <code>java.time.LocalDateTime</code> is also supported on Java 8 and later versions. Cast from higher fractional seconds precision to lower fractional seconds precision performs round half up.</p>
 <p>Example:</p>
-<p class="notranslate">TIMESTAMP</p>
+<p class="notranslate">TIMESTAMP<br />TIMESTAMP(9)</p>
 
-<h2 id="timestamp_with_time_zone_type" class="notranslate" onclick="switchBnf(this)">TIMESTAMP WITH TIME ZONE Type</h2>
+<h2 id="timestamp_with_time_zone_type" class="notranslate" onclick="switchBnf(this)">TIMESTAMP WITH TIME ZONE</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 TIMESTAMP [ ( <a href="grammar.html#int">precisionInt</a> ) ] WITH TIME ZONE
@@ -460,23 +464,25 @@ TIMESTAMP [ ( <a href="grammar.html#int">precisionInt</a> ) ] WITH TIME ZONE
 TIMESTAMP [ ( <a href="grammar.html#int">precisionInt</a> ) ] WITH TIME ZONE
 </pre>
 syntax-end -->
-<p>The timestamp with time zone data type. Stored internally as a <code>BCD</code>-encoded date, nanoseconds since midnight, and time zone offset in minutes. If fractional seconds precision is specified it should be from 0 to 9, 6 is default.</p><p>Mapped to <code>org.h2.api.TimestampWithTimeZone</code>. <code>java.time.OffsetDateTime</code> and <code>java.time.Instant</code> are also supported on Java 8 and later versions.</p><p>Values of this data type are compared by <code>UTC</code> values. It means that <code>2010-01-01 10:00:00+01</code> is greater than <code>2010-01-01 11:00:00+03</code>.</p><p>Conversion to <code>TIMESTAMP</code> uses time zone offset to get <code>UTC</code> time and converts it to local time using the system time zone. Conversion from <code>TIMESTAMP</code> does the same operations in reverse and sets time zone offset to offset of the system time zone.</p>
+<p>The timestamp with time zone data type. Stored internally as a <code>BCD</code>-encoded date, nanoseconds since midnight, and time zone offset in minutes. If fractional seconds precision is specified it should be from 0 to 9, 6 is default.</p><p>Mapped to <code>org.h2.api.TimestampWithTimeZone</code>. <code>java.time.OffsetDateTime</code> and <code>java.time.Instant</code> are also supported on Java 8 and later versions.</p><p>Values of this data type are compared by <code>UTC</code> values. It means that <code>2010-01-01 10:00:00+01</code> is greater than <code>2010-01-01 11:00:00+03</code>.</p><p>Conversion to <code>TIMESTAMP</code> uses time zone offset to get <code>UTC</code> time and converts it to local time using the system time zone. Conversion from <code>TIMESTAMP</code> does the same operations in reverse and sets time zone offset to offset of the system time zone. Cast from higher fractional seconds precision to lower fractional seconds precision performs round half up.</p>
 <p>Example:</p>
-<p class="notranslate">TIMESTAMP WITH TIME ZONE</p>
+<p class="notranslate">TIMESTAMP WITH TIME ZONE<br />TIMESTAMP(9) WITH TIME ZONE</p>
 
-<h2 id="binary_type" class="notranslate" onclick="switchBnf(this)">BINARY Type</h2>
+<h2 id="binary_type" class="notranslate" onclick="switchBnf(this)">BINARY</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ BINARY | VARBINARY | LONGVARBINARY | RAW | BYTEA }
+{ BINARY | VARBINARY | BINARY VARYING
+| LONGVARBINARY | RAW | BYTEA }
 [ ( <a href="grammar.html#int">precisionInt</a> ) ]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">BINARY</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">VARBINARY</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LONGVARBINARY</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">RAW</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">BYTEA</code></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">BINARY</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">VARBINARY</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">BINARY VARYING</code></td></tr></table></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LONGVARBINARY</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">RAW</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">BYTEA</code></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ BINARY | VARBINARY | LONGVARBINARY | RAW | BYTEA }
+{ BINARY | VARBINARY | BINARY VARYING
+| LONGVARBINARY | RAW | BYTEA }
 [ ( <a href="grammar.html#int">precisionInt</a> ) ]
 </pre>
 syntax-end -->
@@ -484,7 +490,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">BINARY(1000)</p>
 
-<h2 id="other_type" class="notranslate" onclick="switchBnf(this)">OTHER Type</h2>
+<h2 id="other_type" class="notranslate" onclick="switchBnf(this)">OTHER</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 OTHER
@@ -502,19 +508,19 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">OTHER</p>
 
-<h2 id="varchar_type" class="notranslate" onclick="switchBnf(this)">VARCHAR Type</h2>
+<h2 id="varchar_type" class="notranslate" onclick="switchBnf(this)">VARCHAR</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ VARCHAR | LONGVARCHAR | VARCHAR2 | NVARCHAR
+{ VARCHAR | CHARACTER VARYING | LONGVARCHAR | VARCHAR2 | NVARCHAR
 | NVARCHAR2 | VARCHAR_CASESENSITIVE} [ ( <a href="grammar.html#int">precisionInt</a> ) ]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">VARCHAR</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LONGVARCHAR</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">VARCHAR2</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">NVARCHAR</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">NVARCHAR2</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">VARCHAR_CASESENSITIVE</code></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">VARCHAR</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CHARACTER VARYING</code></td></tr></table></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LONGVARCHAR</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">VARCHAR2</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">NVARCHAR</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">NVARCHAR2</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">VARCHAR_CASESENSITIVE</code></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ VARCHAR | LONGVARCHAR | VARCHAR2 | NVARCHAR
+{ VARCHAR | CHARACTER VARYING | LONGVARCHAR | VARCHAR2 | NVARCHAR
 | NVARCHAR2 | VARCHAR_CASESENSITIVE} [ ( <a href="grammar.html#int">precisionInt</a> ) ]
 </pre>
 syntax-end -->
@@ -522,7 +528,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">VARCHAR(255)</p>
 
-<h2 id="varchar_ignorecase_type" class="notranslate" onclick="switchBnf(this)">VARCHAR_IGNORECASE Type</h2>
+<h2 id="varchar_ignorecase_type" class="notranslate" onclick="switchBnf(this)">VARCHAR_IGNORECASE</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 VARCHAR_IGNORECASE [ ( <a href="grammar.html#int">precisionInt</a> ) ]
@@ -540,7 +546,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">VARCHAR_IGNORECASE</p>
 
-<h2 id="char_type" class="notranslate" onclick="switchBnf(this)">CHAR Type</h2>
+<h2 id="char_type" class="notranslate" onclick="switchBnf(this)">CHAR</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 { CHAR | CHARACTER | NCHAR } [ ( <a href="grammar.html#int">precisionInt</a> ) ]
@@ -558,47 +564,51 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">CHAR(10)</p>
 
-<h2 id="blob_type" class="notranslate" onclick="switchBnf(this)">BLOB Type</h2>
+<h2 id="blob_type" class="notranslate" onclick="switchBnf(this)">BLOB</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ BLOB | TINYBLOB | MEDIUMBLOB | LONGBLOB | IMAGE | OID }
-[ ( <a href="grammar.html#int">precisionInt</a> ) ]
+{ BLOB | BINARY LARGE OBJECT
+| TINYBLOB | MEDIUMBLOB | LONGBLOB | IMAGE | OID }
+[ ( <a href="grammar.html#int">precisionInt</a> [K|M|G|T|P]) ]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">BLOB</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">TINYBLOB</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">MEDIUMBLOB</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LONGBLOB</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">IMAGE</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">OID</code></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">BLOB</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">BINARY LARGE OBJECT</code></td></tr></table></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">TINYBLOB</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">MEDIUMBLOB</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LONGBLOB</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">IMAGE</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">OID</code></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">K</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">M</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">G</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">T</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">P</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ BLOB | TINYBLOB | MEDIUMBLOB | LONGBLOB | IMAGE | OID }
-[ ( <a href="grammar.html#int">precisionInt</a> ) ]
+{ BLOB | BINARY LARGE OBJECT
+| TINYBLOB | MEDIUMBLOB | LONGBLOB | IMAGE | OID }
+[ ( <a href="grammar.html#int">precisionInt</a> [K|M|G|T|P]) ]
 </pre>
 syntax-end -->
 <p>Like <code>BINARY</code>, but intended for very large values such as files or images. Unlike when using <code>BINARY</code>, large objects are not kept fully in-memory. Use <code>PreparedStatement.setBinaryStream</code> to store values. See also <code>CLOB</code> and Advanced / Large Objects.</p><p>Mapped to <code>java.sql.Blob</code> (<code>java.io.InputStream</code> is also supported).</p>
 <p>Example:</p>
-<p class="notranslate">BLOB</p>
+<p class="notranslate">BLOB<br />BLOB(10K)</p>
 
-<h2 id="clob_type" class="notranslate" onclick="switchBnf(this)">CLOB Type</h2>
+<h2 id="clob_type" class="notranslate" onclick="switchBnf(this)">CLOB</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
-{ CLOB | TINYTEXT | TEXT | MEDIUMTEXT | LONGTEXT | NTEXT | NCLOB }
-[ ( <a href="grammar.html#int">precisionInt</a> ) ]
+{ CLOB | CHARACTER LARGE OBJECT
+| TINYTEXT | TEXT | MEDIUMTEXT | LONGTEXT | NTEXT | NCLOB }
+[ ( <a href="grammar.html#int">precisionInt</a> [K|M|G|T|P] [CHARACTERS|OCTETS]) ]
 </pre>
 <div name="railroad">
-<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">CLOB</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">TINYTEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">TEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">MEDIUMTEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LONGTEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">NTEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">NCLOB</code></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table>
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">CLOB</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">CHARACTER LARGE OBJECT</code></td></tr></table></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">TINYTEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">TEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">MEDIUMTEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LONGTEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">NTEXT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">NCLOB</code></td><td class="le"></td></tr></table><br /><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">K</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">M</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">G</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">T</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">P</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">CHARACTERS</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">OCTETS</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
-{ CLOB | TINYTEXT | TEXT | MEDIUMTEXT | LONGTEXT | NTEXT | NCLOB }
-[ ( <a href="grammar.html#int">precisionInt</a> ) ]
+{ CLOB | CHARACTER LARGE OBJECT
+| TINYTEXT | TEXT | MEDIUMTEXT | LONGTEXT | NTEXT | NCLOB }
+[ ( <a href="grammar.html#int">precisionInt</a> [K|M|G|T|P] [CHARACTERS|OCTETS]) ]
 </pre>
 syntax-end -->
-<p><code>CLOB</code> is like <code>VARCHAR</code>, but intended for very large values. Unlike when using <code>VARCHAR</code>, large <code>CLOB</code> objects are not kept fully in-memory; instead, they are streamed. <code>CLOB</code> should be used for documents and texts with arbitrary size such as XML or HTML documents, text files, or memo fields of unlimited size. Use <code>PreparedStatement.setCharacterStream</code> to store values. See also Advanced / Large Objects.</p><p><code>VARCHAR</code> should be used for text with relatively short average size (for example shorter than 200 characters). Short <code>CLOB</code> values are stored inline, but there is an overhead compared to <code>VARCHAR</code>.</p><p>Mapped to <code>java.sql.Clob</code> (<code>java.io.Reader</code> is also supported).</p>
+<p><code>CLOB</code> is like <code>VARCHAR</code>, but intended for very large values. Unlike when using <code>VARCHAR</code>, large <code>CLOB</code> objects are not kept fully in-memory; instead, they are streamed. <code>CLOB</code> should be used for documents and texts with arbitrary size such as XML or HTML documents, text files, or memo fields of unlimited size. Use <code>PreparedStatement.setCharacterStream</code> to store values. See also Advanced / Large Objects.</p><p><code>VARCHAR</code> should be used for text with relatively short average size (for example shorter than 200 characters). Short <code>CLOB</code> values are stored inline, but there is an overhead compared to <code>VARCHAR</code>.</p><p>Precision, if any, should be specified in characters, <code>CHARACTERS</code> and <code>OCTETS</code> units have no effect in H2.</p><p>Mapped to <code>java.sql.Clob</code> (<code>java.io.Reader</code> is also supported).</p>
 <p>Example:</p>
-<p class="notranslate">CLOB</p>
+<p class="notranslate">CLOB<br />CLOB(10K)</p>
 
-<h2 id="uuid_type" class="notranslate" onclick="switchBnf(this)">UUID Type</h2>
+<h2 id="uuid_type" class="notranslate" onclick="switchBnf(this)">UUID</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 UUID
@@ -616,7 +626,7 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">UUID</p>
 
-<h2 id="array_type" class="notranslate" onclick="switchBnf(this)">ARRAY Type</h2>
+<h2 id="array_type" class="notranslate" onclick="switchBnf(this)">ARRAY</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 ARRAY
@@ -630,11 +640,11 @@ ARRAY
 ARRAY
 </pre>
 syntax-end -->
-<p>An array of values. Mapped to <code>java.lang.Object[]</code> (arrays of any non-primitive type are also supported).</p><p> Use a value list (1, 2) or <code>PreparedStatement.setObject(.., new Object[] {..})</code> to store values, and <code>ResultSet.getObject(..)</code> or <code>ResultSet.getArray(..)</code> to retrieve the values.</p>
+<p>An array of values. Mapped to <code>java.lang.Object[]</code> (arrays of any non-primitive type are also supported).</p><p>Use a value list (1, 2) or <code>PreparedStatement.setObject(.., new Object[] {..})</code> to store values, and <code>ResultSet.getObject(..)</code> or <code>ResultSet.getArray(..)</code> to retrieve the values.</p>
 <p>Example:</p>
 <p class="notranslate">ARRAY</p>
 
-<h2 id="enum_type" class="notranslate" onclick="switchBnf(this)">ENUM Type</h2>
+<h2 id="enum_type" class="notranslate" onclick="switchBnf(this)">ENUM</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 { ENUM (<a href="grammar.html#string">string</a> [, ... ]) }
@@ -652,23 +662,306 @@ syntax-end -->
 <p>Example:</p>
 <p class="notranslate">ENUM(&#39;clubs&#39;, &#39;diamonds&#39;, &#39;hearts&#39;, &#39;spades&#39;)</p>
 
-<h2 id="geometry_type" class="notranslate" onclick="switchBnf(this)">GEOMETRY Type</h2>
+<h2 id="geometry_type" class="notranslate" onclick="switchBnf(this)">GEOMETRY</h2>
 <!-- railroad-start -->
 <pre name="bnf" style="display: none">
 GEOMETRY
+[({ GEOMETRY |
+{ POINT
+| LINESTRING
+| POLYGON
+| MULTIPOINT
+| MULTILINESTRING
+| MULTIPOLYGON
+| GEOMETRYCOLLECTION } [Z|M|ZM]}
+[, <a href="grammar.html#int">sridInt</a>] )]
 </pre>
 <div name="railroad">
-<code class="c">GEOMETRY</code>
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">GEOMETRY</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">(</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">GEOMETRY</code></td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">POINT</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">LINESTRING</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">POLYGON</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">MULTIPOINT</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">MULTILINESTRING</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">MULTIPOLYGON</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">GEOMETRYCOLLECTION</code></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c">Z</code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c">M</code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c">ZM</code></td><td class="le"></td></tr></table></td><td class="le"></td></tr></table></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#int">sridInt</a></code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
 </div>
 <!-- railroad-end -->
 <!-- syntax-start
 <pre>
 GEOMETRY
+[({ GEOMETRY |
+{ POINT
+| LINESTRING
+| POLYGON
+| MULTIPOINT
+| MULTILINESTRING
+| MULTIPOLYGON
+| GEOMETRYCOLLECTION } [Z|M|ZM]}
+[, <a href="grammar.html#int">sridInt</a>] )]
 </pre>
 syntax-end -->
-<p>A spatial geometry type, based on the <code>org.locationtech.jts</code> library. Normally represented in textual format using the <code>WKT</code> (well known text) format.</p><p>Use a quoted string containing a <code>WKT</code> formatted string or <code>PreparedStatement.setObject()</code> to store values, and <code>ResultSet.getObject(..)</code> or <code>ResultSet.getString(..)</code> to retrieve the values.</p>
+<p>A spatial geometry type. If additional constraints are not specified this type accepts all supported types of geometries. A constraint with required geometry type and dimension system can be set by specifying name of the type and dimension system. A whitespace between them is optional. 2D dimension system does not have a name and assumed if only a geometry type name is specified. <code>POINT</code> means 2D point, <code>POINT</code> Z or <code>POINTZ</code> means 3D point. <code>GEOMETRY</code> constraint means no restrictions on type or dimension system of geometry. A constraint with required spatial reference system identifier (<code>SRID</code>) can be set by specifying this identifier.</p><p>Mapped to <code>org.locationtech.jts.geom.Geometry</code> if <code>JTS</code> library is in classpath and to <code>java.lang.String</code> otherwise. May be represented in textual format using the <code>WKT</code> (well-known text) or <code>EWKT</code> (extended well-known text) format. Values are stored internally in <code>EWKB</code> (extended well-known binary) format. Only a subset of <code>EWKB</code> and <code>EWKT</code> features is supported. Supported objects are <code>POINT, LINESTRING, POLYGON, MULTIPOINT, MULTILINESTRING, MULTIPOLYGON</code>, and <code>GEOMETRYCOLLECTION</code>. Supported dimension systems are 2D (<code>XY</code>), Z (<code>XYZ</code>), M (<code>XYM</code>), and <code>ZM</code> (<code>XYZM</code>). <code>SRID</code> (spatial reference system identifier) is supported.</p><p>Use a quoted string containing a <code>WKT</code>/<code>EWKT</code> formatted string or <code>PreparedStatement.setObject()</code> to store values, and <code>ResultSet.getObject(..)</code> or <code>ResultSet.getString(..)</code> to retrieve the values.</p>
 <p>Example:</p>
-<p class="notranslate">GEOMETRY</p>
+<p class="notranslate">GEOMETRY<br />GEOMETRY(POINT)<br />GEOMETRY(POINT Z)<br />GEOMETRY(POINT Z, 4326)<br />GEOMETRY(GEOMETRY, 4326)</p>
+
+<h2 id="interval_type" class="notranslate" onclick="switchBnf(this)">INTERVAL</h2>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+<a href="datatypes.html#interval_year_type">intervalYearType</a> | <a href="datatypes.html#interval_month_type">intervalMonthType</a> | <a href="datatypes.html#interval_day_type">intervalDayType</a>
+| <a href="datatypes.html#interval_hour_type">intervalHourType</a>| <a href="datatypes.html#interval_minute_type">intervalMinuteType</a> | <a href="datatypes.html#interval_second_type">intervalSecondType</a>
+| <a href="datatypes.html#interval_year_to_month_type">intervalYearToMonthType</a> | <a href="datatypes.html#interval_day_to_hour_type">intervalDayToHourType</a>
+| <a href="datatypes.html#interval_day_to_minute_type">intervalDayToMinuteType</a> | <a href="datatypes.html#interval_day_to_second_type">intervalDayToSecondType</a>
+| <a href="datatypes.html#interval_hour_to_minute_type">intervalHourToMinuteType</a> | <a href="datatypes.html#interval_hour_to_second_type">intervalHourToSecondType</a>
+| <a href="datatypes.html#interval_minute_to_second_type">intervalMinuteToSecondType</a>
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d"><code class="c"><a href="datatypes.html#interval_year_type">intervalYearType</a></code></td><td class="te"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_month_type">intervalMonthType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_day_type">intervalDayType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_hour_type">intervalHourType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_minute_type">intervalMinuteType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_second_type">intervalSecondType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_year_to_month_type">intervalYearToMonthType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_day_to_hour_type">intervalDayToHourType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_day_to_minute_type">intervalDayToMinuteType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_day_to_second_type">intervalDayToSecondType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_hour_to_minute_type">intervalHourToMinuteType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ks"></td><td class="d"><code class="c"><a href="datatypes.html#interval_hour_to_second_type">intervalHourToSecondType</a></code></td><td class="ke"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><code class="c"><a href="datatypes.html#interval_minute_to_second_type">intervalMinuteToSecondType</a></code></td><td class="le"></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+<a href="datatypes.html#interval_year_type">intervalYearType</a> | <a href="datatypes.html#interval_month_type">intervalMonthType</a> | <a href="datatypes.html#interval_day_type">intervalDayType</a>
+| <a href="datatypes.html#interval_hour_type">intervalHourType</a>| <a href="datatypes.html#interval_minute_type">intervalMinuteType</a> | <a href="datatypes.html#interval_second_type">intervalSecondType</a>
+| <a href="datatypes.html#interval_year_to_month_type">intervalYearToMonthType</a> | <a href="datatypes.html#interval_day_to_hour_type">intervalDayToHourType</a>
+| <a href="datatypes.html#interval_day_to_minute_type">intervalDayToMinuteType</a> | <a href="datatypes.html#interval_day_to_second_type">intervalDayToSecondType</a>
+| <a href="datatypes.html#interval_hour_to_minute_type">intervalHourToMinuteType</a> | <a href="datatypes.html#interval_hour_to_second_type">intervalHourToSecondType</a>
+| <a href="datatypes.html#interval_minute_to_second_type">intervalMinuteToSecondType</a>
+</pre>
+syntax-end -->
+<p>Interval data type. There are two classes of intervals. Year-month intervals can store years and months. Day-time intervals can store days, hours, minutes, and seconds. Year-month intervals are comparable only with another year-month intervals. Day-time intervals are comparable only with another day-time intervals.</p><p>Mapped to <code>org.h2.api.Interval</code>.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL DAY TO SECOND</p>
+
+<h2>Interval Data Types</h2>
+
+
+<h3 id="interval_year_type" class="notranslate" onclick="switchBnf(this)">INTERVAL YEAR</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL YEAR [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL YEAR</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL YEAR [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Period</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL YEAR</p>
+
+<h3 id="interval_month_type" class="notranslate" onclick="switchBnf(this)">INTERVAL MONTH</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL MONTH [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL MONTH</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL MONTH [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Period</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL MONTH</p>
+
+<h3 id="interval_day_type" class="notranslate" onclick="switchBnf(this)">INTERVAL DAY</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL DAY [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL DAY</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL DAY [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL DAY</p>
+
+<h3 id="interval_hour_type" class="notranslate" onclick="switchBnf(this)">INTERVAL HOUR</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL HOUR [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL HOUR</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL HOUR [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL HOUR</p>
+
+<h3 id="interval_minute_type" class="notranslate" onclick="switchBnf(this)">INTERVAL MINUTE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL MINUTE [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL MINUTE</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL MINUTE [ ( <a href="grammar.html#int">precisionInt</a> ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL MINUTE</p>
+
+<h3 id="interval_second_type" class="notranslate" onclick="switchBnf(this)">INTERVAL SECOND</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL SECOND [ ( <a href="grammar.html#int">precisionInt</a> [, <a href="grammar.html#int">fractionalPrecisionInt</a> ] ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL SECOND</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a></code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">, <a href="grammar.html#int">fractionalPrecisionInt</a></code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">)</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL SECOND [ ( <a href="grammar.html#int">precisionInt</a> [, <a href="grammar.html#int">fractionalPrecisionInt</a> ] ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If precision is specified it should be from 1 to 18, 2 is default. If fractional seconds precision is specified it should be from 0 to 9, 6 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL SECOND</p>
+
+<h3 id="interval_year_to_month_type" class="notranslate" onclick="switchBnf(this)">INTERVAL YEAR TO MONTH</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL YEAR [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO MONTH
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL YEAR</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">TO MONTH</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL YEAR [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO MONTH
+</pre>
+syntax-end -->
+<p>Interval data type. If leading field precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Period</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL YEAR TO MONTH</p>
+
+<h3 id="interval_day_to_hour_type" class="notranslate" onclick="switchBnf(this)">INTERVAL DAY TO HOUR</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL DAY [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO HOUR
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL DAY</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">TO HOUR</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL DAY [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO HOUR
+</pre>
+syntax-end -->
+<p>Interval data type. If leading field precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL DAY TO HOUR</p>
+
+<h3 id="interval_day_to_minute_type" class="notranslate" onclick="switchBnf(this)">INTERVAL DAY TO MINUTE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL DAY [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO MINUTE
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL DAY</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">TO MINUTE</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL DAY [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO MINUTE
+</pre>
+syntax-end -->
+<p>Interval data type. If leading field precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL DAY TO MINUTE</p>
+
+<h3 id="interval_day_to_second_type" class="notranslate" onclick="switchBnf(this)">INTERVAL DAY TO SECOND</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL DAY [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO SECOND [ ( <a href="grammar.html#int">fractionalPrecisionInt</a> ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL DAY</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">TO SECOND</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">fractionalPrecisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL DAY [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO SECOND [ ( <a href="grammar.html#int">fractionalPrecisionInt</a> ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If leading field precision is specified it should be from 1 to 18, 2 is default. If fractional seconds precision is specified it should be from 0 to 9, 6 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL DAY TO SECOND</p>
+
+<h3 id="interval_hour_to_minute_type" class="notranslate" onclick="switchBnf(this)">INTERVAL HOUR TO MINUTE</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL HOUR [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO MINUTE
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL HOUR</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">TO MINUTE</code></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL HOUR [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO MINUTE
+</pre>
+syntax-end -->
+<p>Interval data type. If leading field precision is specified it should be from 1 to 18, 2 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL HOUR TO MINUTE</p>
+
+<h3 id="interval_hour_to_second_type" class="notranslate" onclick="switchBnf(this)">INTERVAL HOUR TO SECOND</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL HOUR [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO SECOND [ ( <a href="grammar.html#int">fractionalPrecisionInt</a> ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL HOUR</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">TO SECOND</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">fractionalPrecisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL HOUR [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO SECOND [ ( <a href="grammar.html#int">fractionalPrecisionInt</a> ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If leading field precision is specified it should be from 1 to 18, 2 is default. If fractional seconds precision is specified it should be from 0 to 9, 6 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL HOUR TO SECOND</p>
+
+<h3 id="interval_minute_to_second_type" class="notranslate" onclick="switchBnf(this)">INTERVAL MINUTE TO SECOND</h3>
+<!-- railroad-start -->
+<pre name="bnf" style="display: none">
+INTERVAL MINUTE [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO SECOND [ ( <a href="grammar.html#int">fractionalPrecisionInt</a> ) ]
+</pre>
+<div name="railroad">
+<table class="railroad"><tr class="railroad"><td class="d"><code class="c">INTERVAL MINUTE</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">precisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td><td class="d"><code class="c">TO SECOND</code></td><td class="d"><table class="railroad"><tr class="railroad"><td class="ts"></td><td class="d">&nbsp;</td><td class="te"></td></tr><tr class="railroad"><td class="ls"></td><td class="d"><table class="railroad"><tr class="railroad"><td class="d"><code class="c">( <a href="grammar.html#int">fractionalPrecisionInt</a> )</code></td></tr></table></td><td class="le"></td></tr></table></td></tr></table>
+</div>
+<!-- railroad-end -->
+<!-- syntax-start
+<pre>
+INTERVAL MINUTE [ ( <a href="grammar.html#int">precisionInt</a> ) ] TO SECOND [ ( <a href="grammar.html#int">fractionalPrecisionInt</a> ) ]
+</pre>
+syntax-end -->
+<p>Interval data type. If leading field precision is specified it should be from 1 to 18, 2 is default. If fractional seconds precision is specified it should be from 0 to 9, 6 is default.</p><p>Mapped to <code>org.h2.api.Interval</code>. <code>java.time.Duration</code> is also supported on Java 8 and later versions.</p>
+<p>Example:</p>
+<p class="notranslate">INTERVAL MINUTE TO SECOND</p>
 
 <!--[if lte IE 7]><script language="javascript">switchBnf(null);</script><![endif]-->
 

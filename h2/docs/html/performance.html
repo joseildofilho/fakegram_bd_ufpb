@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-Copyright 2004-2018 H2 Group. Multiple-Licensed under the MPL 2.0, Version 1.0,
-and under the Eclipse Public License, Version 1.0
+Copyright 2004-2019 H2 Group. Multiple-Licensed under the MPL 2.0,
+and the EPL 1.0 (http://h2database.com/html/license.html).
 Initial Developer: H2 Group
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -77,12 +77,13 @@ translate -->
 <a href="advanced.html">Advanced</a><br />
 <br />
 <b>Reference</b><br />
-<a href="grammar.html">SQL Grammar</a><br />
+<a href="commands.html">Commands</a><br />
 <a href="functions.html">Functions</a><br />
 <a href="datatypes.html">Data Types</a><br />
+<a href="grammar.html">SQL Grammar</a><br />
 <a href="systemtables.html">System Tables</a><br />
 <a href="../javadoc/index.html">Javadoc</a><br />
-<a href="../h2.pdf">PDF (1 MB)</a><br />
+<a href="../h2.pdf">PDF (1.5 MB)</a><br />
 <br />
 <b>Support</b><br />
 <a href="faq.html">FAQ</a><br />
@@ -96,7 +97,6 @@ translate -->
 <a href="license.html">License</a><br />
 <a href="build.html">Build</a><br />
 <a href="links.html">Links</a><br />
-<a href="jaqu.html">JaQu</a><br />
 <a href="mvstore.html">MVStore</a><br />
 <a href="architecture.html">Architecture</a><br />
 <br />
@@ -371,7 +371,7 @@ System.out.println(profiler.getTop(3));
 <p> The profiler is built into the H2 Console tool, to analyze databases that open slowly. To use it, run the H2 Console, and then click on 'Test Connection'. Afterwards, click on "Test successful" and you get the most common stack traces, which helps to find out why it took so long to connect. You will only get the stack traces if opening the database took more than a few seconds. </p>
 
 <h2 id="database_profiling">Database Profiling</h2>
-<p> The <code>ConvertTraceFile</code> tool generates SQL statement statistics at the end of the SQL script file. The format used is similar to the profiling data generated when using <code>java -Xrunhprof</code>. For this to work, the trace level needs to be 2 or higher (<code>TRACE_LEVEL_FILE=2</code>). The easiest way to set the trace level is to append the setting to the database URL, for example: <code>jdbc:h2:~/test;TRACE_LEVEL_FILE=2</code> or <code>jdbc:h2:tcp://localhost/~/test;TRACE_LEVEL_FILE=2</code>. As an example, execute the the following script using the H2 Console: </p>
+<p> The <code>ConvertTraceFile</code> tool generates SQL statement statistics at the end of the SQL script file. The format used is similar to the profiling data generated when using <code>java -Xrunhprof</code>. For this to work, the trace level needs to be 2 or higher (<code>TRACE_LEVEL_FILE=2</code>). The easiest way to set the trace level is to append the setting to the database URL, for example: <code>jdbc:h2:~/test;TRACE_LEVEL_FILE=2</code> or <code>jdbc:h2:tcp://localhost/~/test;TRACE_LEVEL_FILE=2</code>. As an example, execute the following script using the H2 Console: </p>
 <pre>
 SET TRACE_LEVEL_FILE 2;
 DROP TABLE IF EXISTS TEST;

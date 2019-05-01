@@ -15,8 +15,6 @@ def normalize(l):
         vs.append(v)
     return vs
 
-
-
 def insert(table, fields, values, connection):
 
     vs = normalize(values)
