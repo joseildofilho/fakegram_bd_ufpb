@@ -15,11 +15,17 @@ class GerentePerfil():
     connection = connector() 
     
     perfil_fields = ["nome_perfil", "biografia", "senha", "nome_real", "privacidade"]
-    mensagem = [ "texto", "data", "nome_criador" ]
+    mensagem = [ "texto", "data", 'topico', "nome_criador" ]
 
     post = [ "foto", 'id_mensagem' ]
 
-    comentario = [ "id_messagem", 'id_post' ]
+    comentario = [ "id_mensagem", 'id_post' ]
+
+    conversa = ['nome_remetente', 'nome_destinatario', 'msg']
+
+    notificacao = ['nome_notificado', 'data', 'vista', 'tipo', 'nome_notificador', 'id_mensagem']
+
+    topico = ['nome']
 
     perfil_atual = None
 
@@ -37,13 +43,45 @@ class GerentePerfil():
             return True
         return False
 
+    def _seguidores(self, marcados):
+        def aux(cursor):
+            ret = []
+            for marcado in marcados:
+                query = "SELECT * FROM segue WHERE nome_seguido = '{}' AND nome_seguidor = '{}'".format(self.perfil_atual[0], marcado)
+                cursor.execute(query)
+                if cursor.fetchall():
+                    ret.append(marcado)
+            return ret
+        return self.connection.cursor(aux)
+
+    def _publicos(self, marcados):
+        def aux(cursor):
+            ret = []
+            for marcado in marcados:
+                query = "SELECT privacidade FROM perfil WHERE nome_perfil = '{}'".format(marcado)
+                cursor.execute(query)
+                priv = cursor.fetchone() 
+                if priv and priv[0]:
+                    ret.append(marcado)
+            return ret
+        return self.connection.cursor(aux)
+
     def _extrai_marcados(self, text):
         marcados = []
         tokens = text.split(" ")
         for i in tokens:
             if i.startswith("@"):
                 marcados.append(i[1:])
+        marcados = list(set(self._seguidores(marcados)) | set(self._publicos(marcados)))
         return marcados
+    
+    def _extrair_topicos(self, text):
+        topicos = []
+        tokens = text.split(" ")
+        for token in tokens:
+            if token.startswith("#"):
+                topicos.append(token[1:])
+        return topicos
                 
     def cadastrar_perfil(self, perfil):
         '''
@@ -96,17 +134,106 @@ class GerentePerfil():
         self.perfil_atual = self.select_perfil(nome)
 
     def postar(self, texto, foto):
-        def aux(cursor):
-            insert("mensagem", self.mensagem, [texto, str(datetime.now()), self.perfil_atual[0]], self.connection)
-            id = str(self.get_mensagens()[-1][0])
-            insert("post", self.post, [foto, id], self.connection)
-        self.connection.cursor(aux)
+        insert("mensagem", self.mensagem, [texto, str(datetime.now()), '#',self.perfil_atual[0]], self.connection)
+        id = str(self.get_mensagens()[-1][0])
+        insert("post", self.post, [foto, id], self.connection)
 
-        # notificar
+        self.marcar(texto, id) 
+
+        self.criar_topico(texto, id)
+
+    def comentar(self, texto, id_post):
+        insert('mensagem',
+                self.mensagem,
+                [texto, 
+                    str(datetime.now()),
+                    '#',
+                    self.perfil_atual[0]],
+                    self.connection)
+        id = str(self.get_mensagens()[-1][0])
+        insert('comentario',
+                self.comentario,
+                [str(id), str(id_post)],
+                self.connection)
+
+        self.marcar(texto, id) 
+
+        self.criar_topico(texto, id)
+
+    def get_comentarios(self, id_post):
+        def aux(cursor):
+            query = "SELECT c.id_mensagem, c.id_post, m.texto FROM comentario c INNER JOIN mensagem m ON c.id_mensagem = m.id WHERE c.id_post = '{}';".format(id_post)
+            cursor.execute(query)
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
+
+    def marcar(self, texto, id):
+        marcados = self._extrai_marcados(texto)
+        for marcado in marcados:
+            self.notificar('marcado', marcado, id)
+
+    def criar_topico(self, texto, id):
+        topicos = self._extrair_topicos(texto)
+        if len(topicos) > 0:
+            topico = topicos[0]
+            r = self.verifica_topico(topico)
+            if not r:
+                insert('topico',
+                        self.topico,
+                        [topico],
+                        self.connection)
+            alter('mensagem',
+                    'id:{}'.format(id),
+                    self.mensagem,
+                    [topico],
+                    self.connection
+                    )            
+
+    def notificar(self, tipo, id_perfil, id_msg="1"):
+        insert('notificacao', 
+                    self.notificacao, 
+                    [self.perfil_atual[0], 
+                        str(datetime.now()), 
+                        False, 
+                        tipo,
+                        id_perfil,
+                        id_msg],
+                    self.connection)
+
+
+    def verifica_topico(self, topico):
+        def aux(cursor):
+            cursor.execute("SELECT * FROM topico WHERE topico.nome = '{}'".format(topico))
+            x = cursor.fetchall()
+            return x
+        return self.connection.cursor(aux)
+
+    def ver_notificacoes(self):
+        def aux(cursor):
+            query = "SELECT * FROM notificacao WHERE nome_notificado = '{}'".format(self.perfil_atual[0])
+            cursor.execute(query)
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
 
     def get_mensagens(self):
         def aux(cursor):
             query = "SELECT * FROM mensagem m WHERE m.nome_criador = '{}' ORDER BY m.id".format(self.perfil_atual[0]) 
+            cursor.execute(query)
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
+    
+    def mandar_direct(self, texto, id_perfil):
+        insert('conversa',
+                self.conversa,
+                [self.perfil_atual[0],
+                    id_perfil,
+                    texto],
+                self.connection)
+        self.notificar('direct', id_perfil)
+
+    def ver_directs(self):
+        def aux(cursor):
+            query = "SELECT * FROM conversa c WHERE c.nome_destinatario = '{}' OR c.nome_remetente = '{}'".format(self.perfil_atual[0],self.perfil_atual[0])
             cursor.execute(query)
             return cursor.fetchall()
         return self.connection.cursor(aux)
@@ -119,6 +246,6 @@ class GerentePerfil():
            query = "SELECT * FROM mensagem m INNER JOIN post p ON m.id = p.id_mensagem  WHERE m.nome_criador = '{}' ORDER BY m.id;".format(self.perfil_atual[0])
            cursor.execute(query)
            ret = cursor.fetchall()
-           x = [[i[1], i[4]] for i in ret]
+           x = [[i[1], i[5]] for i in ret]
            return x
         return self.connection.cursor(aux)

@@ -8,6 +8,7 @@ class Tables:
         for key, table in self.tables.items():
             #print("creating table", key)
             cursor.execute(table)
+        cursor.execute("INSERT INTO topico (nome) values ('#')")
     
     def drop_database(self):
         for key in self.tables.keys():
@@ -50,9 +51,15 @@ class Tables:
                 nome_remetente VARCHAR(50) NOT NULL REFERENCES perfil(nome_perfil),
                 nome_destinatario VARCHAR(50) NOT NULL REFERENCES perfil(nome_perfil),
                 msg VARCHAR(255) NOT NULL,
-                data datetime NOT NULL,
+                data datetime DEFAULT CURRENT_TIMESTAMP(),
                 PRIMARY KEY (id,nome_remetente,nome_destinatario)
             );
+        """,
+         'topico':"""
+            CREATE TABLE topico(
+              nome varchar(255) NOT NULL PRIMARY KEY,
+              data_criacao datetime DEFAULT CURRENT_TIMESTAMP()
+            )
         """,
         
         'mensagem' : """ 
@@ -60,6 +67,7 @@ class Tables:
               id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
               texto VARCHAR(500) NOT NULL,
               data datetime NOT NULL,
+              topico VARCHAR(255) NOT NULL REFERENCES topico(nome),
               nome_criador VARCHAR(50) NOT NULL REFERENCES perfil(nome_perfil) /*RELACIONAMENTO TEM*/
             );
         """,
@@ -89,14 +97,7 @@ class Tables:
               PRIMARY KEY (id_mensagem)
             );
         """,
-        'marcado_topico' : """
-            CREATE TABLE marcado_topico(
-              id_mensagem BIGINT NOT NULL REFERENCES mensagem(id),
-              nome_topico VARCHAR(25) NOT NULL,               /*ENTIDADE TOPICO*/
-              PRIMARY KEY (id_mensagem)
-            );
-        """,
-        'notificacao' : """
+       'notificacao' : """
             CREATE TABLE notificacao(
               id_notificacao BIGINT NOT NULL AUTO_INCREMENT,
               nome_notificado VARCHAR(50) NOT NULL REFERENCES perfil(nome_perfil), /*RELACIONAMENTO ENCHE O SACO*/
@@ -104,10 +105,10 @@ class Tables:
               vista BOOLEAN NOT NULL,
               tipo VARCHAR(20) NOT NULL,
               nome_notificador VARCHAR(50) REFERENCES perfil(nome_perfil), /*NOTIFICADO POR PERFIL*/
-              id_mensagem BIGINT  REFERENCES mensagem(id),      /*NOTIFICADO POR MENSAGEM*/
+              id_mensagem BIGINT,      /*NOTIFICADO POR MENSAGEM modificação suspeita, retirei o reference*/
               PRIMARY KEY (id_notificacao)
             );
-        """,    
+        """,
         'visualiza' : """    
             CREATE TABLE visualiza(
               id_notificacao BIGINT NOT NULL REFERENCES notificacao(id_notificacao),
