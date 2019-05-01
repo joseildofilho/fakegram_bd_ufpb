@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS perfil;
 CREATE TABLE perfil(
 nome_perfil VARCHAR(50) NOT NULL PRIMARY KEY,
-biografia VARCHAR(255) ,
+biografia VARCHAR(255) NOT NULL,
 senha VARCHAR(50) NOT NULL,
 nome_real VARCHAR(50) NOT NULL,
 privacidade BOOLEAN NOT NULL
