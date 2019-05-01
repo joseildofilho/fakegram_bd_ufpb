@@ -36,9 +36,11 @@ def alter(table, column, fields, values, connection):
         query += " " + field + " = " + value + ","
     query = query[:-1] + " WHERE {} = {};".format(column.split(":")[0], column.split(":")[1])
 
-    print(query)
-
     connection.cursor(lambda cursor: cursor.execute(query))
+
+def remove(table, column, id, connection):
+    query = "DELETE FROM {} WHERE {}='{}';".format(table, column, id)
+    connection.cursor(lambda cursor: cursor.execute(query))    
 
 def select_profile(nome, connection):
     nom = "'" + nome + "'"
@@ -50,10 +52,11 @@ def select_profile(nome, connection):
     return connection.cursor(f_aux)
 
 def create_fake_profile():
-    nome_perfil = faker.name()
+    nomes = faker.profile("username")
+    nome_perfil = nomes['username']
     biografia   = faker.text()
     senha       = faker.credit_card_number()
-    nome_real   = nome_perfil
+    nome_real   = nomes['name']
     privacidade = True if random.random() > 0.5 else False
     return [nome_perfil, biografia, senha, nome_real, privacidade]
 

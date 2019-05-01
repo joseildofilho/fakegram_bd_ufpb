@@ -1,10 +1,11 @@
 from H2Connector import H2Connector as connector
 from faker import Faker
-from utils import insert, select_profile, create_fake_profile, alter
+from utils import insert, select_profile, create_fake_profile, alter, remove
 
 from datetime import datetime
 
 import random
+import re
 
 QUANTIDADE_PERFIS = 10
 
@@ -22,27 +23,53 @@ class GerentePerfil():
 
     perfil_atual = None
 
+    _validation_pattern = re.compile("[a-zA-Z_0-9*]+")
+
     # fills the perfil table with random data
     def fill(self):
         for _ in range(QUANTIDADE_PERFIS):
             perfil = create_fake_profile()
             self.cadastrar_perfil(perfil)
+
+    def _validar_nome_perfil(self, nome):
+        m = self._validation_pattern.match(nome)
+        if m and m.group() == nome:
+            return True
+        return False
                 
     def cadastrar_perfil(self, perfil):
         '''
             create a profile
         '''
+        if not self._validar_nome_perfil(perfil[0]):
+            raise Exception("Nome invalido")
         insert("perfil",
                     self.perfil_fields,
                     perfil,
                     self.connection)
+
     def alterar_perfil(self, perfil):
+        '''
+            updates perfil
+        '''
+        if not self._validar_nome_perfil(perfil[0]):
+            raise Exception("Nome invalido")
         alter("perfil",
                 "nome_perfil:'{}'".format(self.perfil_atual[0]),
                 self.perfil_fields,
                 perfil,
                 self.connection)
 
+    def remove_perfil(self, nome):
+        '''
+            removes perfil
+        '''
+        if not self._validar_nome_perfil(nome):
+            raise Exception("Nome invalido")
+        remove('perfil',
+                'nome_perfil',
+                nome,
+                self.connection)
 
     def seleciona_perfil_aleatorio(self):
         '''

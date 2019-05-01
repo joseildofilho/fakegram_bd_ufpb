@@ -27,13 +27,29 @@ class TestQueries(unittest.TestCase):
     def test_alter_perfil(self):
         self.gp.set_perfil(self.perfil[0])
 
-        self.perfil[0] = "Flavio Serrano"
+        self.perfil[0] = "Flavio_Serrano"
 
         self.gp.alterar_perfil(self.perfil)
 
-        print(self.gp.select_perfil(self.perfil[0]))
-
         self.assertTrue(self.gp.select_perfil(self.perfil[0])[0] == self.perfil[0])
+
+    def test_validar_nome_perfil(self):
+        self.assertTrue(self.gp._validar_nome_perfil("Joseildo"))
+        self.assertTrue(self.gp._validar_nome_perfil("Joseildo_"))
+        self.assertTrue(self.gp._validar_nome_perfil("Joseildo1"))
+        self.assertTrue(self.gp._validar_nome_perfil("123Joseildo"))
+        self.assertTrue(self.gp._validar_nome_perfil("123_Joseildo"))
+        self.assertTrue(self.gp._validar_nome_perfil("Joseildo_123"))
+
+        self.assertFalse(self.gp._validar_nome_perfil("Joseildo "))
+        self.assertFalse(self.gp._validar_nome_perfil(" Joseildo "))
+        self.assertFalse(self.gp._validar_nome_perfil("Joseildo Mariano"))
+        self.assertFalse(self.gp._validar_nome_perfil("Joseildo _"))
+
+    def test_remover_usuario(self):
+        self.gp.remove_perfil(self.perfil[0])
+
+        self.assertTrue(self.gp.select_perfil(self.perfil[0]) == None)
 
     def tearDown(self):
         self.t.drop_database()
