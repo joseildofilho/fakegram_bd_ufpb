@@ -1,6 +1,6 @@
 from H2Connector import H2Connector as connector
 from faker import Faker
-from utils import insert, select_profile, create_fake_profile
+from utils import insert, select_profile, create_fake_profile, alter
 
 from datetime import datetime
 
@@ -36,6 +36,13 @@ class GerentePerfil():
                     self.perfil_fields,
                     perfil,
                     self.connection)
+    def alterar_perfil(self, perfil):
+        alter("perfil",
+                "nome_perfil:'{}'".format(self.perfil_atual[0]),
+                self.perfil_fields,
+                perfil,
+                self.connection)
+
 
     def seleciona_perfil_aleatorio(self):
         '''
@@ -56,13 +63,15 @@ class GerentePerfil():
     def postar(self, texto, foto):
         def aux(cursor):
             insert("mensagem", self.mensagem, [texto, str(datetime.now()), self.perfil_atual[0]], self.connection)
-            id = str(self.get_mensagens()[0][0])
+            id = str(self.get_mensagens()[-1][0])
             insert("post", self.post, [foto, id], self.connection)
         self.connection.cursor(aux)
 
+        # notificar
+
     def get_mensagens(self):
         def aux(cursor):
-            query = "SELECT * FROM mensagem m WHERE m.nome_criador = '{}'".format(self.perfil_atual[0])
+            query = "SELECT * FROM mensagem m WHERE m.nome_criador = '{}' ORDER BY m.id".format(self.perfil_atual[0]) 
             cursor.execute(query)
             return cursor.fetchall()
         return self.connection.cursor(aux)
@@ -72,7 +81,7 @@ class GerentePerfil():
             Get the posts from the current profile
         '''
         def aux(cursor):
-           query = "SELECT * FROM mensagem m INNER JOIN post p ON m.id = p.id_mensagem  WHERE m.nome_criador = '{}' ORDER BY m.data;".format(self.perfil_atual[0])
+           query = "SELECT * FROM mensagem m INNER JOIN post p ON m.id = p.id_mensagem  WHERE m.nome_criador = '{}' ORDER BY m.id;".format(self.perfil_atual[0])
            cursor.execute(query)
            ret = cursor.fetchall()
            x = [[i[1], i[4]] for i in ret]

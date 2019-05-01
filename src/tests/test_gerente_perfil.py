@@ -24,5 +24,16 @@ class TestQueries(unittest.TestCase):
         for db, local in zip(self.gp.perfil_atual, self.perfil):
             self.assertEqual(db, local)
 
+    def test_alter_perfil(self):
+        self.gp.set_perfil(self.perfil[0])
+
+        self.perfil[0] = "Flavio Serrano"
+
+        self.gp.alterar_perfil(self.perfil)
+
+        print(self.gp.select_perfil(self.perfil[0]))
+
+        self.assertTrue(self.gp.select_perfil(self.perfil[0])[0] == self.perfil[0])
+
     def tearDown(self):
         self.t.drop_database()

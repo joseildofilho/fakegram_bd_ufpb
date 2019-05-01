@@ -29,5 +29,18 @@ class TestQueries(unittest.TestCase):
         r = self.gp.get_posts_atual()[0]
         self.assertTrue(post == r)
 
+    def test_dois_posts(self):
+        post = [f.text(), f.uri()]
+        post2 = [f.text(), f.uri()]
+
+        self.gp.postar(post[0],post[1])
+        self.gp.postar(post2[0],post2[1])
+
+        r_post = self.gp.get_posts_atual()[0]
+        r_post2 = self.gp.get_posts_atual()[1]
+
+        self.assertTrue(post == r_post)
+        self.assertTrue(post2 == r_post2)
+
     def tearDown(self):
         self.t.drop_database()

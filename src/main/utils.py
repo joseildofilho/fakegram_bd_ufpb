@@ -3,9 +3,9 @@ import random
 
 faker = Faker()
 
-def insert(table, fields, values, connection):
+def normalize(l):
     vs = []
-    for i,v in enumerate(values):
+    for i,v in enumerate(l):
         if type(v) == bool:
             v = str(v)
         elif v.isnumeric():
@@ -13,12 +13,32 @@ def insert(table, fields, values, connection):
         else:
             v = "'" + v + "'"
         vs.append(v)
+    return vs
+
+
+
+def insert(table, fields, values, connection):
+
+    vs = normalize(values)
 
     aux = "INSERT INTO " + table + " ( " + ",".join(fields) + " ) VALUES ( " + ",".join(vs) + " );" 
 
     connection.cursor(
             lambda cursor: cursor.execute(aux)
             )
+
+def alter(table, column, fields, values, connection):
+
+    vs = normalize(values)
+
+    query = "UPDATE {} SET".format(table)
+    for field, value in zip(fields, vs):
+        query += " " + field + " = " + value + ","
+    query = query[:-1] + " WHERE {} = {};".format(column.split(":")[0], column.split(":")[1])
+
+    print(query)
+
+    connection.cursor(lambda cursor: cursor.execute(query))
 
 def select_profile(nome, connection):
     nom = "'" + nome + "'"
