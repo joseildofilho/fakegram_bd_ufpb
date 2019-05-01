@@ -2,17 +2,16 @@ from H2Connector import H2Connector as connector
 class Tables:
     
     def build(self):
-        print('tables:',self.connection)
         self.connection.cursor(self._create_tables)
 
     def _create_tables(self, cursor):
         for key, table in self.tables.items():
-            print("creating table", key)
+            #print("creating table", key)
             cursor.execute(table)
     
     def drop_database(self):
         for key in self.tables.keys():
-            print("deleting", key)
+            #print("deleting", key)
             self.connection.cursor(
                     lambda cursor: cursor.execute("DROP TABLE IF EXISTS {}".format(key))
                     )
@@ -23,7 +22,7 @@ class Tables:
     'perfil' : """
             CREATE TABLE perfil(
                 nome_perfil VARCHAR(50) NOT NULL PRIMARY KEY,
-                biografia VARCHAR(255) ,
+                biografia VARCHAR(1000) ,
                 senha VARCHAR(50) NOT NULL,
                 nome_real VARCHAR(50) NOT NULL,
                 privacidade BOOLEAN NOT NULL
