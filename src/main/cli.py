@@ -106,11 +106,11 @@ class Interface:
             elif resposta == 2:
                 self.ver_minhas_postagens()
             elif resposta == 3:
-                pass
+                self.ver_seguidores()
             elif resposta == 4:
-                pass
+                self.ver_seguidos()
             elif resposta == 5:
-                pass
+                self.linha_do_tempo()
             elif resposta == 6:
                 pass
             elif resposta == 7:
@@ -119,6 +119,53 @@ class Interface:
                 pass
             elif resposta == 9:
                 pass
+
+    def ver_seguidos(self):
+        seguidos = self.gerente.get_seguidos()
+        if not seguidos:
+            self.div()
+            print("""
+                        Você não gosta de ninguem ? por que não busca alguem e o segue :p
+                        Enter - Voltar
+                    """)
+            self.div()
+            input()
+            self.clear()
+            return
+        self.div()
+        print("\n*** Lista de Seguidos ***")
+        for seguido in seguidos:
+            print("""
+                {}
+            """.format(seguido))
+        print("Enter - Voltar")
+        self.div()   
+        input()
+        self.clear()
+            
+    def ver_seguidores(self):
+        seguidores = self.gerente.get_seguidores()
+        if not seguidores:
+            self.div()
+            print("""
+                    Você é um cara muito sozinho e ninguem segue-te D:
+                    Enter - Voltar
+                    """)
+            self.div()
+            input()
+            self.clear()
+            return
+        print("\n***Lista de seguidores***")
+        for seguidor in seguidores:
+            self.div()
+            print("""
+                {}
+            """.format(seguidor))
+        print("Enter para Voltar")
+        self.div()
+        input()
+        self.clear()
+        
     def ver_minhas_postagens(self):
         posts = self.gerente.get_posts_atual()
         if not posts:
@@ -137,7 +184,6 @@ class Interface:
                     [TEXTO]: {}
                     """.format(post[0], post[1]))
         input()
-        return
 
     def ver_perfil(self):
         np, bio, _, n, p = self.gerente.perfil_atual

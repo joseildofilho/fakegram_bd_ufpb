@@ -394,3 +394,27 @@ class GerentePerfil():
                     self.perfil_atual[0]],
                 self.connection)
         self.notificar('confirmacao', id_perfil)
+
+    def get_seguidores(self):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                    segue s
+                WHERE
+                    s.nome_seguido = '{}'
+            """.format(self.perfil_atual[0]))
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
+    
+    def get_seguidos(self):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                    segue s
+                WHERE
+                    s.nome_seguidor = '{}'
+            """.format(self.perfil_atual[0]))
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
