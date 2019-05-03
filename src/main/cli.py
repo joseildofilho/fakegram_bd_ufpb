@@ -31,8 +31,9 @@ class Interface:
                     1 - Login
                     2 - Cadastrar Perfil
                     3 - Fechar App
+                    4 - Login Aleatorio
                     """)
-            resposta = self.get_input(3)
+            resposta = self.get_input(4)
             self.clear()
 
             if resposta == 1:
@@ -44,6 +45,9 @@ class Interface:
             elif resposta == 3:
                 logged = True
                 resposta = "fechar"
+            elif resposta == 4:
+                self.gerente.set_perfil(self.gerente.seleciona_perfil_aleatorio()[0])
+                logged = True
         return resposta
 
     def fazer_login(self):
@@ -100,7 +104,7 @@ class Interface:
             if resposta == 1:
                 self.ver_perfil()
             elif resposta == 2:
-                pass
+                self.ver_minhas_postagens()
             elif resposta == 3:
                 pass
             elif resposta == 4:
@@ -115,6 +119,25 @@ class Interface:
                 pass
             elif resposta == 9:
                 pass
+    def ver_minhas_postagens(self):
+        posts = self.gerente.get_posts_atual()
+        if not posts:
+            self.div()
+            print("""
+                    Você não tem posts atualmente
+                    Enter - para voltar
+                    """)
+            input()
+            self.clear()
+            return
+        for post in posts:
+            self.div()
+            print("""
+                    [IMAGEM]: {}
+                    [TEXTO]: {}
+                    """.format(post[0], post[1]))
+        input()
+        return
 
     def ver_perfil(self):
         np, bio, _, n, p = self.gerente.perfil_atual
@@ -127,3 +150,4 @@ class Interface:
                 Enter - voltar
                 """.format(np, bio, n, p)) 
         input()
+        self.clear()

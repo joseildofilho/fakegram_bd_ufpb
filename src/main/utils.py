@@ -41,8 +41,7 @@ def remove(table, column, id, connection):
     connection.cursor(lambda cursor: cursor.execute(query))    
 
 def select_profile(nome, connection):
-    nom = "'" + nome + "'"
-    aux = "SELECT * FROM perfil WHERE nome_perfil = {} LIMIT 1;".format(nom)
+    aux = "SELECT * FROM perfil p WHERE p.nome_perfil = '{}' LIMIT 1;".format(nome)
 
     def f_aux(cursor):
         cursor.execute(aux)

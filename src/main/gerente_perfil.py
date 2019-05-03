@@ -128,8 +128,8 @@ class GerentePerfil():
             selects a random profile
         '''
         def aux(cursor):
-            cursor.execute("SELECT * FROM perfil ORDER BY RAND() LIMIT 1;") 
-            return cursor.fetchall()
+            cursor.execute("SELECT nome_perfil FROM perfil ORDER BY RAND() LIMIT 1;") 
+            return cursor.fetchone()
         result = self.connection.cursor(aux)        
         return result
 
