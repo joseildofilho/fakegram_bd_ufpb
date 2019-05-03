@@ -27,6 +27,12 @@ class GerentePerfil():
 
     topico = ['nome']
 
+    marcado_perfil = ["nome_marcado", 'id_mensagem']
+
+    bloqueia = ['nome_bloqueador', 'nome_bloqueado']
+
+    segue = ['nome_seguidor', 'nome_seguido']
+
     perfil_atual = None
 
     _validation_pattern = re.compile("[a-zA-Z_0-9*]+")
@@ -170,6 +176,11 @@ class GerentePerfil():
     def marcar(self, texto, id):
         marcados = self._extrai_marcados(texto)
         for marcado in marcados:
+            insert('marcado_perfil',
+                    self.marcado_perfil,
+                    [str(marcado),
+                        id],
+                    self.connection)
             self.notificar('marcado', marcado, id)
 
     def criar_topico(self, texto, id):
@@ -200,7 +211,6 @@ class GerentePerfil():
                         id_msg],
                     self.connection)
 
-
     def verifica_topico(self, topico):
         def aux(cursor):
             cursor.execute("SELECT * FROM topico WHERE topico.nome = '{}'".format(topico))
@@ -212,7 +222,18 @@ class GerentePerfil():
         def aux(cursor):
             query = "SELECT * FROM notificacao WHERE nome_notificado = '{}'".format(self.perfil_atual[0])
             cursor.execute(query)
-            return cursor.fetchall()
+
+            ret = cursor.fetchall()
+
+            query = """
+                DELETE FROM 
+                    notificacao
+                WHERE
+                    nome_notificado = '{}'
+            """.format(self.perfil_atual[0])
+            cursor.execute(query)
+
+            return ret
         return self.connection.cursor(aux)
 
     def get_mensagens(self):
@@ -249,3 +270,113 @@ class GerentePerfil():
            x = [[i[1], i[5]] for i in ret]
            return x
         return self.connection.cursor(aux)
+
+    def bloquear(self, id_perfil):
+        self.deseguir(id_perfil)
+        self.apagar_comentarios_em(id_perfil)
+        self.remove_marcacao(id_perfil)
+        self.remove_directs(id_perfil)
+        insert('bloqueia',
+                self.bloqueia,
+                [self.perfil_atual[0],
+                    id_perfil],
+                self.connection)
+
+    def apagar_comentarios_em(self, id_perfil):
+        query = """
+            DELETE FROM 
+                comentario c 
+            WHERE
+                c.id_post IN (
+                    SELECT 
+                        p.id_mensagem 
+                    FROM 
+                        post p
+                        INNER JOIN mensagem m_s ON p.id_mensagem = m_s.id
+                    WHERE
+                        m_s.nome_criador = '{0}'
+                ) 
+                AND
+                c.id_mensagem IN (
+                    SELECT
+                        m.id
+                    FROM
+                        mensagem m
+                    WHERE
+                        m.nome_criador = '{1}'
+                );
+        """.format(id_perfil, self.perfil_atual[0])
+        self.connection.cursor(lambda x: x.execute(query))
+
+    def remove_marcacao(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                    DELETE FROM 
+                        marcado_perfil mp 
+                    WHERE 
+                        mp.id_mensagem IN (
+                            SELECT m.id 
+                            FROM
+                                mensagem m
+                            WHERE 
+                                m.nome_criador = '{}'
+                        )
+                        AND
+                        mp.nome_marcado = '{}'
+                    """.format(self.perfil_atual[0], id_perfil))
+        self.connection.cursor(aux)
+    
+    def remove_directs(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                    DELETE FROM
+                        conversa c
+                    WHERE
+                        (c.nome_remetente = '{0}'
+                        AND
+                        c.nome_destinatario = '{1}')
+                        OR
+                        (c.nome_remetente = '{1}'
+                        AND
+                        c.nome_destinatario = '{0}') 
+                    """.format(self.perfil_atual[0], id_perfil))
+        self.connection.cursor(aux)
+ 
+
+    def deseguir(self, id_perfil):
+        def aux(cursor):
+            query = """
+                DELETE FROM
+                    segue 
+                WHERE 
+                    (nome_seguidor = '{0}'
+                    AND 
+                    nome_seguido = '{1}')
+                    OR
+                    (nome_seguidor = '{1}' 
+                    AND 
+                    nome_seguido = '{0}')
+
+                    """.format(self.perfil_atual[0], id_perfil)
+            cursor.execute(query)
+        self.connection.cursor(aux)
+    
+    def seguir(self, id_perfil):
+        privacidade = self.select_perfil(id_perfil)[-1]
+        if privacidade:
+            insert('segue',
+                    self.segue,
+                    [self.perfil_atual[0],
+                        id_perfil],
+                    self.connection)
+            self.notificar('seguido', self.perfil_atual[0])
+        else: 
+            self.notificar('seguido_pedido', self.perfil_atual[0])
+
+    def confimar_pedido_seguir(self, id_perfil):
+        insert('segue',
+                self.segue,
+                [id_perfil,
+                    self.perfil_atual[0]],
+                self.connection)
+        self.notificar('confirmacao', id_perfil)
