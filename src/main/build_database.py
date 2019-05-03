@@ -6,7 +6,7 @@ class Tables:
 
     def _create_tables(self, cursor):
         for key, table in self.tables.items():
-            #print("creating table", key)
+            print("creating table", key)
             cursor.execute(table)
         cursor.execute("INSERT INTO topico (nome) values ('#')")
     
