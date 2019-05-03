@@ -22,18 +22,22 @@ class Interface:
     def login(self):
         self.div()
         print("""
-                0 - Login
-                1 - Cadastrar Perfil
-                2 - Fechar App
+                1 - Login
+                2 - Cadastrar Perfil
+                3 - Fechar App
                 """)
-        resposta = self.get_input()
-        self.div()
+        resposta = self.get_input(3)
+        self.clear()
 
-    def get_input(self):
-        resposta = -1
-        try:
-            resposta = int(input("Digite um numero para esolher sua opção: "))
-        except Exception:
-            print("Resposta Invalida")
+    def get_input(self, rang):
+        resposta = 0
+        while not resposta:
+            try:
+                resposta = int(input("Digite um numero para esolher sua opção: "))
+                if resposta not in [i + 1 for i in range(rang)]:
+                    resposta = 0
+                    print("Resposta Invalida")
+            except Exception:
+                print("Resposta Invalida")
         return resposta
 

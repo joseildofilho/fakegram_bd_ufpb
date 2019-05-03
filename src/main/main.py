@@ -9,13 +9,10 @@ cli = Interface(gerente_perfil, True)
 def start():    
 
     tabelas.drop_database()
-    try:
-        print('Starting program')
-        print("building tables")
-        tabelas.build()
-        print("stating CLI")
-        cli.start()
-    except Exception:
-        Exception("error")
+    print('Starting program')
+    print("building tables")
+    tabelas.build()
+    print("stating CLI")
+    cli.start()
 
     tabelas.drop_database()
