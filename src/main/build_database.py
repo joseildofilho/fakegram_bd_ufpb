@@ -20,7 +20,7 @@ class Tables:
         self.connection = connector()
 
     tables = {
-    'perfil' : """
+        'perfil' : """
             CREATE TABLE perfil(
                 nome_perfil VARCHAR(50) NOT NULL PRIMARY KEY,
                 biografia VARCHAR(1000) ,

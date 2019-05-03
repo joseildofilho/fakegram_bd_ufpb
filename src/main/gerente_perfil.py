@@ -133,6 +133,20 @@ class GerentePerfil():
         result = self.connection.cursor(aux)        
         return result
 
+    def logar(self, nome, senha):
+        if not self._validar_nome_perfil(nome):
+            return False
+        def aux(cursor):
+            cursor.execute("SELECT * FROM perfil p WHERE p.nome_perfil = '{}' AND p.senha = '{}'".format(nome, senha))
+            return cursor.fetchall()
+        log = self.connection.cursor(aux)
+        if len(log):
+            self.set_perfil(nome)
+            return True
+        else:
+            return False
+
+
     def select_perfil(self, nome):
         return select_profile(nome, self.connection)
     
