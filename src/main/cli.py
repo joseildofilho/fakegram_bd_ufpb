@@ -116,9 +116,40 @@ class Interface:
             elif resposta == 7:
                 self.notificacoes()
             elif resposta == 8:
-                pass
+                self.bloqueios()
             elif resposta == 9:
                 pass
+
+    def bloqueios(self):
+        self.clear()
+        resposta = 0
+        while resposta != 3:
+            bloqueados = self.gerente.get_bloqueados()
+            self.div()
+            print("""
+                        1 - Bloquear
+                        2 - Desbloquear
+                        3 - Voltar
+                    """)
+            if not bloqueados:
+                print("""
+                            Você não bloqueou ninguem.
+                        """)
+            else:
+                print("""
+                            *** Bloqueados ***
+                """)
+            for bloqueado in bloqueados:
+                print("""
+                            {}
+                        """.format(bloqueado[1]))
+            resposta = self.get_input(3)
+            if resposta == 1:
+                resposta = input("Quem você gostaria de bloquear: ")
+                self.gerente.bloquear(resposta)
+            elif resposta == 2:
+                resposta = input("Quem você gostaria de desbloquear: ")
+                self.gerente.desbloquear(resposta)
 
     def notificacoes(self):
         self.clear()

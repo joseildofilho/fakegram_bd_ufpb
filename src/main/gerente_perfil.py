@@ -306,6 +306,45 @@ class GerentePerfil():
                     id_perfil],
                 self.connection)
 
+    def desbloquear(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                        DELETE FROM
+                            bloqueia
+                        WHERE
+                            nome_bloqueador = '{}'
+                            AND
+                            nome_bloqueado = '{}'
+                    """.format(self.perfil_atual[0], id_perfil))
+        self.connection.cursor(aux)
+    
+    def get_bloqueados(self):
+        def aux(cursor):
+            cursor.execute("""
+                        SELECT *
+                        FROM
+                            bloqueia
+                        WHERE
+                            nome_bloqueador = '{}'
+                    """.format(self.perfil_atual[0]))
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
+
+    def is_bloqueado(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                    bloqueia
+                WHERE
+                    nome_bloqueador = '{}'
+                    AND
+                    nome_bloqueado = '{}'
+            """.format(self.perfil_atual[0], id_perfil))
+            return cursor.fetchall()
+        bloq = self.connection.cursor(aux)
+        return len(bloq) != 0
+
     def apagar_comentarios_em(self, id_perfil):
         query = """
             DELETE FROM 
