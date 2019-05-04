@@ -418,3 +418,24 @@ class GerentePerfil():
             """.format(self.perfil_atual[0]))
             return cursor.fetchall()
         return self.connection.cursor(aux)
+
+    def montar_linha_do_tempo(self):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT 
+                    m.nome_criador, m.texto, p.foto, p.id_mensagem
+                FROM
+                    mensagem m
+                    INNER JOIN post p ON m.id = p.id_mensagem
+                WHERE
+                    m.nome_criador 
+                    IN (
+                        SELECT *
+                        FROM
+                            segue s
+                        WHERE
+                            s.nome_seguidor = '{}'
+                    )                                   
+            """.format(self.perfil_atual[0]))
+            return cursor.fetchall()
+        return self.connection.cursor(aux)

@@ -119,6 +119,83 @@ class Interface:
                 pass
             elif resposta == 9:
                 pass
+    def linha_do_tempo(self):
+        linha = self.gerente.montar_linha_do_tempo()
+        self.div()
+        if not linha:
+            print("""
+                    Não temos nada para te mostrar, aparentemente seus seguidos são muito quietos.
+                    """)
+            self.div()
+        stride_sair = 1
+        quant = len(linha) + stride_sair
+        resposta = 0
+        while resposta != stride_sair:
+            print("""
+                    1 - Voltar
+                    """.format("2 .. {} Escolher um post".format(quant if linha else "")))
+            for post in linha:
+                print("""
+                    [Autor]: {}
+                    [Foto] : {}
+                    [Texto]: {}
+                    """.format(post[0], post[1], post[2]))
+
+            resposta = self.get_input(quant)
+            
+            if resposta == stride_sair:
+                return
+            else:
+                self.clear()
+                self.ver_post(linha[resposta - stride_sair - 1])
+
+    def ver_post(self, post):
+        while resposta != 2:
+            self.div()
+            print("""
+
+                [Autor]: {}
+                [Foto] : {}
+                [Texto]: {}
+
+            """.format(post[0], post[1], post[2]))
+            print("""
+
+                    1 - comentar
+                    2 - voltar
+
+                    """)
+            comentarios = self.gerente.get_comentarios(post[3])
+            if not comentarios:
+                print("""
+
+                    Não há comentarios neste post, faça um.
+
+                """)
+            for comentario in comentarios:
+                print("""
+
+                        [Autor]: {}
+                        [Comentario]: {}
+
+                    """)
+            self.div()
+            resposta = self.get_input(2)
+            if resposta == 1:
+                self.clear()
+                print("""
+
+                    [Autor]: {}
+                    [Foto] : {}
+                    [Texto]: {}
+
+                """.format(post[0], post[1], post[2]))
+                self.comentar(post[4])
+            self.clear()
+    
+    def comentar(self, id):
+        resposta = input("[Comentario]: ")
+        self.gerente.comentar(resposta, id)
 
     def ver_seguidos(self):
         seguidos = self.gerente.get_seguidos()
@@ -167,23 +244,33 @@ class Interface:
         self.clear()
         
     def ver_minhas_postagens(self):
-        posts = self.gerente.get_posts_atual()
-        if not posts:
-            self.div()
+        resposta = 0
+        while resposta != 2:
+            posts = self.gerente.get_posts_atual()
             print("""
-                    Você não tem posts atualmente
-                    Enter - para voltar
+                        1 - Postar
+                        2 - Voltar
                     """)
-            input()
+            if not posts:
+                self.div()
+                print("""
+                        Você não tem posts atualmente
+                        """)
+            for post in posts:
+                self.div()
+                print("""
+                        [IMAGEM]: {}
+                        [TEXTO]: {}
+                        """.format(post[1], post[0]))
+            resposta = self.get_input(2)
+            if resposta == 1:
+                self.postar()
             self.clear()
-            return
-        for post in posts:
-            self.div()
-            print("""
-                    [IMAGEM]: {}
-                    [TEXTO]: {}
-                    """.format(post[0], post[1]))
-        input()
+
+    def postar(self):
+        foto = input("Digite o caminho da foto: ")
+        texto = input("[Texto]: ")
+        self.gerente.postar(texto, foto)
 
     def ver_perfil(self):
         np, bio, _, n, p = self.gerente.perfil_atual
