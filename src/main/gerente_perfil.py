@@ -195,6 +195,8 @@ class GerentePerfil():
                     [str(marcado),
                         id],
                     self.connection)
+            print("marcando", marcado)
+            input()
             self.notificar('marcado', marcado, id)
 
     def criar_topico(self, texto, id):
@@ -214,7 +216,7 @@ class GerentePerfil():
                     self.connection
                     )            
 
-    def notificar(self, tipo, id_perfil, id_msg="1"):
+    def notificar(self, tipo, id_perfil, id_msg="0"):
         insert('notificacao', 
                     self.notificacao, 
                     [self.perfil_atual[0], 
@@ -255,6 +257,14 @@ class GerentePerfil():
             query = "SELECT * FROM mensagem m WHERE m.nome_criador = '{}' ORDER BY m.id".format(self.perfil_atual[0]) 
             cursor.execute(query)
             return cursor.fetchall()
+        return self.connection.cursor(aux)
+
+    def get_mensagem(self, id):
+        def aux(cursor):
+            query = "SELECT * FROM mensagem m WHERE m.id = '{}'"
+            query = query.format(id)
+            cursor.execute(query)
+            return cursor.fetchone()
         return self.connection.cursor(aux)
     
     def mandar_direct(self, texto, id_perfil):
@@ -385,7 +395,7 @@ class GerentePerfil():
                     self.connection)
             self.notificar('seguido', self.perfil_atual[0])
         else: 
-            self.notificar('seguido_pedido', self.perfil_atual[0])
+            self.notificar('seguir_pedido', self.perfil_atual[0])
 
     def confimar_pedido_seguir(self, id_perfil):
         insert('segue',

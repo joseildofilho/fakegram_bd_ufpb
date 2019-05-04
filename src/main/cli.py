@@ -112,13 +112,62 @@ class Interface:
             elif resposta == 5:
                 self.linha_do_tempo()
             elif resposta == 6:
-                pass
+                self.conversas()
             elif resposta == 7:
-                pass
+                self.notificacoes()
             elif resposta == 8:
                 pass
             elif resposta == 9:
                 pass
+
+    def notificacoes(self):
+        self.clear()
+        notificacoes = self.gerente.ver_notificacoes()
+        if not notificacoes:
+            print("""
+                        Não há notificações
+                        Enter - Voltar
+                    """)
+            input()
+            return
+        for notificacao in notificacoes:
+            print(notificacao)
+            msg = """
+                    [Perfil]: {}
+                    [Ação]  : {}
+                    [Data]  : {}
+                    {}
+                    """
+            aux = ""
+            if notificacao[-1] != 0:
+                aux = "[Mensagem]: {}"
+                aux = aux.format(self.gerente.get_mensagem(notificacao[-1])[1])
+            msg = msg.format(notificacao[5], notificacao[4],notificacao[2], aux)
+            print(msg)
+            if notificacao[4] == 'seguir_pedido':
+                resposta = input("Você aceita está pessoa como seu seguidor ?(Y/N)")
+                if resposta.lower() == "Y":
+                    self.gerente.confimar_pedido_seguir(notificacao[5])
+        
+            
+    def conversas(self):
+        while True:
+            conversas = self.gerente.ver_directs()
+
+            for conversa in conversas:
+                print("""
+                        ({})=>({}):
+                            {}
+                            {}
+                        """.format(conversa[1],conversa[2],conversa[3],conversa[4]))
+
+            quem = input("[Digite o nome do usuario ou Enter para sair]: ")
+            if not quem:
+                return
+            resposta = input("[Texto]: ")
+            self.gerente.mandar_direct(resposta, quem)
+            self.clear()
+
     def linha_do_tempo(self):
         linha = self.gerente.montar_linha_do_tempo()
         self.div()
