@@ -320,8 +320,7 @@ class Interface:
                     resposta = input("Você aceita seguir esta pessoa ?(Y/N)")
                     if resposta.lower() == 'y':
                         self.gerente.seguir(notificacao[5])
-        
-            
+
     def conversas(self):
         while True:
             conversas = self.gerente.ver_directs()
@@ -332,6 +331,7 @@ class Interface:
                             {}
                             {}
                         """.format(conversa[1],conversa[2],conversa[3],conversa[4]))
+            self.gerente.remove_notificacoes_directs()
 
             quem = input("[Digite o nome do usuario ou Enter para sair]: ")
             if not quem:

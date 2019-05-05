@@ -204,6 +204,18 @@ class GerentePerfil():
             return cursor.fetchall()
         return self.connection.cursor(aux)
 
+    def remove_notificacoes_directs(self):
+        def aux(cursor):
+            cursor.execute("""
+                DELETE FROM
+                    notificacao
+                WHERE
+                    nome_notificado = '{}'
+                    AND
+                    tipo = '{}'
+            """.format(self.perfil_atual[0], 'direct'))
+        self.connection.cursor(aux)
+
     def marcar(self, texto, id):
         marcados = self._extrai_marcados(texto)
         for marcado in marcados:
@@ -253,7 +265,7 @@ class GerentePerfil():
 
     def ver_notificacoes(self):
         def aux(cursor):
-            query = "SELECT * FROM notificacao WHERE nome_notificado = '{}'".format(self.perfil_atual[0])
+            query = "SELECT * FROM notificacao WHERE nome_notificado = '{}' ORDER BY data DESC".format(self.perfil_atual[0])
             cursor.execute(query)
 
             ret = cursor.fetchall()
