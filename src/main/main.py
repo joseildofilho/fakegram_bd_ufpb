@@ -7,13 +7,12 @@ gerente_perfil = GerentePerfil()
 cli = Interface(gerente_perfil)
 
 def start():    
-    tabelas.drop_database()
     print('Starting program')
     print("building tables")
-    tabelas.build()
+    tabelas.drop_database()
     print('populando banco')
+    tabelas.build()
     gerente_perfil.fill()
     print("stating CLI")
     cli.start()
 
-    tabelas.drop_database()

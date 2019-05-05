@@ -118,7 +118,145 @@ class Interface:
             elif resposta == 8:
                 self.bloqueios()
             elif resposta == 9:
-                pass
+                self.buscar()
+
+    def buscar(self):
+        resposta = 0
+        while resposta != 3:
+            self.clear()
+            self.div()
+            print("""
+
+                        1 - Buscar por nome de perfil, nome real, ou biografia.
+                        2 - Buscar topico
+                        3 - Voltar
+
+                    """)
+            self.div()
+            resposta = self.get_input(3)
+            if resposta == 1:
+                self.buscar_perfil()
+            elif resposta == 2:
+                self.buscar_topico()
+            self.clear()
+
+    def buscar_perfil(self):
+        self.clear()
+        resposta = input("digite o nome do perfil: ")
+        perfis = self.gerente.buscar_perfil(resposta)
+        if not perfis:
+            print("""
+                        Não encontramos nenhum perfil
+                        Enter - Voltar
+                    """)
+            input()
+            return
+
+        reposta = 0
+        while reposta != 1:
+            print("""
+                    1 - voltar
+                    [2 - N] para visitar perfil
+                """)
+            for index, perfil in enumerate(perfis):
+                print("""
+                        [{}] - Nome: {} 
+                        """.format(index + 2, perfil[0]))
+            resposta = self.get_input(len(perfil) + 1)
+            if resposta == 1:
+                break
+            else:
+                self.ver_perfil_busca(perfis[resposta - 2])
+            self.clear()
+
+    def ver_perfil_busca(self, perfil):
+        if self.gerente.sou_seguidor(perfil[0]):
+            perfil_show = """
+                    
+                    ########################
+                    
+                    ELE TE SEGUE
+
+                    #######################
+
+                    Nome Perfil: {}
+                    Biografia: {}
+                    Nome: {}
+                    1 - Voltar
+                    [2 - N] Post
+            """.format(perfil[0], perfil[1], perfil[3])
+            print(perfil_show)
+            posts = self.gerente.get_posts(perfil[0])
+            if not posts:
+                print("""
+                        Não há posts para mostrar
+                        """)
+            for index, post in enumerate(posts):
+                print("""
+                    [{}] - Numero
+                       [Autor]: {}
+                       [Foto]: {}
+                       [Texto]: {} 
+                       [Data]: {}
+                        """.format(index + 2, post[0], post[-1], post[1], post[2]))
+                print(post)
+            resposta = self.get_input(len(posts) + 1)
+            if resposta == 1:
+                self.clear()
+                return
+            else:
+                post = posts[resposta - 2]
+                post = [post[4], post[5], post[1], post[0]]
+                self.ver_post(post)
+        else:
+            if perfil[-1]:
+                print("""
+                        Perfil: {}
+                        Você não pode ver este perfil, ele é privado.
+                        1 - Pedir para seguir
+                        2 - Voltar
+                        """.format(perfil[0]))
+                resposta = self.get_input(2)
+                if resposta == 1:
+                    self.gerente.seguir(perfil[0])
+            else:
+                perfil_show = """
+                        Nome Perfil: {}
+                        Biografia: {}
+                        Nome: {}
+                        1 - Pedir para seguir
+                        2 - Voltar
+                """.format(perfil[0], perfil[1], perfil[3])
+                print(perfil_show)
+                posts = self.gerente.get_posts(perfil[0])
+                if not posts:
+                    print("""
+                            Não há posts para mostrar
+                            """)
+                for post in posts:
+                    print(post)
+                resposta = self.get_input(2)
+                if resposta == 1:
+                    self.gerente.seguir(perfil[0])
+                
+
+    def buscar_topico(self):
+        self.clear()
+
+        topic = input("Digite o topico desejado: ")
+        topicos = self.gerente.buscar_topico(topic)
+
+        if not topicos:
+            print("""
+                    *** NÃO HÁ TOPICOS COM ESTE NOME ***
+                    """)
+        for topico in topicos:
+            print("""
+                        '{}' criados em '{}'
+                    """.format(topico[0], topico[1]))
+        print("Enter - Voltar")
+        input()
+        self.clear()
 
     def bloqueios(self):
         self.clear()
@@ -177,8 +315,11 @@ class Interface:
             print(msg)
             if notificacao[4] == 'seguir_pedido':
                 resposta = input("Você aceita está pessoa como seu seguidor ?(Y/N)")
-                if resposta.lower() == "Y":
+                if resposta.lower() == "y":
                     self.gerente.confimar_pedido_seguir(notificacao[5])
+                    resposta = input("Você aceita seguir esta pessoa ?(Y/N)")
+                    if resposta.lower() == 'y':
+                        self.gerente.seguir(notificacao[5])
         
             
     def conversas(self):
@@ -195,9 +336,19 @@ class Interface:
             quem = input("[Digite o nome do usuario ou Enter para sair]: ")
             if not quem:
                 return
-            resposta = input("[Texto]: ")
-            self.gerente.mandar_direct(resposta, quem)
-            self.clear()
+            if not self.gerente.is_conversa_nova(quem):
+                self.mandar_direct(quem)
+            else:
+                if self.gerente.is_publico(quem) or self.gerente.sou_seguido(quem):
+                    self.mandar_direct(quem)
+                else:
+                    print("O perfil não é publico ou voce não é seguido por")
+
+
+    def mandar_direct(self,quem):
+        resposta = input("[Texto]: ")
+        self.gerente.mandar_direct(resposta, quem)
+        self.clear()
 
     def linha_do_tempo(self):
         linha = self.gerente.montar_linha_do_tempo()
@@ -219,7 +370,7 @@ class Interface:
                     [Autor]: {}
                     [Foto] : {}
                     [Texto]: {}
-                    """.format(post[0], post[1], post[2]))
+                    """.format(post[0], post[2], post[1]))
 
             resposta = self.get_input(quant)
             
@@ -230,6 +381,7 @@ class Interface:
                 self.ver_post(linha[resposta - stride_sair - 1])
 
     def ver_post(self, post):
+        resposta = 0
         while resposta != 2:
             self.div()
             print("""
@@ -243,6 +395,8 @@ class Interface:
 
                     1 - comentar
                     2 - voltar
+                    3 - Deletar post
+                    [4 - N para deletar comentarios [Apenas os seus]]
 
                     """)
             comentarios = self.gerente.get_comentarios(post[3])
@@ -252,15 +406,15 @@ class Interface:
                     Não há comentarios neste post, faça um.
 
                 """)
-            for comentario in comentarios:
+            for index, comentario in enumerate(comentarios):
                 print("""
-
+                    [{}] - Numero
                         [Autor]: {}
                         [Comentario]: {}
 
-                    """)
+                    """.format(index + 4, comentario[3], comentario[2]))
             self.div()
-            resposta = self.get_input(2)
+            resposta = self.get_input(4 + len(comentarios))
             if resposta == 1:
                 self.clear()
                 print("""
@@ -270,7 +424,15 @@ class Interface:
                     [Texto]: {}
 
                 """.format(post[0], post[1], post[2]))
-                self.comentar(post[4])
+                self.comentar(post[3])
+            elif resposta == 2:
+                return
+            elif resposta == 3:
+                self.gerente.remove_post(post[3])
+                return
+            else:
+                if self.gerente.perfil_atual[0] == comentarios[resposta - 4][3] or post[0] == self.gerente.perfil_atual[0]:
+                    self.gerente.remove_comentario(comentarios[resposta - 4][0])
             self.clear()
     
     def comentar(self, id):
@@ -330,21 +492,29 @@ class Interface:
             print("""
                         1 - Postar
                         2 - Voltar
+                        [3 - N] - Entrar no post
                     """)
             if not posts:
                 self.div()
                 print("""
                         Você não tem posts atualmente
                         """)
-            for post in posts:
+            for index, post in enumerate(posts):
                 self.div()
                 print("""
+                    [{}] - Numero
                         [IMAGEM]: {}
                         [TEXTO]: {}
-                        """.format(post[1], post[0]))
-            resposta = self.get_input(2)
+                        """.format(index + 3,post[5], post[1]))
+            resposta = self.get_input(3 + len(posts))
             if resposta == 1:
                 self.postar()
+            elif resposta == 2:
+                return
+            else:
+                post = posts[resposta - 3]
+                post = [post[4], post[5], post[1], post[0]]
+                self.ver_post(post)
             self.clear()
 
     def postar(self):
@@ -360,7 +530,43 @@ class Interface:
                 Nome: {}
                 Privacidade: {}
 
-                Enter - voltar
-                """.format(np, bio, n, p)) 
-        input()
+                1 - Voltar
+                2 - Editar perfil
+                """.format(np, bio, n, p))
+        resposta = self.get_input(2)
+        if resposta == 1:
+            return
+        elif resposta == 2:
+            self.editar_perfil()
         self.clear()
+
+    def editar_perfil(self):
+        self.clear()
+        perfil = self.gerente.perfil_atual
+        self.div()
+        print("""
+            Aperte Enter caso não deseje alterar a informação atual
+            Ps.: O nome do perfil não pode ser alterado
+        """)
+        biografia = input("Biografia, Atual [{}]: ".format(perfil[1]))
+        biografia = biografia if biografia else perfil[1]
+
+        senha = input("Senha, Atual [{}]: ".format(perfil[2]))
+        senha = senha if senha else perfil[2]
+
+        nome_real = input("Nome Real, Atual [{}]: ".format(perfil[3]))
+        nome_real = nome_real if nome_real else perfil[3]
+
+        privacidade = input("Privacidade, Atual [{}]: ".format(perfil[4]))
+        privacidade = privacidade if privacidade else perfil[4]
+
+        perfil = [perfil[0], biografia, senha, nome_real, privacidade]
+
+        self.gerente.alterar_perfil(perfil)
+
+        self.gerente.set_perfil(perfil[0])
+
+        self.clear()
+
+
+

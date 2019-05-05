@@ -146,7 +146,6 @@ class GerentePerfil():
         else:
             return False
 
-
     def select_perfil(self, nome):
         return select_profile(nome, self.connection)
     
@@ -180,9 +179,27 @@ class GerentePerfil():
 
         self.criar_topico(texto, id)
 
+    def remove_comentario(self, id_post):
+        def aux(cursor):
+            query = """
+                DELETE FROM
+                    comentario
+                WHERE
+                    id_mensagem = '{}'
+            """.format(id_post)
+            cursor.execute(query)
+            query = """
+                DELETE FROM
+                    mensagem
+                WHERE
+                    id = '{}'
+            """.format(id_post)
+            cursor.execute(query)
+        self.connection.cursor(aux)
+
     def get_comentarios(self, id_post):
         def aux(cursor):
-            query = "SELECT c.id_mensagem, c.id_post, m.texto FROM comentario c INNER JOIN mensagem m ON c.id_mensagem = m.id WHERE c.id_post = '{}';".format(id_post)
+            query = "SELECT c.id_mensagem, c.id_post, m.texto, m.nome_criador FROM comentario c INNER JOIN mensagem m ON c.id_mensagem = m.id WHERE c.id_post = '{}' ORDER BY m.data;".format(id_post)
             cursor.execute(query)
             return cursor.fetchall()
         return self.connection.cursor(aux)
@@ -219,11 +236,11 @@ class GerentePerfil():
     def notificar(self, tipo, id_perfil, id_msg="0"):
         insert('notificacao', 
                     self.notificacao, 
-                    [self.perfil_atual[0], 
+                    [id_perfil, 
                         str(datetime.now()), 
                         False, 
                         tipo,
-                        id_perfil,
+                        self.perfil_atual[0],
                         id_msg],
                     self.connection)
 
@@ -290,10 +307,49 @@ class GerentePerfil():
         def aux(cursor):
            query = "SELECT * FROM mensagem m INNER JOIN post p ON m.id = p.id_mensagem  WHERE m.nome_criador = '{}' ORDER BY m.id;".format(self.perfil_atual[0])
            cursor.execute(query)
-           ret = cursor.fetchall()
-           x = [[i[1], i[5]] for i in ret]
-           return x
+           return cursor.fetchall()
         return self.connection.cursor(aux)
+
+    def get_posts(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                        SELECT *
+                        FROM
+                            mensagem m
+                            INNER JOIN post p ON  m.id = p.id_mensagem
+                        WHERE
+                            m.nome_criador = '{}'
+                        ORDER BY m.data DESC
+                    """.format(id_perfil))
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
+
+    def remove_post(self, id_post):
+        def aux(cursor):
+            cursor.execute("""
+                DELETE FROM
+                    post p
+                WHERE
+                    p.id_mensagem IN (
+                        SELECT 
+                            id 
+                        FROM
+                            mensagem
+                        WHERE
+                            nome_criador = '{}'
+                            AND
+                            id = '{}'
+                    ) 
+            """.format(self.perfil_atual[0], id_post))
+            cursor.execute("""
+                DELETE FROM
+                    mensagem m
+                WHERE
+                    m.id = '{}'
+                    AND
+                    m.nome_criador = '{}'
+            """.format(id_post, self.perfil_atual[0]))
+        self.connection.cursor(aux)
 
     def bloquear(self, id_perfil):
         self.deseguir(id_perfil)
@@ -404,7 +460,6 @@ class GerentePerfil():
                         c.nome_destinatario = '{0}') 
                     """.format(self.perfil_atual[0], id_perfil))
         self.connection.cursor(aux)
- 
 
     def deseguir(self, id_perfil):
         def aux(cursor):
@@ -432,9 +487,9 @@ class GerentePerfil():
                     [self.perfil_atual[0],
                         id_perfil],
                     self.connection)
-            self.notificar('seguido', self.perfil_atual[0])
+            self.notificar('seguido', id_perfil)
         else: 
-            self.notificar('seguir_pedido', self.perfil_atual[0])
+            self.notificar('seguir_pedido', id_perfil)
 
     def confimar_pedido_seguir(self, id_perfil):
         insert('segue',
@@ -479,7 +534,7 @@ class GerentePerfil():
                 WHERE
                     m.nome_criador 
                     IN (
-                        SELECT *
+                        SELECT s.nome_seguido
                         FROM
                             segue s
                         WHERE
@@ -488,3 +543,105 @@ class GerentePerfil():
             """.format(self.perfil_atual[0]))
             return cursor.fetchall()
         return self.connection.cursor(aux)
+
+    def buscar_perfil(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                    perfil p
+                WHERE
+                    nome_perfil LIKE '%{0}%'
+                    OR
+                    nome_real LIKE '%{0}%'
+                    OR
+                    biografia LIKE  '%{0}%'
+                ORDER BY
+                    (
+                        SELECT COUNT(nome_seguido)
+                        FROM
+                            segue
+                        WHERE
+                            nome_seguido = p.nome_perfil
+                    ) DESC
+            """.format(id_perfil))
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
+
+    def buscar_topico(self, topico):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT * 
+                FROM
+                    topico
+                WHERE
+                    nome LIKE '%{}%'
+                ORDER BY data_criacao
+            """.format(topico))
+            return cursor.fetchall()
+        return self.connection.cursor(aux)
+    
+    def sou_seguidor(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                    segue
+                WHERE
+                    nome_seguido = '{}'
+                    AND
+                    nome_seguidor = '{}'
+            """.format(id_perfil, self.perfil_atual[0]))
+            return cursor.fetchall()
+        return len(self.connection.cursor(aux)) != 0
+
+    def sou_seguido(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                    segue
+                WHERE
+                    nome_seguido = '{}'
+                    AND
+                    nome_seguidor = '{}'
+            """.format(self.perfil_atual[0], id_perfil))
+            return cursor.fetchall()
+        return len(self.connection.cursor(aux)) != 0
+
+    def is_publico(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                    perfil
+                WHERE
+                    nome_perfil = '{}'
+            """.format(id_perfil))
+            return cursor.fetchone()
+        return not self.connection.cursor(aux)[4]
+
+    def is_conversa_nova(self, id_perfil):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                    conversa
+                WHERE
+                    (
+                      nome_remetente = '{0}'
+                      AND
+                      nome_destinatario = '{0}'  
+                    )
+                    OR
+                    (
+                        nome_remetente = '{1}'
+                        AND
+                        nome_destinatario = '{0}'
+                    )
+            """)
+            return cursor.fetchall()
+        return len(self.connection.cursor(aux)) == 0
+
+
+

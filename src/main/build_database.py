@@ -109,11 +109,4 @@ class Tables:
               PRIMARY KEY (id_notificacao)
             );
         """,
-        'visualiza' : """    
-            CREATE TABLE visualiza(
-              id_notificacao BIGINT NOT NULL REFERENCES notificacao(id_notificacao),
-              nome_notificado VARCHAR(50) NOT NULL REFERENCES perfil(nome_perfil),
-              PRIMARY KEY (id_notificacao,nome_notificado)
-            );
-        """
     }
