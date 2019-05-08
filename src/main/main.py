@@ -9,10 +9,10 @@ cli = Interface(gerente_perfil)
 def start():    
     print('Starting program')
     print("building tables")
-    tabelas.drop_database()
+#    tabelas.drop_database()
     print('populando banco')
-    tabelas.build()
-    gerente_perfil.fill()
+#    tabelas.build()
+    #gerente_perfil.fill()
     print("stating CLI")
     cli.start()
 

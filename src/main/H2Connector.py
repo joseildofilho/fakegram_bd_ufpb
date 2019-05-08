@@ -6,7 +6,7 @@ class H2Connector(object):
 
     def __init__(self, 
             class_ = 'org.h2.Driver',
-            path = 'jdbc:h2:~/test',
+            path = 'jdbc:h2:~/projeto;TRACE_LEVEL_FILE=2',
             access = ['sa', ''],
             drive='h2/bin/h2-1.4.199.jar'):
         self._class_ = class_

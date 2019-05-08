@@ -183,13 +183,6 @@ class GerentePerfil():
         def aux(cursor):
             query = """
                 DELETE FROM
-                    comentario
-                WHERE
-                    id_mensagem = '{}'
-            """.format(id_post)
-            cursor.execute(query)
-            query = """
-                DELETE FROM
                     mensagem
                 WHERE
                     id = '{}'
@@ -199,7 +192,23 @@ class GerentePerfil():
 
     def get_comentarios(self, id_post):
         def aux(cursor):
-            query = "SELECT c.id_mensagem, c.id_post, m.texto, m.nome_criador FROM comentario c INNER JOIN mensagem m ON c.id_mensagem = m.id WHERE c.id_post = '{}' ORDER BY m.data;".format(id_post)
+            query = """
+                        SELECT c.id_mensagem, c.id_post, m.texto, m.nome_criador 
+                        FROM
+                            comentario c
+                            INNER JOIN mensagem m ON c.id_mensagem = m.id 
+                        WHERE 
+                            c.id_post = '{}'
+                            AND
+                            m.nome_criador NOT IN (
+                                SELECT nome_bloqueado
+                                FROM
+                                    bloqueia
+                                WHERE
+                                    nome_bloqueador = '{}'
+                            )
+                        ORDER BY m.data;
+                        """.format(id_post, self.perfil_atual[0])
             cursor.execute(query)
             return cursor.fetchall()
         return self.connection.cursor(aux)
@@ -238,13 +247,10 @@ class GerentePerfil():
                         self.topico,
                         [topico],
                         self.connection)
-            alter('mensagem',
-                    'id:{}'.format(id),
-                    self.mensagem,
-                    [topico],
-                    self.connection
-                    )            
-
+            self.connection.cursor(lambda x: x.execute("""
+			UPDATE mensagem SET topico = '{}' WHERE id = '{}'
+                            """.format(topico, id)))
+                            
     def notificar(self, tipo, id_perfil, id_msg="0"):
         insert('notificacao', 
                     self.notificacao, 
@@ -317,10 +323,46 @@ class GerentePerfil():
             Get the posts from the current profile
         '''
         def aux(cursor):
-           query = "SELECT * FROM mensagem m INNER JOIN post p ON m.id = p.id_mensagem  WHERE m.nome_criador = '{}' ORDER BY m.id;".format(self.perfil_atual[0])
+           query = "SELECT * FROM mensagem m INNER JOIN post p ON m.id = p.id_mensagem  WHERE m.nome_criador = '{}' ORDER BY m.data DESC;".format(self.perfil_atual[0])
            cursor.execute(query)
            return cursor.fetchall()
         return self.connection.cursor(aux)
+
+    def get_post(self, id_post):
+        def aux(cursor):
+            cursor.execute("""
+                        SELECT *
+                        FROM
+                        mensagem m
+                        INNER JOIN post p ON m.id = p.id_mensagem
+                        WHERE
+                            m.id = '{}'
+                    """.format(id_post))
+            return cursor.fetchall()
+        x = self.connection.cursor(aux)
+        return [i for i in x[0]]
+
+    def get_post_from_comentario(self, id_post):
+        def aux(cursor):
+            cursor.execute("""
+                SELECT *
+                FROM
+                mensagem m
+                INNER JOIN post p ON m.id = p.id_mensagem
+                WHERE
+                    m.id IN (
+                        SELECT id_post
+                        FROM
+                            comentario
+                        WHERE
+                            id_mensagem = '{}'
+                    )
+            """.format(id_post))
+            x = cursor.fetchone() 
+            print(x)
+            return x
+        return self.connection.cursor(aux)
+
 
     def get_posts(self, id_perfil):
         def aux(cursor):
@@ -338,21 +380,6 @@ class GerentePerfil():
 
     def remove_post(self, id_post):
         def aux(cursor):
-            cursor.execute("""
-                DELETE FROM
-                    post p
-                WHERE
-                    p.id_mensagem IN (
-                        SELECT 
-                            id 
-                        FROM
-                            mensagem
-                        WHERE
-                            nome_criador = '{}'
-                            AND
-                            id = '{}'
-                    ) 
-            """.format(self.perfil_atual[0], id_post))
             cursor.execute("""
                 DELETE FROM
                     mensagem m

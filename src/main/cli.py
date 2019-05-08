@@ -209,7 +209,7 @@ class Interface:
                 post = [post[4], post[5], post[1], post[0]]
                 self.ver_post(post)
         else:
-            if perfil[-1]:
+            if not perfil[-1]:
                 print("""
                         Perfil: {}
                         Você não pode ver este perfil, ele é privado.
@@ -313,13 +313,30 @@ class Interface:
                 aux = aux.format(self.gerente.get_mensagem(notificacao[-1])[1])
             msg = msg.format(notificacao[5], notificacao[4],notificacao[2], aux)
             print(msg)
+            print(notificacao)
             if notificacao[4] == 'seguir_pedido':
                 resposta = input("Você aceita está pessoa como seu seguidor ?(Y/N)")
                 if resposta.lower() == "y":
                     self.gerente.confimar_pedido_seguir(notificacao[5])
                     resposta = input("Você aceita seguir esta pessoa ?(Y/N)")
-                    if resposta.lower() == 'y':
-                        self.gerente.seguir(notificacao[5])
+                if resposta.lower() == 'y':
+                    self.gerente.seguir(notificacao[5])
+            elif notificacao[4] == 'seguido':
+                resposta = input("Visualizer perfil (Y/N)")
+                if resposta.lower() == 'y':
+                    p = self.gerente.select_perfil(notificacao[5])
+                    print(p)
+                resposta = input("Você aceita seguir esta pessoa ?(Y/N)")
+                if resposta.lower() == 'y':
+                    self.gerente.seguir(notificacao[5])
+            elif notificacao[4] == 'marcado':
+                resposta = input('Voce deseja ver o psot onde vc foi marcado?')
+                if resposta.lower() == 'y':
+                    x = self.gerente.get_post_from_comentario(notificacao[-1])
+                    print(x)
+                    x = [x[4], x[5], x[1], x[0]]
+                    self.ver_post(x)
+ 
 
     def conversas(self):
         while True:
@@ -413,6 +430,7 @@ class Interface:
                         [Comentario]: {}
 
                     """.format(index + 4, comentario[3], comentario[2]))
+                print(comentario)
             self.div()
             resposta = self.get_input(4 + len(comentarios))
             if resposta == 1:

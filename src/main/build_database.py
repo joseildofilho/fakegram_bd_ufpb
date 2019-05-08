@@ -75,8 +75,11 @@ class Tables:
         'marcado_perfil' : """
             CREATE TABLE marcado_perfil(
               nome_marcado VARCHAR(50) NOT NULL REFERENCES perfil(nome_perfil),
-              id_mensagem BIGINT NOT NULL REFERENCES mensagem(id),
-              PRIMARY KEY (nome_marcado, id_mensagem)
+              id_mensagem BIGINT NOT NULL,
+              PRIMARY KEY (nome_marcado, id_mensagem),
+              FOREIGN KEY(id_mensagem) 
+                REFERENCES mensagem(id)
+                ON DELETE CASCADE
             );
         """,
             
@@ -84,17 +87,26 @@ class Tables:
         'post' : """
             CREATE TABLE post(
               foto VARCHAR(100),
-              id_mensagem BIGINT NOT NULL REFERENCES mensagem(id),
-              PRIMARY KEY (id_mensagem)
+              id_mensagem BIGINT NOT NULL,
+              PRIMARY KEY (id_mensagem),
+              FOREIGN KEY (id_mensagem) 
+                REFERENCES mensagem(id) 
+                ON DELETE CASCADE
             );
         """,
             
             #ESPECIALIZAÇÂO#
         'comentario' : """
             CREATE TABLE comentario(
-              id_mensagem BIGINT NOT NULL REFERENCES mensagem(id),
-              id_post BIGINT NOT NULL REFERENCES post(id_mensagem),
-              PRIMARY KEY (id_mensagem)
+              id_mensagem BIGINT NOT NULL,
+              id_post BIGINT NOT NULL,
+              PRIMARY KEY (id_mensagem),
+              FOREIGN KEY (id_mensagem) 
+                REFERENCES mensagem(id) 
+                ON DELETE CASCADE,
+              FOREIGN KEY (id_post) 
+                REFERENCES post(id_mensagem) 
+                ON DELETE CASCADE
             );
         """,
        'notificacao' : """
